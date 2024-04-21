@@ -23,8 +23,11 @@ class RegistrationRequest extends FormRequest
     {
         return [
 
-            'email' => ['required_without_all:phone', 'exclude_with:phone', 'string', 'email:filter', 'max:100', 'unique:App\Modules\User\Models\User'],
-            'phone' => ['required_without_all:email', 'exclude_with:email', 'numeric', 'regex:/^(\+7|8)(\d{10})$/', 'unique:App\Modules\User\Models\User'],
+            // 'email' => ['required_without_all:phone', 'exclude_with:phone', 'string', 'email:filter', 'max:100', 'unique:App\Modules\User\Models\User'],
+            // 'phone' => ['required_without_all:email', 'exclude_with:email', 'numeric', 'regex:/^(\+7|8)(\d{10})$/', 'unique:App\Modules\User\Models\User'],
+            // 'password' => ['required', 'string', Password::defaults(), 'confirmed'],
+            'email' => ['required_without_all:phone', 'exclude_with:phone', 'string', 'email:filter', 'max:100'],
+            'phone' => ['required_without_all:email', 'exclude_with:email', 'numeric', 'regex:/^(\+7|8)(\d{10})$/'],
             'password' => ['required', 'string', Password::defaults(), 'confirmed'],
 
         ];
