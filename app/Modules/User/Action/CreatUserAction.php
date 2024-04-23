@@ -16,7 +16,7 @@ class CreatUserAction
 
             'phone' => $data->phone,
 
-            'password' => $data->email,
+            'password' => $data->password,
 
         ]);
 

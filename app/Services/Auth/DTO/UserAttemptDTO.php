@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Services\Auth\DTO;
-use Illuminate\Contracts\Support\Arrayable;
 
-class UserAttemptDTO implements Arrayable
+
+class UserAttemptDTO extends BaseDTO
 {
     public function __construct(
 
@@ -16,10 +16,17 @@ class UserAttemptDTO implements Arrayable
     ) { }
 
     public function toArray(): array {
-        return [
+
+        $data = [
             'email' => $this->email,
             'phone' => $this->phone,
             'password' => $this->password,
         ];
+
+        $data = collect($data)->filter(function($value){
+            return $value !== null;
+        })->toArray();
+
+        return $data;
     }
 }

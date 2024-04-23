@@ -6,11 +6,11 @@ use App\Services\Auth\App\Action\Base\AbstractAuthAction;
 use App\Services\Auth\DTO\BaseDTO;
 use Illuminate\Http\Request;
 
-class AttemptUserAuthAction extends AbstractAuthAction
+class RefreshUserAuthAction extends AbstractAuthAction
 {
-    public function run(BaseDTO $data)
+    public function run() : null|array
     {
-        return $this->authMethod->attemptUser($data);
+        return $this->authMethod->refresh();
     }
 
 }

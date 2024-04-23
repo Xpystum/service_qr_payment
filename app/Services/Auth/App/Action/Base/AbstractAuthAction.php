@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Auth\App\Action;
+namespace App\Services\Auth\App\Action\Base;
 
 use App\Services\Auth\App\Exception\AuthException;
 use App\Services\Auth\Interface\AuthInterface;
