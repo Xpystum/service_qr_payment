@@ -31,7 +31,7 @@ class LoginController extends Controller
             )
         );
 
-        abort_unless($json_token, 400, "Ошибка поиска User - Bad Request" );
+        abort_unless($json_token, 404, "Ошибка поиска User - Bad Request" );
 
         return response()->json(array_success($json_token, 'Successfully login'), 200);
     }
