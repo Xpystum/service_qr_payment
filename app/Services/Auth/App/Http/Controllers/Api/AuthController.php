@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Services\Auth\App\Http\Controllers\Api;
-use App\Http\Controllers\Controller;
 use App\Modules\User\Resources\UserResource;
+use App\Services\Auth\App\Exceptions\General\ExceptionNotFound;
+use App\Services\Auth\App\Http\Controllers\Controller;
 use App\Services\Auth\DTO\UserAttemptDTO;
 use App\Services\Auth\Traits\TraitController;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+
         $json_token = $this->authService->attemptUserAuth(
             new UserAttemptDTO(
                 email: $request->email,
@@ -31,13 +33,15 @@ class AuthController extends Controller
             )
         );
 
-        abort_unless($json_token, 400, "Ошибка поиска User - Bad Request" );
+
+        $this->abort_unless($json_token, 404, 'Not Found - Пользователь с указанными данными не найден.');
+        // abort_unless($json_token, 400, "Ошибка поиска User - Bad Request", ['Accept' => 'application/json']);
 
         return response()->json(array_success($json_token, 'Successfully login'), 200);
     }
 
     /**
-     * Возвращать user под полученному токену в bearer.
+     * Возвращать user по полученному токену в bearer.
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -45,7 +49,8 @@ class AuthController extends Controller
     {
         $user = $this->authService->getUserAuth();
 
-        abort_unless($user, 401, "Unauthorized" );
+        $this->abort_unless($user, 401);
+        // abort_unless($user, 401, "Unauthorized" );
 
         $userResource = new UserResource($user);
 
@@ -63,14 +68,14 @@ class AuthController extends Controller
 
         $status = $this->authService->logout();
 
-        #TODO ошибку слать json пакетом?
-        abort_unless($status, 401, "Unauthorized" );
+        $this->abort_unless($status, 401);
+        // abort_unless($status, 401, "Unauthorized" );
 
         return response()->json(array_success(message: 'Successfully logged out'), 200);
     }
 
     /**
-     * Удалить сатрый токен и вернуть новый.
+     * Удалить акутальный токен и вернуть новый.
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -79,7 +84,8 @@ class AuthController extends Controller
 
         $token = $this->authService->refresh();
 
-        abort_unless($token, 401, "Unauthorized");
+        $this->abort_unless($token, 401);
+        // abort_unless($token, 401, "Unauthorized");
 
         return response()->json(array_success($token , 'Successfully refresh new token'), 200);
     }

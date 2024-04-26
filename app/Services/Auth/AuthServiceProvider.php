@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services\Payments;
+namespace App\Services\Auth;
 
 use Illuminate\Support\ServiceProvider;
 
 
-class PaymentServiceProvider extends ServiceProvider
+class AuthServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
