@@ -22,7 +22,7 @@ class CreatUserAction
         ]);
 
 
-        if($user->save()){
+        if(!$user->save()){
             throw new ModelNotFoundException('Не удалось создать пользователя.', 500);
         }
 
