@@ -43,6 +43,9 @@ class RegistrationController extends Controller
 
         $token = $this->authService->loginUser($user);
 
+        abort_unless($token, 404, "Ошибка получение токена");
+
+
 
         return response()->json(array_success($token , 'Successfully registration'), 200);
 

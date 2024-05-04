@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Notification\Models;
+namespace App\Modules\Notifications\Models;
 
 use App\Modules\Notification\Enums\ActiveStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
