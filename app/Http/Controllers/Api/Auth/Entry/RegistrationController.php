@@ -18,7 +18,6 @@ class RegistrationController extends Controller
 
     public function store(RegistrationRequest $request)
     {
-
         $validated = $request->validated();
 
         //выкидываем ошибку - если у нас прислали email и phone вместе
@@ -37,6 +36,7 @@ class RegistrationController extends Controller
             )
 
         );
+
 
         abort_unless($user, 500, "Error server");
 
