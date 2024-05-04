@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CreatUserAction
 {
-    public function run(CreatUserDto $data) : User
+    public static function run(CreatUserDto $data) : User
     {
 
         $user = (new User)->fill([
