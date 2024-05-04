@@ -10,6 +10,7 @@ class CreatUserAction
 {
     public function run(CreatUserDto $data) : User
     {
+
         $user = (new User)->fill([
 
             'email' => $data->email,
@@ -21,11 +22,11 @@ class CreatUserAction
         ]);
 
 
-        if(true){
+        if($user->save()){
             throw new ModelNotFoundException('Не удалось создать пользователя.', 500);
         }
 
-        $user->save();
+
         return $user;
     }
 

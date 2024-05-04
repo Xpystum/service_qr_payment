@@ -19,7 +19,7 @@ class RegistrationController extends Controller
     public function store(RegistrationRequest $request)
     {
         $validated = $request->validated();
-
+        
         //выкидываем ошибку - если у нас прислали email и phone вместе
         abort_if( !isset($validated['email']) && !isset($validated['phone']) , 400, 'Only Email or Phone');
 
