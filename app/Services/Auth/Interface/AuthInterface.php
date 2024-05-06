@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 interface AuthInterface
 {
 
-
     public function __construct(AuthConfig $config);
     public function attemptUser(BaseDTO $data);
     public function loginUser(Model $model);

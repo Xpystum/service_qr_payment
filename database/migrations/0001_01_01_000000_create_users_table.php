@@ -23,6 +23,11 @@ return new class extends Migration
             $table->string('last_name')->nullable()->comment('Фамилия');
             $table->string('father_name')->nullable()->comment('Отчество');
 
+            $table->enum('role', [RoleUserEnum::admin->value, RoleUserEnum::manager->value, RoleUserEnum::cashier->value])->default(RoleUserEnum::admin->value);
+
+            $table->timestamp('email_confirmed_at')->nullable();
+            $table->timestamp('phone_confirmed_at')->nullable();
+
             $table->string('password');
             $table->rememberToken();
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Notification\Enums;
+namespace App\Modules\Notifications\Enums;
 
 enum ActiveStatusEnum : string
 {
