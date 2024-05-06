@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Controllers\Api\Auth\Entry;
+namespace App\Http\Controllers\Api\Entry;
 
 use App\Http\Controllers\Controller;
 use App\Modules\User\Requests\Entry\LoginRequest;

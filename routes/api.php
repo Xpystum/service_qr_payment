@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\Auth\Entry\LoginController;
-use App\Http\Controllers\Api\Auth\Entry\RegistrationController;
+use App\Http\Controllers\Api\Entry\LoginController;
+use App\Http\Controllers\Api\Entry\RegistrationController;
 use App\Services\Auth\App\Http\Controllers\Api\AuthController;
 
 // Route::get('/user', function (Request $request) {

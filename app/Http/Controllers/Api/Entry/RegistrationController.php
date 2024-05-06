@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Auth\Entry;
+namespace App\Http\Controllers\Api\Entry;
 use App\Http\Controllers\Controller;
 use App\Modules\User\Requests\Entry\RegistrationRequest;
 
@@ -40,8 +40,9 @@ class RegistrationController extends Controller
 
         abort_unless($user, 500, "Error server");
 
-
         $token = $this->authService->loginUser($user);
+
+        abort_unless($token, 500, 'Ошибка возрата токена');
 
 
         return response()->json(array_success($token , 'Successfully registration'), 200);
