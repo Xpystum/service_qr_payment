@@ -2,12 +2,16 @@
 
 namespace App\Modules\Notifications\Models;
 
-use App\Modules\Notification\Enums\ActiveStatusEnum;
+use App\Modules\Notifications\Enums\ActiveStatusEnum;
+use App\Traits\HasCode;
+use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Email extends Model
 {
+    use HasUuid;
+    use HasCode;
     use HasFactory;
 
     protected $fillable = [

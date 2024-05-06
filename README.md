@@ -8,10 +8,11 @@ git@github.com:Xpystum/PaymentServiceTest.git
 
 #Установка Приложения
 ```
-.env.example .env
-php artisan key:generate
-php artisan jwt:secret
-php artisan migrate
+    .env.example .env
+    php artisan key:generate
+    php artisan jwt:secret
+    php artisan migrate
+    
 ```
 
 #COMMADN
