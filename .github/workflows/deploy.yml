@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - "master"
+      - master
 
 jobs:
   deploy:
@@ -14,10 +14,9 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.BEGET_HOST }}
+
           username: ${{ secrets.BEGET_USER }}
+
           key: ${{ secrets.BEGET_PRIVATE_KEY }}
-          scritp: |
 
-            cd /home/x/xpystum/xpystum.beget.tech && sh ./deploy.sh
-
-
+          scritp: cd /home/x/xpystum/xpystum.beget.tech && sh ./deploy.sh
