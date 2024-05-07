@@ -2,18 +2,22 @@
 
 namespace App\Modules\Base\Repositories;
 
+
+use Illuminate\Database\Eloquent\Model;
+use \Illuminate\Database\Eloquent\Builder;
+
 /**
  * Class CoreRepositories
  * Ядро для других репозиториев
  *
  * @package App/Modules/Base/Repositories
  *
- * Репозиторий для работы с сущностью
- * Может выдавать наборы данных
- * Не может создавать/изменять сущность -> only выборка данных
+ * Репозиторий для работы с сущностью.
+ * Может выдавать наборы данных.
+ * Не может создавать/изменять сущность -> only выборка данных.
  *
  */
-abstract class CoreRepositories
+abstract class CoreRepository
 {
     /**
      * @var Model
@@ -36,9 +40,10 @@ abstract class CoreRepositories
     /**
      * @return Model|\Illuminate\Foundation\Application\mixed
      */
-    protected function startConditions()
+    protected function startConditions() : Builder
     {
-        return clone $this->model;
+        //репозиторий не должен хранить состояние
+        return (clone $this->model)::query();
     }
 
 }

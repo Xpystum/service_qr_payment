@@ -17,7 +17,6 @@ class AuthServiceProvider extends ServiceProvider
         $config = new AuthConfig(
             guard: "api",
             UrlExpiresConfig: "jwt.ttl",
-
         );
 
         $this->app->singleton(AuthService::class, function () use ($config) {

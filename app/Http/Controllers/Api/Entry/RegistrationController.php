@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api\Auth\Entry;
+namespace App\Http\Controllers\Api\Entry;
 use App\Http\Controllers\Controller;
 use App\Modules\User\Requests\Entry\RegistrationRequest;
 
-use App\Modules\User\Action\CreatUserAction;
+use App\Modules\User\Actions\CreatUserAction;
 
 use App\Modules\User\DTO\CreatUserDto;
+use App\Modules\User\Events\UserCreatedEvent;
 use App\Services\Auth\Traits\TraitController;
 
 //для преобразование массива с сообщением
@@ -40,9 +41,12 @@ class RegistrationController extends Controller
 
         abort_unless($user, 500, "Error server");
 
-
         $token = $this->authService->loginUser($user);
 
+        abort_unless($token, 404, "Ошибка получение токена");
+
+        //Вызываем событие отправки кода на почту
+        event(new UserCreatedEvent($user));
 
         return response()->json(array_success($token , 'Successfully registration'), 200);
 

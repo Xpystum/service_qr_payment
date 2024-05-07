@@ -125,6 +125,113 @@
                 }
             }
         },
+        "/api/confirmation/code": {
+            "post": {
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Активировать email или phone по коду",
+                "operationId": "4b64a3d2c67cba2888a10823deb11f04",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "code": {
+                                                "description": "Шестизначный код",
+                                                "type": "integer",
+                                                "format": "int32",
+                                                "maximum": 999999,
+                                                "minimum": 100000,
+                                                "example": "000000"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully confirm email",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserResource"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully confirm email"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Ошибка на сервере",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ошибка на сервере"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Ошибка, неверный код.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ошибка, неверный код."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error confirm - вылетает если не прошло проверку на email/phone в будущем пока в тесте",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error confirm"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/registration": {
             "post": {
                 "tags": [
@@ -633,6 +740,19 @@
                     },
                     "father_name": {
                         "type": "string"
+                    },
+                    "role": {
+                        "type": "string"
+                    },
+                    "email_confirmed_at": {
+                        "description": "Дата и время или null",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "phone_confirmed_at": {
+                        "description": "Дата и время или null",
+                        "type": "string",
+                        "format": "date-time"
                     }
                 },
                 "type": "object"

@@ -61,6 +61,8 @@ class AuthJwt implements AuthInterface
 
     }
 
+
+    //возвращает user по jwt token в header
     public function user() : null|Model
     {
         return auth($this->config->guard)->user();

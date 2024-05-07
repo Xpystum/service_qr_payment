@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\User\Action;
+namespace App\Modules\User\Actions;
 
 use App\Modules\User\DTO\CreatUserDto;
 use App\Modules\User\Models\User;
