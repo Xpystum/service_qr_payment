@@ -31,7 +31,6 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
 
-            $table->enum('role', [RoleUserEnum::admin->value, RoleUserEnum::manager->value, RoleUserEnum::cashier->value])->default(RoleUserEnum::admin->value);
 
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('phone_verified_at')->nullable();

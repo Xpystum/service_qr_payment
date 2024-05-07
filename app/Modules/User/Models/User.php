@@ -2,10 +2,14 @@
 
 
 namespace App\Modules\User\Models;
+
+use App\Modules\Notifications\Models\Email;
+use App\Modules\User\Enums\RoleUserEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -28,6 +32,11 @@ class User extends Authenticatable implements JWTSubject
         'last_name',
         'father_name',
 
+        'email_confirmed_at',
+        'phone_confirmed_at',
+
+        'role',
+
 
     ];
 
@@ -49,6 +58,9 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'active' => 'boolean',
         'password' => 'hashed',
+        'role' => RoleUserEnum::class,
+        'email_confirmed_at' => 'datetime',
+        'phone_confirmed_at' => 'datetime',
     ];
 
 
@@ -70,5 +82,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function emailConfirm(): HasOne
+    {
+        return $this->hasOne(Email::class);
     }
 }

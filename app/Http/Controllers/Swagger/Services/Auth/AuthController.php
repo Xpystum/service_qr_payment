@@ -214,6 +214,9 @@ use App\Http\Controllers\Controller;
  *    @OA\Property(property="first_name", type="string"),
  *    @OA\Property(property="last_name", type="string"),
  *    @OA\Property(property="father_name", type="string"),
+ *    @OA\Property(property="role", type="string"),
+ *    @OA\Property(property="email_confirmed_at", type="string", format="date-time", description="Дата и время или null"),
+ *    @OA\Property(property="phone_confirmed_at", type="string", format="date-time", description="Дата и время или null"),
  *),
  *
  */

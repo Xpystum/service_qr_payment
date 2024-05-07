@@ -3,8 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use App\Exceptions\InvalidOrderException;
-use Illuminate\Http\Request;
+use Tymon\JWTAuth\Http\Middleware\Authenticate;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,8 +13,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // $middleware->alias([
+        //     'authApi' => Authenticate::class
+        // ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        
+
     })->create();
+
+

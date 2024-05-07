@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Services\Auth\App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Auth;
 use App\Modules\User\Resources\UserResource;
-use App\Services\Auth\App\Exceptions\General\ExceptionNotFound;
 use App\Services\Auth\App\Http\Controllers\Controller;
 use App\Services\Auth\DTO\UserAttemptDTO;
 use App\Services\Auth\Traits\TraitController;

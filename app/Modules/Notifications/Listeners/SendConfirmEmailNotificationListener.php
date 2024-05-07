@@ -9,7 +9,7 @@ use App\Modules\Notifications\Notify\ConfirmEmailNotification;
 use App\Modules\User\Events\UserCreatedEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendConfirmEmailNotificationListener //implements ShouldQueue
+class SendConfirmEmailNotificationListener implements ShouldQueue
 {
     public function handle(UserCreatedEvent $event): void
     {

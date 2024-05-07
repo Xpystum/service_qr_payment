@@ -45,7 +45,6 @@ class RegistrationController extends Controller
 
         abort_unless($token, 404, "Ошибка получение токена");
 
-
         //Вызываем событие отправки кода на почту
         event(new UserCreatedEvent($user));
 

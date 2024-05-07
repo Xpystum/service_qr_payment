@@ -4,9 +4,7 @@ namespace App\Modules\Notifications\Action;
 
 use App\Modules\Notifications\DTO\CreatEmailDto;
 use App\Modules\Notifications\Models\Email;
-use App\Modules\User\Models\User;
 use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CreateEmailAction
 {
