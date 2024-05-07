@@ -16,4 +16,4 @@ php8.3 artisan optimize
 
 php8.3 artisan up
 
-echo "Done!"
+echo "Done!!"
