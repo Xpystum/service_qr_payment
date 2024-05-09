@@ -10,9 +10,8 @@ use App\Services\Auth\App\Action\RefreshUserAuthAction;
 use App\Services\Auth\Interface\AuthInterface;
 use App\Services\Auth\DTO\BaseDTO;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
-class AuthService
+class ActiveSmsService
 {
 
     public function __construct(

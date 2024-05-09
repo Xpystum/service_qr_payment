@@ -232,6 +232,70 @@
                 ]
             }
         },
+        "/api/confirmation/code/again": {
+            "post": {
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Активировать email или phone по коду",
+                "operationId": "6aab32332a0e449e5b6f9f78bfaad277",
+                "responses": {
+                    "500": {
+                        "description": "Ошибка на сервере",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ошибка на сервере"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Email подтверждён",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Email подтверждён"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successfully email send - *старый код для активации был заменён",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully email send"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/registration": {
             "post": {
                 "tags": [

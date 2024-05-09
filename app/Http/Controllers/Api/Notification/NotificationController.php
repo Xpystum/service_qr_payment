@@ -83,7 +83,7 @@ class NotificationController extends Controller
 
         event(new UserCreatedEvent($user, $email));
 
-        return response()->json(array_error(null , 'Successfully Email send'), 200);
+        return response()->json(array_error(null , 'Successfully email send'), 200);
 
     }
 }

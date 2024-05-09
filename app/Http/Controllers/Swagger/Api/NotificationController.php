@@ -62,7 +62,45 @@ use App\Http\Controllers\Controller;
  *         {"bearerAuth": {}}
  *      },
  *
- *)
+ *),
+ *
+ * @OA\Post(
+ *
+ *      path="/api/confirmation/code/again",
+ *      summary="Активировать email или phone по коду",
+ *      tags={"Notification"},
+ *
+ *      @OA\Response(
+ *          response="500",
+ *          description="Ошибка на сервере",
+ *          @OA\JsonContent(
+ *              @OA\Property(property="message", type="string", example="Ошибка на сервере"),
+ *          )
+ *      ),
+ *
+ *      @OA\Response(
+ *          response="404",
+ *          description="Email подтверждён",
+ *          @OA\JsonContent(
+ *              @OA\Property(property="message", type="string", example="Email подтверждён"),
+ *          )
+ *      ),
+ *
+ *      @OA\Response(
+ *          response="200",
+ *          description="Successfully email send - *старый код для активации был заменён",
+ *          @OA\JsonContent(
+ *              @OA\Property(property="message", type="string", example="Successfully email send"),
+ *          )
+ *      ),
+ *
+ *      security={
+ *          {"bearerAuth": {}}
+ *      },
+ *
+ *
+ * )
+ *
  */
 
 class NotificationController extends Controller
