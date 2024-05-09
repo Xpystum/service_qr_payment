@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Modules\User\Resources\UserResource;
 use App\Services\Auth\App\Http\Controllers\Controller;
 use App\Services\Auth\DTO\UserAttemptDTO;
-use App\Services\Auth\Traits\TraitController;
+use App\Traits\TraitAuthService;
 use Illuminate\Http\Request;
 
 //для преобразование массива с сообщением
@@ -14,7 +14,7 @@ use function App\Helpers\array_success;
 
 class AuthController extends Controller
 {
-    use TraitController;
+    use TraitAuthService;
 
     /**
      * Возвращать jwt токен если мы нашли юзера.

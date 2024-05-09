@@ -25,7 +25,7 @@ class AuthServiceProvider extends ServiceProvider
 
             return new AuthService(serviceAuth: $auth);
 
-        });
+        }); 
     }
 
     public function boot(): void

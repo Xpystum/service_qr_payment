@@ -8,9 +8,9 @@ enum ActiveStatusEnum : string
     case completed = 'completed';
     case expired = 'expired';
 
-    public function if(self $status): bool
+    public function is(self $status): bool
     {
-        return ($this === $status);
+        return (bool) ($this === $status);
     }
 
 }

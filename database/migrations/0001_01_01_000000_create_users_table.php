@@ -31,10 +31,6 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
 
-
-            $table->timestamp('email_verified_at')->nullable();
-            $table->timestamp('phone_verified_at')->nullable();
-
             $table->boolean('active')->default(true);
 
             $table->timestamps();

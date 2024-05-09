@@ -10,7 +10,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function () {
-    dd(RoleUserEnum::admin->value);
-});
+
+// Route::get('/test', [TestController::class, 'index']);
+
 

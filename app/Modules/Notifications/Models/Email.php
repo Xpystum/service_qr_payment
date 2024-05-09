@@ -3,6 +3,7 @@
 namespace App\Modules\Notifications\Models;
 
 use App\Modules\Notifications\Enums\ActiveStatusEnum;
+use App\Modules\Notifications\Traits\UpdateCode;
 use App\Modules\User\Models\User;
 use App\Traits\HasCode;
 use App\Traits\HasUuid;
@@ -12,9 +13,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Email extends Model
 {
-    use HasUuid;
-    use HasCode;
-    use HasFactory;
+    use HasUuid, HasCode , HasFactory;
+
 
     protected $fillable = [
         'uuid',
@@ -25,7 +25,7 @@ class Email extends Model
     ];
 
     protected $casts = [
-        
+
         'status' => ActiveStatusEnum::class,
 
     ];

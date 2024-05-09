@@ -6,15 +6,14 @@ namespace App\Http\Controllers\Api\Entry;
 use App\Http\Controllers\Controller;
 use App\Modules\User\Requests\Entry\LoginRequest;
 use App\Services\Auth\DTO\UserAttemptDTO;
-use App\Services\Auth\Traits\TraitController;
-
+use App\Traits\TraitAuthService;
 
 //для преобразование массива с сообщением
 use function App\Helpers\array_success;
 
 class LoginController extends Controller
 {
-    use TraitController;
+    use TraitAuthService;
 
     public function store(LoginRequest $request)
     {

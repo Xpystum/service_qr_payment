@@ -3,9 +3,11 @@
 namespace App\Modules\Notifications\Repositories;
 
 use App\Modules\Base\Repositories\CoreRepository;
+use App\Modules\Notifications\Enums\ActiveStatusEnum;
 use App\Modules\Notifications\Models\Email as Model;
-use App\Modules\Notifications\Models\Email;
 use App\Modules\User\Models\User;
+use Illuminate\Database\Eloquent\Collection;
+
 
 class EmailRepository extends CoreRepository
 {
@@ -30,5 +32,26 @@ class EmailRepository extends CoreRepository
                     ->first();
 
         return $status ? true : false;
+    }
+
+    /**
+     * Проверить code у определённого user
+     * @param int $code
+     * @param int $userId
+     *
+     * @return bool
+     */
+    public function returnEmailPending(Collection $emails) : ?Model
+    {
+
+        foreach($emails as $email)
+        {
+           if( $email->status->is(ActiveStatusEnum::pending) )
+           {
+                return $email;
+           }
+        }
+
+        return null;
     }
 }

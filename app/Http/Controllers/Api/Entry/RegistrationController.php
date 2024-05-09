@@ -8,14 +8,14 @@ use App\Modules\User\Actions\CreatUserAction;
 
 use App\Modules\User\DTO\CreatUserDto;
 use App\Modules\User\Events\UserCreatedEvent;
-use App\Services\Auth\Traits\TraitController;
+use App\Traits\TraitAuthService;
 
 //для преобразование массива с сообщением
 use function App\Helpers\array_success;
 
 class RegistrationController extends Controller
 {
-    use TraitController;
+    use TraitAuthService;
 
     public function store(RegistrationRequest $request)
     {

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -84,8 +84,8 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function emailConfirm(): HasOne
+    public function emails(): HasMany
     {
-        return $this->hasOne(Email::class);
+        return $this->hasMany(Email::class);
     }
 }

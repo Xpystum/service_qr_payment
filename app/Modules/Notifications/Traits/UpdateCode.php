@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Traits;
+namespace App\Modules\Notifications\Traits;
 
+use App\Modules\Notifications\Models\Email;
 use Illuminate\Database\Eloquent\Model;
 
 use function App\Helpers\code;
 
-trait HasCode
+trait UpdateCode
 {
     public static function booted(): void
     {
-        self::creating( function(Model $model) {
+        self::updating(function (Model $model) {
 
             $model->code = code();
 
