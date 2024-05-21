@@ -20,9 +20,10 @@ class RegistrationController extends Controller
     public function store(RegistrationRequest $request)
     {
         $validated = $request->validated();
-
+        dd($validated);
         //выкидываем ошибку - если у нас прислали email и phone вместе
         abort_if( !isset($validated['email']) && !isset($validated['phone']) , 400, 'Only Email or Phone');
+
 
         $user = CreatUserAction::run(
 
@@ -51,6 +52,5 @@ class RegistrationController extends Controller
         return response()->json(array_success($token , 'Successfully registration'), 200);
 
     }
-
 
 }

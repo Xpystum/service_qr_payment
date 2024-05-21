@@ -15,6 +15,11 @@ class CreatUserDto implements Arrayable
 
     ) { }
 
+    public function inMailOrPhone()
+    {
+        
+    }
+
     public function toArray(): array {
         return [
             'email' => $this->email,
