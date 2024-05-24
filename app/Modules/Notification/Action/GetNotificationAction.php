@@ -2,9 +2,9 @@
 
 namespace App\Modules\Notification\Action;
 
-use App\Models\User;
 use App\Modules\Notification\Models\NotificationMethod;
 use App\Modules\Notification\Traits\ConstructNotifyRepository;
+use App\Modules\User\Models\User;
 
 #TODO сделать возврат нотификации в зависимости от условий
 class GetNotificationAction

@@ -1,11 +1,10 @@
 <?php
-
 namespace App\Modules\Notification\Action;
 
-use App\Models\User;
 use App\Modules\Notification\Enums\ActiveStatusEnum;
 use App\Modules\Notification\Models\Notification;
 use App\Modules\Notification\Models\NotificationMethod;
+use App\Modules\User\Models\User;
 
 class CreateNotificationAction
 {

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\Entry;
 use App\Http\Controllers\Controller;
+use App\Modules\Notification\Models\Notification;
+use App\Modules\Notification\Services\NotificationServiceProvider;
 use App\Modules\User\Requests\Entry\RegistrationRequest;
 
 use App\Modules\User\Actions\CreatUserAction;
@@ -17,10 +19,10 @@ class RegistrationController extends Controller
 {
     use TraitAuthService;
 
-    public function store(RegistrationRequest $request)
+    public function store(RegistrationRequest $request, NotificationServiceProvider $serviceNotificaion)
     {
         $validated = $request->validated();
-        dd($validated);
+
         //выкидываем ошибку - если у нас прислали email и phone вместе
         abort_if( !isset($validated['email']) && !isset($validated['phone']) , 400, 'Only Email or Phone');
 
@@ -40,14 +42,35 @@ class RegistrationController extends Controller
         );
 
 
-        abort_unless($user, 500, "Error server");
+        abort_unless( (bool) $user, 500, "Error server");
+
 
         $token = $this->authService->loginUser($user);
 
-        abort_unless($token, 404, "Ошибка получение токена");
+        abort_unless( (bool) $token, 404, "Ошибка получение токена");
 
-        //Вызываем событие отправки кода на почту
-        event(new UserCreatedEvent($user));
+        switch ($validated['type'] ?? null) {
+
+            case 'phone':
+            {
+                break;
+            }
+
+            case 'email':
+            {
+                break;
+            }
+
+
+            default:
+            {
+
+            }
+
+                abort( (bool) $token, 404, "Ошибка получение токена");
+
+                break;
+        }
 
         return response()->json(array_success($token , 'Successfully registration'), 200);
 

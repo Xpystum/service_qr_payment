@@ -10,6 +10,7 @@ use App\Modules\Notification\Services\NotificationService;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 
+
 class SendNotificationAction
 {
     private ?string $typeDriver = null;
@@ -54,7 +55,7 @@ class SendNotificationAction
                 $enum = NotificationDriverEnum::objectByName($driver);
 
                 return $this->driverContextStrategy($enum);
-                break;
+                break; // на всякий случай
             }
 
             case 'aero':
@@ -72,6 +73,7 @@ class SendNotificationAction
                 );
 
                 Log::info($error . now());
+                break;
             }
 
         }

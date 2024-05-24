@@ -2,11 +2,11 @@
 
 namespace App\Modules\Notification\Action;
 
-use App\Models\User;
 use App\Modules\Notification\Enums\ActiveStatusEnum;
 use App\Modules\Notification\Events\NotificationEvent;
 use App\Modules\Notification\Traits\ConstructNotifyRepository;
-use App\Modules\User\Action\UpdateEmailConfirmUserAction;
+use App\Modules\User\Actions\UpdateEmailConfirmUserAction;
+use App\Modules\User\Models\User;
 
 class CheckNotificationAction
 {

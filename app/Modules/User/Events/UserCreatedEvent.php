@@ -14,7 +14,7 @@ class UserCreatedEvent implements ShouldDispatchAfterCommit
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public User $user;
-    public Email|null $email;
+    // public Email|null $email;
 
     /**
      * Create a new event instance.
@@ -22,7 +22,7 @@ class UserCreatedEvent implements ShouldDispatchAfterCommit
     public function __construct($user, $email = null)
     {
         $this->user = $user;
-        $this->email = $email;
+        // $this->email = $email;
     }
 
 }

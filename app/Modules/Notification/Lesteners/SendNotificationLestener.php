@@ -2,14 +2,15 @@
 
 namespace App\Modules\Notification\Lesteners;
 
-use App\Models\User;
 use App\Modules\Notification\DTO\AeroDTO;
 use App\Modules\Notification\DTO\Config\AeroConfigDTO;
+use App\Modules\Notification\DTO\SmtpDTO;
 use App\Modules\Notification\Enums\ActiveStatusEnum;
 use App\Modules\Notification\Events\SendNotificationEvent;
 use App\Modules\Notification\Models\Notification;
 use App\Modules\Notification\Notify\SendMessageSmtpNotification;
 use App\Modules\Notification\Services\NotificationService;
+use App\Modules\User\Models\User;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 
@@ -43,8 +44,8 @@ class SendNotificationLestener //implements ShouldQueue
 
             default:
             {
-                throw new \InvalidArgumentException("Invalid MethodName");
                 Log::info("Ошибка выбора Метода нотификации: " . now() . ' ----> ' . __DIR__ );
+                throw new InvalidArgumentException("Invalid MethodName");
                 break;
             }
         }
@@ -59,6 +60,10 @@ class SendNotificationLestener //implements ShouldQueue
         * @var SmtpDTO $dto
         */
         $dto = $event->dto;
+
+        /**
+         * @var User $user
+         */
         $user = $dto->user;
 
         /**
@@ -128,6 +133,10 @@ class SendNotificationLestener //implements ShouldQueue
         * @var AeroDTO $dto
         */
         $dto = $event->dto;
+
+        /**
+         * @var User $user
+         */
         $user = $dto->user;
 
         /**
