@@ -2,10 +2,10 @@
 
 namespace App\Modules\Notification\DTO;
 
-use App\Models\User;
+
 use App\Modules\Notification\DTO\Base\BaseDTO;
-use App\Modules\Notification\DTO\Config\AeroConfigDTO;
 use App\Modules\Notification\DTO\Phone\AeroPhoneDTO;
+use App\Modules\User\Models\User;
 
 class AeroDTO extends BaseDTO
 {

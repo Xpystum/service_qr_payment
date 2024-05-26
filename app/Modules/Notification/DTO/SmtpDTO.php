@@ -2,8 +2,9 @@
 
 namespace App\Modules\Notification\DTO;
 
-use App\Models\User;
+
 use App\Modules\Notification\DTO\Base\BaseDTO;
+use App\Modules\User\Models\User;
 
 class SmtpDTO extends BaseDTO
 {

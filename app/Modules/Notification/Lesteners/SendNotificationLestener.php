@@ -181,8 +181,8 @@ class SendNotificationLestener //implements ShouldQueue
 
         $response = $smsAeroMessage->
         send([
-            'number' => '79200264425',
-            'text' => 'Введите код',
+            'number' => $dto->phoneData->number,
+            'text' => $dto->phoneData->text,
             'sign' => $config->sign
         ]);
 

@@ -1,6 +1,5 @@
 <?php
 
-use App\Modules\Notifications\Enums\ActiveStatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,17 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('emails', function (Blueprint $table) {
-
+        Schema::create('notification_method', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->unique();
             $table->timestamps();
 
-            $table->string('value');
-            $table->foreignId('user_id')->constrained();
-            $table->string('status')->default(ActiveStatusEnum::pending->value);
-            $table->string('code');
-
+            $table->string('name');
+            $table->string('driver');
+            $table->boolean('active');
         });
     }
 
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('emails');
+        Schema::dropIfExists('notification_method');
     }
 };

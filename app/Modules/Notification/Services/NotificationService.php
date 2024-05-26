@@ -7,9 +7,11 @@ use App\Modules\Notification\Action\CompleteNotificationAction;
 use App\Modules\Notification\Action\CreateNotificationAction;
 use App\Modules\Notification\Action\ExpiredNotificationAction;
 use App\Modules\Notification\Action\GetMethodAction;
+use App\Modules\Notification\Action\SelectSendNotificationAction;
 use App\Modules\Notification\Action\SendNotificationAction;
 use App\Modules\Notification\Action\UpdateNotificationAction;
 use App\Modules\Notification\Drivers\Factory\NotificationDriverFactory;
+use App\Modules\Notification\DTO\Base\BaseDTO;
 use App\Modules\Notification\Enums\NotificationDriverEnum;
 use App\Modules\Notification\Interface\NotificationDriverInterface;
 
@@ -111,9 +113,9 @@ class NotificationService
      * вызов метода send и его логики в зависимости от метода
      * @return [type]
      */
-    public function selectSendNotification()
+    public function selectSendNotification() : SelectSendNotificationAction
     {
-        // new SelectSendNotificationAction($this);
+        return new SelectSendNotificationAction($this);
     }
 
 }

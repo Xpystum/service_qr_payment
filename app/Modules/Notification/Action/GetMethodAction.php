@@ -88,9 +88,6 @@ class GetMethodAction
             }
 
         }
-
-        return null;
-
     }
 
     private function useCache()

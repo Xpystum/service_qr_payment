@@ -43,6 +43,7 @@ class SendNotificationAction
         if($this->typeDriver == null)
         {
             $driver = $this->notifyService->getDriver()->getNameString();
+
         } else {
             $driver = $this->typeDriver;
         }
@@ -55,14 +56,12 @@ class SendNotificationAction
                 $enum = NotificationDriverEnum::objectByName($driver);
 
                 return $this->driverContextStrategy($enum);
-                break; // на всякий случай
             }
 
             case 'aero':
             {
                 $enum = NotificationDriverEnum::objectByName($driver);
                 return $this->driverContextStrategy($enum);
-                break;
             }
 
             default:

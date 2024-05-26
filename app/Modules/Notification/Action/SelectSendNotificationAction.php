@@ -2,42 +2,67 @@
 
 namespace App\Modules\Notification\Action;
 
-use App\Modules\Notification\DTO\SmtpDTO;
+use App\Modules\Notification\DTO\AeroDTO;
+use App\Modules\Notification\DTO\Phone\AeroPhoneDTO;
+use App\Modules\Notification\DTO\PhoneOrEmailDTO;
 use App\Modules\Notification\Enums\MethodNotificationEnum;
 use App\Modules\Notification\Services\NotificationService;
+use App\Modules\User\Models\User;
+use Illuminate\Support\Facades\Log;
+
+use function App\Modules\Notification\Helpers\code;
 
 class SelectSendNotificationAction
 {
     public function __construct(
-
-        public NotificationService $notifyService
-
+        public NotificationService $notifyService,
     ) { }
-    public static function run(MethodNotificationEnum|string $type)
+
+    public function run(PhoneOrEmailDTO $dto, User $user)
     {
-        if(self::isMethodNotificationEnum($type)) { $type = $type->fromObjectToString();  }
-        switch($type)
+        // MethodNotificationEnum|string $type,
+        // if(self::isMethodNotificationEnum($type)) { $type = $type->fromObjectToString();  }
+
+        $stringData = $dto->email ? 'email' : ($dto->phone ? 'phone' : null);
+
+
+        switch($stringData)
         {
             case 'phone':
             {
-                self::$notifyService->sendNotification()
-                    ->typeDriver('smtp')
-                    ->dto(SmtpDTO::class)
-                    -run();;
+                $text = "Введите код на странице подтверждения: " . code();
+                $dtoFriver = new AeroDTO(
+                    $user,
+                    new AeroPhoneDTO($dto->phone, $text)
+                );
 
-
+                $this->notifyService
+                    ->sendNotification()
+                    ->typeDriver('aero')
+                    ->dto($dtoFriver)
+                    ->run();
                 break;
             }
 
             case 'email':
             {
-
+                $this->notifyService
+                    ->sendNotification()
+                    ->typeDriver('smtp')
+                    ->dto()
+                    ->run();
                 break;
+            }
+
+            default:
+            {
+                Log::info("Invalid driver type | " . now() . ' ' . __DIR__);
+                throw new \InvalidArgumentException("Invalid case type notification", 500);
             }
         }
     }
 
-    private static function isMethodNotificationEnum(MethodNotificationEnum|string $type) : bool
+    private function isMethodNotificationEnum(MethodNotificationEnum|string $type) : bool
     {
         return ($type instanceof MethodNotificationEnum) ? true : false;
     }
