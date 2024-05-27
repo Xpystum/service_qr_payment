@@ -5,7 +5,11 @@ namespace App\Modules\Notification\Services;
 use App\Modules\Notification\Console\Commands\MakeNotificationMethodCommand;
 use App\Modules\Notification\Drivers\AeroDriver;
 use App\Modules\Notification\Drivers\SmtpDriver;
-use Illuminate\Support\Facades\Log;
+use App\Modules\Notification\Events\NotificationEvent;
+use App\Modules\Notification\Events\SendNotificationEvent;
+use App\Modules\Notification\Listeners\NotificationChangeStatusListener;
+use App\Modules\Notification\Listeners\SendNotificationListener;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
 
@@ -45,5 +49,17 @@ class NotificationServiceProvider extends ServiceProvider
             ]);
 
         }
+
+        Event::listen(
+            NotificationChangeStatusListener::class,
+            NotificationEvent::class,
+        );
+
+        Event::listen(
+            SendNotificationEvent::class,
+            SendNotificationListener::class,
+        );
+
+
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Modules\Notification\Notify;
 
-use App\Models\User;
 use App\Modules\Notification\Models\Notification as ModelsNotification;
+use App\Modules\User\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;

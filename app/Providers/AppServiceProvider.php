@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Modules\Notifications\Events\EmailCreatedEvent;
-use App\Modules\Notifications\Listeners\SendConfirmEmailNotificationListener;
 use App\Modules\Notifications\Listeners\UpdateStatusEmailNotificationListener;
 use App\Modules\User\Events\UserCreatedEvent;
 use Illuminate\Support\Facades\Event;
@@ -27,15 +26,15 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->setPasswordDefault();
 
-        Event::listen(
-            UserCreatedEvent::class,
-            SendConfirmEmailNotificationListener::class,
-        );
+        // Event::listen(
+        //     UserCreatedEvent::class,
+        //     SendConfirmEmailNotificationListener::class,
+        // );
 
-        Event::listen(
-            EmailCreatedEvent::class,
-            UpdateStatusEmailNotificationListener::class,
-        );
+        // Event::listen(
+        //     EmailCreatedEvent::class,
+        //     UpdateStatusEmailNotificationListener::class,
+        // );
     }
 
     private function setPasswordDefault(): void

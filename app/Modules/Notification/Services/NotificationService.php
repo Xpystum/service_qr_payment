@@ -19,7 +19,7 @@ class NotificationService
 {
 
     #TODO Лучше не устанавливать драйвер непосредственно в сервес - в будущем могут быть проблемы - сделал для удобства.
-    private ?NotificationDriverInterface $driver;
+    private ?NotificationDriverInterface $driver = null;
 
     public function driverNotNull() : bool
     {

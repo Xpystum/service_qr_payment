@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\User\Actions;
 
 use App\Modules\User\Models\User;
@@ -12,7 +13,8 @@ class UpdateEmailConfirmUserAction
         if(!$notification) { return false; }
 
         $nameMethod = $notification->method->name->value;
-        //есть проблема привязки к case по хард коду (попробуй потом добавив драйвер вспомнить что где надо добавлять =\ )
+
+        //есть проблема привязки к case по хард коду (попробуй потом добавить драйвер и вспомнить что где надо добавлять =\ )
         switch($nameMethod){
 
             case 'email':
@@ -25,7 +27,6 @@ class UpdateEmailConfirmUserAction
                 $user->refresh();
 
                 return ($status > 0) ? true : false;
-                break;
             }
 
             case 'phone':
@@ -38,20 +39,15 @@ class UpdateEmailConfirmUserAction
                 $user->refresh();
 
                 return ($status > 0) ? true : false;
-                break;
             }
 
             default:
             {
                 throw new \InvalidArgumentException("Invalid NotificationMethod");
-                break;
             }
 
         }
 
-
-
-        return true;
     }
 
 }

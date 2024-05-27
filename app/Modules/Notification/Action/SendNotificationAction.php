@@ -40,6 +40,8 @@ class SendNotificationAction
     {
         $driver = null;
 
+
+
         if($this->typeDriver == null)
         {
             $driver = $this->notifyService->getDriver()->getNameString();
@@ -54,7 +56,6 @@ class SendNotificationAction
             case 'smtp':
             {
                 $enum = NotificationDriverEnum::objectByName($driver);
-
                 return $this->driverContextStrategy($enum);
             }
 
@@ -83,13 +84,15 @@ class SendNotificationAction
         /**
         * @var NotificationDriverInterface
         */
-        $driver = null;
+
+
         if($this->notifyService->driverNotNull())
         {
             $driver = $this->notifyService->getDriver();
         } else {
             $driver = $this->notifyService->getDriverFactory($enum);
         }
+
 
         $context = new DriverContextStrategy($driver);
         $context->send($this->dto);

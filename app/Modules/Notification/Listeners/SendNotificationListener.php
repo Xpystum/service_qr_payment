@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Notification\Lesteners;
+namespace App\Modules\Notification\Listeners;
 
 use App\Modules\Notification\DTO\AeroDTO;
 use App\Modules\Notification\DTO\Config\AeroConfigDTO;
@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 
 #TODO Скорее лучше всего сделать через jobs что бы не мешать логику отправки у драйверов
-class SendNotificationLestener //implements ShouldQueue
+class SendNotificationListener //implements ShouldQueue
 {
 
     private $service;
@@ -46,7 +46,6 @@ class SendNotificationLestener //implements ShouldQueue
             {
                 Log::info("Ошибка выбора Метода нотификации: " . now() . ' ----> ' . __DIR__ );
                 throw new InvalidArgumentException("Invalid MethodName");
-                break;
             }
         }
 
@@ -55,7 +54,6 @@ class SendNotificationLestener //implements ShouldQueue
     //отправка email
     private function notificationEmail(SendNotificationEvent $event)
     {
-
         /**
         * @var SmtpDTO $dto
         */
@@ -71,14 +69,13 @@ class SendNotificationLestener //implements ShouldQueue
         */
         $notifyModel = $user->lastNotify;
         #TODO сделать нотификацию (по методу)
-
         if($this->existNotificationModelAndComplteted($notifyModel))
         {
             Log::info("зашли в event - где заявка уже выполнена" . now());
             return;
         }
 
-
+        //проверка у юзера запись нотификации если panding - то обновить код
         if($this->existNotificationModelAndPending($notifyModel))
         {
             $status = $this->service->updateNotification()
@@ -125,7 +122,7 @@ class SendNotificationLestener //implements ShouldQueue
         );
 
 
-        $config->checkPropery() ?: throw new InvalidArgumentException(
+        $config->checkProperty() ?: throw new InvalidArgumentException(
             "Данные [config AERO] не были или были неправильно заполнены для aero", 500
         );
 
@@ -143,7 +140,7 @@ class SendNotificationLestener //implements ShouldQueue
         * @var Notification
         */
         $notifyModel = $user->lastNotify;
-
+        //проверка у юзера запись нотификации если panding - то обновить код
         if($this->existNotificationModelAndComplteted($notifyModel))
         {
             Log::info("зашли в event - где заявка уже выполнена" . now());
@@ -160,7 +157,6 @@ class SendNotificationLestener //implements ShouldQueue
 
 
         } else {
-
             /**
             * @var Notification
             */
@@ -171,25 +167,45 @@ class SendNotificationLestener //implements ShouldQueue
 
         }
 
+        // добавление акутального кода в текст смс
+        $this->concatenationTextAndCode($dto, $notifyModel->code);
         $this->driverLogicAero($config, $dto);
+    }
 
+    private function concatenationTextAndCode(AeroDTO $dto, string $code)
+    {
+        if($dto->phoneData->text) {
+
+            $dto->phoneData->text = $dto->phoneData->text . $code;
+
+        } else {
+
+            Log::info("Ошибка при конкатенации строк в сервесе нотификации при text + code: " . now() . ' ' . __DIR__);
+            throw new InvalidArgumentException(
+                "Ошибка в конкатенации строк", 500
+            );
+
+        }
     }
 
     private function driverLogicAero(AeroConfigDTO $config, AeroDTO $dto)
     {
         $smsAeroMessage = new \SmsAero\SmsAeroMessage($config->email, $config->apiKey);
 
-        $response = $smsAeroMessage->
-        send([
+        $response = $smsAeroMessage->send([
             'number' => $dto->phoneData->number,
             'text' => $dto->phoneData->text,
             'sign' => $config->sign
         ]);
 
+        if(!$response) {
+            Log::info('Ошибка отправки смс сообщение через AeroDriver ' . now() . "---->" . __DIR__);
+        }
+
     }
 
     //существует ли уже заявка на подвтреждение в статусе completed
-    private function existNotificationModelAndComplteted(Notification $notifyModel)
+    private function existNotificationModelAndComplteted(?Notification $notifyModel)
     {
 
         if($notifyModel && ActiveStatusEnum::completed->is($notifyModel->status))
@@ -202,7 +218,7 @@ class SendNotificationLestener //implements ShouldQueue
     }
 
     //существует ли уже заявка на подвтреждение в статусе pending
-    private function existNotificationModelAndPending(Notification $notifyModel)
+    private function existNotificationModelAndPending(?Notification $notifyModel)
     {
 
         if($notifyModel && ActiveStatusEnum::pending->is($notifyModel->status))

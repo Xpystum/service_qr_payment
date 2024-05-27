@@ -2,8 +2,6 @@
 
 namespace App\Modules\Notification\Action;
 
-use App\Modules\Notification\Enums\ActiveStatusEnum;
-use App\Modules\Notification\Events\NotificationEvent;
 use App\Modules\Notification\Traits\ConstructNotifyRepository;
 use App\Modules\User\Actions\UpdateEmailConfirmUserAction;
 use App\Modules\User\Models\User;
@@ -42,12 +40,11 @@ class CheckNotificationAction
         {
             //обновляем у user дату подтвреждение - email - временно берём из user - здесь сделаем репозиторий от user
             $statusUpdate = UpdateEmailConfirmUserAction::run($this->user);
-
             if(!$statusUpdate) { return false; }
 
             //событие в очереди для установки статуса completed
-            event(new NotificationEvent($this->user->lastNotify, ActiveStatusEnum::completed));
-
+            // event(new NotificationEvent($this->user->lastNotify, ActiveStatusEnum::completed));
+            CompleteNotificationAction::run($this->user->lastNotify);
             return true;
         }
 

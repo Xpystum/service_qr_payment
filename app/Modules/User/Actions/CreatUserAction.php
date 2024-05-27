@@ -11,15 +11,21 @@ class CreatUserAction
     public static function run(CreatUserDto $data) : User
     {
 
-        $user = (new User)->fill([
+        // $user = (new User)->fill([
 
-            'email' => $data->email,
+        //     'email' => $data->email,
 
-            'phone' => $data->phone,
+        //     'phone' => $data->phone,
 
-            'password' =>  $data->password,
+        //     'password' =>  $data->password,
 
-        ]);
+        // ]);
+
+
+        $user = User::firstOrCreate(
+            ['email' => $data->email, 'phone' => $data->phone], // Критерии для поиска пользователя
+            ['password' =>  $data->password] // Данные нового пользователя
+        );
 
 
         if(!$user->save()){

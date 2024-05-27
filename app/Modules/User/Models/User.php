@@ -3,6 +3,8 @@
 
 namespace App\Modules\User\Models;
 
+use App\Modules\Base\Enums\ActiveStatusEnum;
+use App\Modules\Notification\Models\Notification;
 use App\Modules\Notifications\Models\Email;
 use App\Modules\User\Enums\RoleUserEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,6 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -84,9 +87,26 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    // public function emails(): HasMany
-    // {
-    //     return $this->hasMany(Email::class);
-    // }
+    public function notifycation(): HasMany
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+    public function lastNotify() : HasOne
+    {
+        return $this->hasOne(Notification::class)->latestOfMany();
+    }
+
+    public function lastNotifyAndPending()
+    {
+        // return $this->hasOne(Notification::class)->latestOfMany()->where('status', ActiveStatusEnum::pending);
+        return $this->lastNotify()->where('status', ActiveStatusEnum::pending);
+    }
+
+    public function lastNotifyAndCompleted()
+    {
+        // return $this->hasOne(Notification::class)->latestOfMany()->where('status', ActiveStatusEnum::pending);
+        return $this->lastNotify()->where('status', ActiveStatusEnum::completed);
+    }
 
 }

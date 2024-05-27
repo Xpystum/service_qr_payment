@@ -20,6 +20,7 @@ class RegistrationController extends Controller
 
     public function store(RegistrationRequest $request, NotificationService $serviceNotificaion)
     {
+
         $validated = $request->validated();
 
         //выкидываем ошибку - если у нас прислали email и phone вместе
@@ -42,13 +43,6 @@ class RegistrationController extends Controller
         );
 
 
-        $serviceNotificaion
-            ->selectSendNotification()
-            ->run(
-                new PhoneOrEmailDTO($validated['email'] ?? null, $validated['phone'] ?? null),
-                $user,
-            );
-
         abort_unless( (bool) $user, 500, "Error server");
 
 
@@ -56,7 +50,11 @@ class RegistrationController extends Controller
 
         abort_unless( (bool) $token, 404, "Ошибка получение токена");
 
-
+        $serviceNotificaion->selectSendNotification()
+            ->run(
+                new PhoneOrEmailDTO($validated['email'] ?? null, $validated['phone'] ?? null),
+                $user,
+            );
 
         return response()->json(array_success($token , 'Successfully registration'), 200);
 

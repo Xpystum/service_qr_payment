@@ -9,8 +9,9 @@ use App\Modules\Notification\Models\Notification;
 class CompleteNotificationAction
 {
 
-    public function run(Notification $model)
+    public static function run(Notification $model)
     {
+        dd(1);
         event(new NotificationEvent($model, ActiveStatusEnum::completed));
     }
 

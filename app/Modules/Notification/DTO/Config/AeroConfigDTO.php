@@ -19,7 +19,7 @@ class AeroConfigDTO
      * Возвращает true если "все" данные заполнены
      * @return bool
      */
-    public function checkPropery() : bool
+    public function checkProperty() : bool
     {
         if($this->email && $this->apiKey)
         {

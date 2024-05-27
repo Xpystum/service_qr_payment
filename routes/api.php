@@ -29,8 +29,8 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
 //верификация email и отправка повторного сообщение
 Route::middleware(['auth:api'])->group(function () {
 
-    Route::post('/confirmation/code', [NotificationController::class, 'confirmEmailOrPhone']);
-    Route::post('/confirmation/code/again', [NotificationController::class, 'sendNotificationEmail']);
+    Route::post('/confirmation/code', [NotificationController::class, 'confirmCode']);
+    Route::post('/confirmation/code/again', [NotificationController::class, 'sendNotification']);
 
 });
 
