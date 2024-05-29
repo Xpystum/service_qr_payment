@@ -48,13 +48,13 @@ class RegistrationController extends Controller
 
         $token = $this->authService->loginUser($user);
 
-        abort_unless( (bool) $token, 404, "Ошибка получение токена");
+        abort_unless( (bool) $token, 401, "Ошибка получение токена");
 
         $serviceNotificaion->selectSendNotification()
-            ->run(
-                new PhoneOrEmailDTO($validated['email'] ?? null, $validated['phone'] ?? null),
-                $user,
-            );
+        ->run(
+            new PhoneOrEmailDTO($validated['email'] ?? null, $validated['phone'] ?? null),
+            $user,
+        );
 
         return response()->json(array_success($token , 'Successfully registration'), 200);
 

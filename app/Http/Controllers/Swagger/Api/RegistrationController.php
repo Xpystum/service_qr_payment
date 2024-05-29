@@ -42,6 +42,14 @@ use App\Http\Controllers\Controller;
  *           ),
  *       ),
  *
+ *       @OA\Response(
+ *           response=401,
+ *           description="Ошибка получения токена.",
+ *           @OA\JsonContent(
+ *               @OA\Property(property="message_error", type="string", example="Ошибка получения токена."),
+ *           ),
+ *       ),
+ *
  * )
  */
 

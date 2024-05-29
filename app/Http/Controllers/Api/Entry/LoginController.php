@@ -20,7 +20,7 @@ class LoginController extends Controller
         $validated = $request->validated();
 
         //выкидываем ошибку - если у нас прислали email и phone вместе
-        abort_if( !isset($validated['email']) && !isset($validated['phone']) , 400, 'Only Email or Phone');
+        abort_if( !isset($validated['email']) && !isset($validated['phone']) , 422, 'Only Email or Phone');
 
         $json_token = $this->authService->attemptUserAuth(
             new UserAttemptDTO(
@@ -30,7 +30,7 @@ class LoginController extends Controller
             )
         );
 
-        abort_unless($json_token, 404, "Ошибка поиска User - Bad Request" );
+        abort_unless($json_token, 400, "Ошибка поиска User - Bad Request" );
 
         return response()->json(array_success($json_token, 'Successfully login'), 200);
     }

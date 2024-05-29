@@ -3,7 +3,7 @@
 namespace App\Modules\User\Repositories;
 
 use App\Modules\Base\Repositories\CoreRepository;
-use App\Modules\Notifications\Models\Email as Model;
+use App\Modules\User\Models\User as Model;
 use App\Traits\TraitAuthService;
 
 class UserRepository extends CoreRepository
@@ -23,13 +23,20 @@ class UserRepository extends CoreRepository
      *
      * @return bool
      */
-    public function isEmailConfirmed() : bool
+    public function isNotificationConfirmed(Model $user = null) : bool
     {
-        $user = $this->authService->getUserAuth();
+        if($user === null) { $user = $this->authService->getUserAuth(); }
 
-        $status = $user->email_confirmed_at;
+        $status = $user->email_confirmed_at || $user->phone_confirmed_at || null;
 
         return ($status === null) ? false : true;
+
+    }
+
+
+    public function getUserByToken() {
+
+        return $this->authService->getUserAuth();
 
     }
 }

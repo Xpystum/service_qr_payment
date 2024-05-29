@@ -9,10 +9,8 @@ use App\Modules\Notification\DTO\SmtpDTO;
 use App\Modules\Notification\Enums\MethodNotificationEnum;
 use App\Modules\Notification\Services\NotificationService;
 use App\Modules\User\Models\User;
-use Illuminate\Support\Facades\Log;
 
 use function App\Helpers\Mylog;
-use function App\Modules\Notification\Helpers\code;
 
 class SelectSendNotificationAction
 {
@@ -22,10 +20,20 @@ class SelectSendNotificationAction
 
     public function run(PhoneOrEmailDTO $dto, User $user)
     {
-        // MethodNotificationEnum|string $type,
-        // if(self::isMethodNotificationEnum($type)) { $type = $type->fromObjectToString();  }
 
-        $stringData = $dto->email ? 'email' : ($dto->phone ? 'phone' : null);
+        if($dto->type){
+
+            $stringData = $dto->type->value;
+
+        } else {
+
+            $stringData = $dto->email ? 'email' : ($dto->phone ? 'phone' : null);
+
+        }
+
+
+        //проверка - если у пользователя User пустое поле (для нотифакции например: phone или email поле)
+        $this->existPropertyException($user, $stringData);
 
         switch($stringData)
         {
@@ -33,10 +41,10 @@ class SelectSendNotificationAction
             case 'phone':
             {
 
-                $text = "Введите ваш код подтрвеждение: ";
+                $text = "Введите ваш код подтверждения: ";
                 $dtoFriver = new AeroDTO(
                     $user,
-                    new AeroPhoneDTO($dto->phone, $text)
+                    new AeroPhoneDTO($user->phone, $text)
                 );
 
                 $this->notifyService
@@ -62,7 +70,7 @@ class SelectSendNotificationAction
 
             default:
             {
-                Log::info("Invalid driver type | " . now() . ' ' . __DIR__);
+                Mylog('Invalid driver type');
                 throw new \InvalidArgumentException("Invalid case type notification", 500);
             }
         }
@@ -71,5 +79,38 @@ class SelectSendNotificationAction
     private function isMethodNotificationEnum(MethodNotificationEnum|string $type) : bool
     {
         return ($type instanceof MethodNotificationEnum) ? true : false;
+    }
+
+    private function existPropertyException(User $user, string $type)
+    {
+        switch($type){
+            case 'phone':
+            {
+                if($user->phone === null)
+                {
+                    Mylog('Попытка отправки повторной нотифкации когда у пользователя нету поле для этой нотификации');
+                    throw new \InvalidArgumentException("У модели [{user}] нет поля phone", 500);
+                }
+
+                break;
+            }
+
+            case 'email':
+            {
+                if($user->email === null)
+                {
+                    Mylog('Попытка отправки повторной нотифкации когда у пользователя нету поле для этой нотификации');
+                    throw new \InvalidArgumentException("У модели [{user}] нет поля email", 500);
+                }
+
+                break;
+            }
+
+            default:
+            {
+                Mylog('Ошибка выбора нотификации при проверке значение в User');
+                throw new \InvalidArgumentException("У модели [{$user}] нет поля phone_confirmed_at", 500);
+            }
+        }
     }
 }

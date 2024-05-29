@@ -11,7 +11,6 @@ class CompleteNotificationAction
 
     public static function run(Notification $model)
     {
-        dd(1);
         event(new NotificationEvent($model, ActiveStatusEnum::completed));
     }
 

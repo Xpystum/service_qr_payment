@@ -121,7 +121,6 @@ class SendNotificationListener //implements ShouldQueue
             apiKey: env('AERO_SMS_APIKEY'),
         );
 
-
         $config->checkProperty() ?: throw new InvalidArgumentException(
             "Данные [config AERO] не были или были неправильно заполнены для aero", 500
         );

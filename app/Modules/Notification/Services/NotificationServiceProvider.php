@@ -51,8 +51,8 @@ class NotificationServiceProvider extends ServiceProvider
         }
 
         Event::listen(
-            NotificationChangeStatusListener::class,
             NotificationEvent::class,
+            NotificationChangeStatusListener::class,
         );
 
         Event::listen(

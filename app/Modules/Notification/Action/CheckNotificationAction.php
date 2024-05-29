@@ -42,8 +42,7 @@ class CheckNotificationAction
             $statusUpdate = UpdateEmailConfirmUserAction::run($this->user);
             if(!$statusUpdate) { return false; }
 
-            //событие в очереди для установки статуса completed
-            // event(new NotificationEvent($this->user->lastNotify, ActiveStatusEnum::completed));
+            //Вызов action у которого срабатывает событие в очереди для установки статуса completed
             CompleteNotificationAction::run($this->user->lastNotify);
             return true;
         }

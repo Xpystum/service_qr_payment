@@ -27,5 +27,18 @@ enum MethodNotificationEnum: string
         };
     }
 
+    public static function returnObjectByString(string $value)
+    {
+        return match ($value) {
 
+            'phone' => self::phone,
+
+            'email' => self::email,
+
+            default => throw new InvalidArgumentException (
+                "Не правильный аргумент в функции: [{$value}] не поддерживается" , 500
+            ),
+
+        };
+    }
 }

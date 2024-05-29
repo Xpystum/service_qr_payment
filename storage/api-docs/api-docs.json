@@ -66,7 +66,7 @@
                             }
                         }
                     },
-                    "400": {
+                    "422": {
                         "description": "Нужно указать только email или phone",
                         "content": {
                             "application/json": {
@@ -82,7 +82,7 @@
                             }
                         }
                     },
-                    "404": {
+                    "400": {
                         "description": "Ошибка поиска user.",
                         "content": {
                             "application/json": {
@@ -158,7 +158,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Successfully confirm email",
+                        "description": "Successfully confirm notification",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -192,15 +192,31 @@
                             }
                         }
                     },
-                    "400": {
-                        "description": "Ошибка, неверный код.",
+                    "401": {
+                        "description": "Не авторизован.",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Ошибка, неверный код."
+                                            "example": "Не авторизован."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Ошибка, неверный код или он уже был подтверждён.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Ошибка, неверный код или он уже был подтверждён."
                                         }
                                     },
                                     "type": "object"
@@ -209,7 +225,7 @@
                         }
                     },
                     "404": {
-                        "description": "Error confirm - вылетает если не прошло проверку на email/phone в будущем пока в тесте",
+                        "description": "ошибка проверки кода Email/Phone",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -232,13 +248,37 @@
                 ]
             }
         },
-        "/api/confirmation/code/again": {
+        "/api/confirmation/code/send": {
             "post": {
                 "tags": [
                     "Notification"
                 ],
                 "summary": "Активировать email или phone по коду",
-                "operationId": "6aab32332a0e449e5b6f9f78bfaad277",
+                "operationId": "cd2ea56e6f0af8870f28cac55ba083de",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "type": {
+                                                "description": "Тип отправки нотификации email/phone - указывать в поле type:email/phone",
+                                                "type": "string",
+                                                "enum": [
+                                                    "phone",
+                                                    "email"
+                                                ]
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "500": {
                         "description": "Ошибка на сервере",
@@ -256,15 +296,15 @@
                             }
                         }
                     },
-                    "404": {
-                        "description": "Email подтверждён",
+                    "401": {
+                        "description": "Email/Phone уже подтверждён.",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Email подтверждён"
+                                            "example": "Email/Phone уже подтверждён."
                                         }
                                     },
                                     "type": "object"
@@ -273,14 +313,14 @@
                         }
                     },
                     "200": {
-                        "description": "Successfully email send - *старый код для активации был заменён",
+                        "description": "Успешная отправка нотификации",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Successfully email send"
+                                            "example": "Successfully notification send"
                                         }
                                     },
                                     "type": "object"
@@ -381,6 +421,22 @@
                                         "code": {
                                             "type": "integer",
                                             "example": "500"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Ошибка получения токена.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message_error": {
+                                            "type": "string",
+                                            "example": "Ошибка получения токена."
                                         }
                                     },
                                     "type": "object"

@@ -34,7 +34,7 @@ use App\Http\Controllers\Controller;
  *      ),
  *
  *     @OA\Response(
- *         response=400,
+ *         response=422,
  *         description="Нужно указать только email или phone",
  *         @OA\JsonContent(
  *             @OA\Property(property="message", type="string", example="Only Email or Phone"),
@@ -42,7 +42,7 @@ use App\Http\Controllers\Controller;
  *     ),
  *
  *     @OA\Response(
- *          response=404,
+ *          response=400,
  *          description="Ошибка поиска user.",
  *          @OA\JsonContent(
  *              @OA\Property(property="message_error", type="string", example="User not found"),
