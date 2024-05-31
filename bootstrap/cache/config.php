@@ -3,7 +3,7 @@
   array (
     'name' => 'Laravel',
     'env' => 'local',
-    'debug' => false,
+    'debug' => true,
     'url' => 'http://localhost',
     'frontend_url' => 'http://localhost:3000',
     'asset_url' => NULL,
@@ -733,13 +733,13 @@
     ),
     'batching' => 
     array (
-      'database' => 'pgsql',
+      'database' => 'sqlite',
       'table' => 'job_batches',
     ),
     'failed' => 
     array (
       'driver' => 'database-uuids',
-      'database' => 'pgsql',
+      'database' => 'sqlite',
       'table' => 'failed_jobs',
     ),
   ),

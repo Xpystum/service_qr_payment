@@ -23,6 +23,7 @@ class Notification extends Model
         'user_id',
         'status',
         'code',
+        'value',
 
     ];
 

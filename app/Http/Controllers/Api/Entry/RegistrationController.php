@@ -8,7 +8,7 @@ use App\Modules\User\Requests\Entry\RegistrationRequest;
 
 use App\Modules\User\Actions\CreatUserAction;
 
-use App\Modules\User\DTO\CreatUserDto;
+use App\Modules\User\DTO\CreatUserDTO;
 use App\Traits\TraitAuthService;
 
 //для преобразование массива с сообщением
@@ -30,7 +30,7 @@ class RegistrationController extends Controller
         #TODO Можеть быть такое что юзер уже создался, а у нас вылезла ошибка на api и при повторном запросе будет пытаться создавать такого же юзера
         $user = CreatUserAction::run(
 
-            new CreatUserDto(
+            new CreatUserDTO(
 
                 email: $validated['email'] ?? null,
 

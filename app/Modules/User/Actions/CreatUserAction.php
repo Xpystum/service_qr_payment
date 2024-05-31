@@ -2,13 +2,13 @@
 
 namespace App\Modules\User\Actions;
 
-use App\Modules\User\DTO\CreatUserDto;
+use App\Modules\User\DTO\CreatUserDTO;
 use App\Modules\User\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CreatUserAction
 {
-    public static function run(CreatUserDto $data) : User
+    public static function run(CreatUserDTO $data) : User
     {
 
         // $user = (new User)->fill([

@@ -3,7 +3,7 @@
 namespace App\Modules\User\DTO;
 use Illuminate\Contracts\Support\Arrayable;
 
-class CreatUserDto implements Arrayable
+class CreatUserDTO implements Arrayable
 {
     public function __construct(
 
@@ -17,7 +17,7 @@ class CreatUserDto implements Arrayable
 
     public function inMailOrPhone()
     {
-        
+
     }
 
     public function toArray(): array {

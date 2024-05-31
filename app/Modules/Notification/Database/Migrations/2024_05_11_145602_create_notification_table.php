@@ -23,6 +23,7 @@ return new class extends Migration
 
 
             $table->string('status')->default(ActiveStatusEnum::pending->value);
+            $table->string('value')->nullable();
             $table->string('code');
 
         });

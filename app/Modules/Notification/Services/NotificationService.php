@@ -11,7 +11,6 @@ use App\Modules\Notification\Action\SelectSendNotificationAction;
 use App\Modules\Notification\Action\SendNotificationAction;
 use App\Modules\Notification\Action\UpdateNotificationAction;
 use App\Modules\Notification\Drivers\Factory\NotificationDriverFactory;
-use App\Modules\Notification\DTO\Base\BaseDTO;
 use App\Modules\Notification\Enums\NotificationDriverEnum;
 use App\Modules\Notification\Interface\NotificationDriverInterface;
 

@@ -2,7 +2,7 @@
 
 namespace App\Modules\User\Actions;
 
-use App\Modules\User\DTO\CreatUserDto;
+use App\Modules\User\DTO\CreatUserDTO;
 use App\Modules\User\Models\User;
 
 use function App\Helpers\Mylog;
