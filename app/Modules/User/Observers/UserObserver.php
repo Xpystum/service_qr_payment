@@ -14,14 +14,12 @@ class UserObserver
     //     //
     // }
 
-    /**
-     * Handle the User "updated" event.
-     */
-    // public function updated(User $user): void
-    // {
-    //     //в данном сервесе это не понадобилось.
-    //     $this->NotificationMethod($user);
-    // }
+    public function updated(User $user): void
+    {
+        #TODO Доделать
+        //в данном сервесе это не понадобилось.
+        $this->NotificationMethod($user);
+    }
 
     /**
      * Handle the User "deleted" event.
@@ -47,16 +45,15 @@ class UserObserver
     //     //
     // }
 
-    // логика для отправки notification
-    // private function NotificationMethod(User $user)
-    // {
-    //     if ($user->wasChanged('email')) {
-    //         // Код, который должен выполниться, если поле email было изменено
-    //         dd('email');
-    //     } elseif($user->wasChanged('phone')) {
-    //         dd('phone');
-    //     }
+    private function NotificationMethod(User $user)
+    {
+        // if ($user->wasChanged('email')) {
+        //     // Код, который должен выполниться, если поле email было изменено
+        //     dd('email');
+        // } elseif($user->wasChanged('phone')) {
+        //     dd('phone');
+        // }
 
 
-    // }
+    }
 }

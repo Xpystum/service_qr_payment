@@ -7,6 +7,13 @@ use App\Modules\User\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 
+use function App\Helpers\Mylog;
+
+/**
+ * Обновление данных user, возвращает User - c обновленнымии данными
+ * @param UpdateUserDTO $data
+ * @return bool
+ */
 class UpdateUserAction
 {
     public static function run(UpdateUserDTO $data) : User
@@ -17,7 +24,7 @@ class UpdateUserAction
         try {
 
             //кринж ситуатция с повторным обновлением полей =) - но что бы сделать быстрее #TODO потом переделать
-            $user = $user->updateOrFail(
+            $user->updateOrFail(
                 [
                     'email' => $data->email ?? $user->email,
                     'phone' => $data->phone ?? $user->phone,
@@ -26,8 +33,8 @@ class UpdateUserAction
                     'last_name' => $data->last_name ?? $user->last_name,
                     'father_name' => $data->father_name ?? $user->father_name,
 
-                    'email_confirmed_at' => $user->email ? null : $user->email_confirmed_at,
-                    'phone_confirmed_at' => $user->email ? null : $user->phone_confirmed_at,
+                    'email_confirmed_at' => $data->email ? null : $user->email_confirmed_at,
+                    'phone_confirmed_at' => $data->phone ? null : $user->phone_confirmed_at,
                 ]
             );
 
@@ -48,17 +55,10 @@ class UpdateUserAction
                 ]
             ]);
 
-            // Обработка ошибки, например, возврат ответа с ошибкой
-            return response()->json(['message' => 'Произошла ошибка при обновлении пользователя'], 500);
+            throw new ModelNotFoundException('Не удалось обновить данные у пользователя.' , 500);
         }
 
-
-        if(!$user->save()){
-            throw new ModelNotFoundException('Не удалось создать пользователя.', 500);
-        }
-
-
-        return $user;
+        return $user->refresh();
     }
 
 }

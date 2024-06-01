@@ -60,7 +60,7 @@ class NotificationController extends Controller
     public function sendNotification(SendNotificationRequest $request)
     {
         $validated = $request->validated();
-
+        
         /**
         * получаем авторизированного User
         * @var User

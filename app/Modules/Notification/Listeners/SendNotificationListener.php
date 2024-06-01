@@ -11,6 +11,7 @@ use App\Modules\Notification\Models\Notification;
 use App\Modules\Notification\Notify\SendMessageSmtpNotification;
 use App\Modules\Notification\Services\NotificationService;
 use App\Modules\User\Models\User;
+use App\Modules\User\Repositories\UserRepository;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 
@@ -18,11 +19,13 @@ use InvalidArgumentException;
 class SendNotificationListener //implements ShouldQueue
 {
 
-    private $service;
+    private NotificationService $service;
+    private UserRepository $userRepository;
 
-    public function __construct(NotificationService $service)
+    public function __construct(NotificationService $service, UserRepository $userRepository)
     {
         $this->service = $service;
+        $this->userRepository = $userRepository;
     }
 
     #TODO нужно изменить listener и всё сделать в jobs на каждый send() в зависимости от драйвера
@@ -64,10 +67,13 @@ class SendNotificationListener //implements ShouldQueue
          */
         $user = $dto->user;
 
+
         /**
         * @var Notification
         */
-        $notifyModel = $user->lastNotify;
+        $notifyModel = $this->userRepository->lastNotify($user , $event->notifyMethod->name->value);
+
+
         #TODO сделать нотификацию (по методу)
         if($this->existNotificationModelAndComplteted($notifyModel))
         {
@@ -138,14 +144,20 @@ class SendNotificationListener //implements ShouldQueue
         /**
         * @var Notification
         */
-        $notifyModel = $user->lastNotify;
+        // $notifyModel = $user->lastNotify;
+
+        /**
+        * @var Notification
+        */
+        $notifyModel = $this->userRepository->lastNotify($user , $event->notifyMethod->name->value);
+
+
         //проверка у юзера запись нотификации если panding - то обновить код
         if($this->existNotificationModelAndComplteted($notifyModel))
         {
             Log::info("зашли в event - где заявка уже выполнена" . now());
             return;
         }
-
         if($this->existNotificationModelAndPending($notifyModel))
         {
             $status = $this->service->updateNotification()
@@ -163,7 +175,6 @@ class SendNotificationListener //implements ShouldQueue
             ->user($user)
             ->method($event->notifyMethod)
             ->run();
-
         }
 
         // добавление акутального кода в текст смс
@@ -206,7 +217,6 @@ class SendNotificationListener //implements ShouldQueue
     //существует ли уже заявка на подвтреждение в статусе completed
     private function existNotificationModelAndComplteted(?Notification $notifyModel)
     {
-
         if($notifyModel && ActiveStatusEnum::completed->is($notifyModel->status))
         {
             return true;

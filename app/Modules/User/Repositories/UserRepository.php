@@ -33,6 +33,11 @@ class UserRepository extends CoreRepository
 
     }
 
+    public function lastNotify(Model $user = null, string $property)
+    {
+        return $user->lastNotify()->where('value' , $user->{$property})->first();
+    }
+
 
     public function getUserByToken() {
 

@@ -27,7 +27,6 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $fillable = [
 
-        'id',
         'phone',
         'email',
         'password',
@@ -96,21 +95,34 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Notification::class);
     }
 
-    public function lastNotify() : HasOne
+    // public function lastNotify() : HasOne
+    // {
+    //     return $this->hasOne(Notification::class)->latestOfMany();
+    // }
+
+    public function lastNotify() : HasMany
     {
-        return $this->hasOne(Notification::class)->latestOfMany();
+        // return $this->hasOne(Notification::class)->latestOfMany();
+        // return $this->hasOne(Notification::class)->latestOfMany();
+        return $this->hasMany(Notification::class);
     }
 
+
+    //возвращает последнию нотификацию (по значению нотификации и статусу)
     public function lastNotifyAndPending()
     {
         // return $this->hasOne(Notification::class)->latestOfMany()->where('status', ActiveStatusEnum::pending);
-        return $this->lastNotify()->where('status', ActiveStatusEnum::pending);
+        return $this->lastNotify()
+            ->where('value', $this->value)
+            ->where('status', ActiveStatusEnum::pending);
     }
 
     public function lastNotifyAndCompleted()
     {
         // return $this->hasOne(Notification::class)->latestOfMany()->where('status', ActiveStatusEnum::pending);
-        return $this->lastNotify()->where('status', ActiveStatusEnum::completed);
+        return $this->lastNotify()
+            ->where('value', $this->value)
+            ->where('status', ActiveStatusEnum::completed);
     }
 
 }

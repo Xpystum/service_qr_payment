@@ -9,6 +9,7 @@ use App\Modules\Notification\DTO\SmtpDTO;
 use App\Modules\Notification\Enums\MethodNotificationEnum;
 use App\Modules\Notification\Services\NotificationService;
 use App\Modules\User\Models\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use function App\Helpers\Mylog;
 
@@ -84,12 +85,13 @@ class SelectSendNotificationAction
     private function existPropertyException(User $user, string $type)
     {
         switch($type){
+
             case 'phone':
             {
                 if($user->phone === null)
                 {
-                    Mylog('Попытка отправки повторной нотифкации когда у пользователя нету поле для этой нотификации');
-                    throw new \InvalidArgumentException("У модели [{user}] нет поля phone", 500);
+                    Mylog('Попытка отправки повторной нотифкации когда у пользователя нету значение поле для этой нотификации');
+                    throw new ModelNotFoundException("У модели user нету поля phone", 422);
                 }
 
                 break;
@@ -99,8 +101,8 @@ class SelectSendNotificationAction
             {
                 if($user->email === null)
                 {
-                    Mylog('Попытка отправки повторной нотифкации когда у пользователя нету поле для этой нотификации');
-                    throw new \InvalidArgumentException("У модели [{user}] нет поля email", 500);
+                    Mylog('Попытка отправки повторной нотифкации когда у пользователя нету значение поле для этой нотификации');
+                    throw new ModelNotFoundException("У модели user нету поля email", 422);
                 }
 
                 break;
@@ -109,7 +111,7 @@ class SelectSendNotificationAction
             default:
             {
                 Mylog('Ошибка выбора нотификации при проверке значение в User');
-                throw new \InvalidArgumentException("У модели [{$user}] нет поля phone_confirmed_at", 500);
+                throw new \InvalidArgumentException("У модели [{$user}] нет переданного типа: {$type}", 500);
             }
         }
     }

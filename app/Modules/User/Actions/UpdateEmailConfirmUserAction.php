@@ -2,13 +2,17 @@
 
 namespace App\Modules\User\Actions;
 
+use App\Modules\Notification\Models\Notification;
 use App\Modules\User\Models\User;
+use App\Modules\User\Repositories\UserRepository;
 
 class UpdateEmailConfirmUserAction
 {
-    public static function run(User $user) : bool
+    public function __construct(
+        public UserRepository $userRepository,
+    ) {}
+    public static function run(User $user, Notification $notification) : bool
     {
-        $notification = $user->lastNotify;
 
         if(!$notification) { return false; }
 

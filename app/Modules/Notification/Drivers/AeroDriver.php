@@ -21,7 +21,6 @@ class AeroDriver extends BaseDriver implements NotificationDriverInterface
         $this->services = app(NotificationService::class);
         $this->name = NotificationDriverEnum::objectByName('aero');
 
-
     }
 
     /**

@@ -18,8 +18,8 @@ class EditUserRequest extends FormRequest
 
             'id' => ['required', 'integer','exists:App\Modules\User\Models\User'],
 
-            'phone' => ['nullable' ,'numeric', 'regex:/^(\+7|8)(\d{10})$/'],
-            'email' => ['nullable' ,'string', 'email:filter', 'max:100'],
+            'phone' => ['nullable' ,'numeric', 'regex:/^(\+7|8)(\d{10})$/' , 'unique:App\Modules\User\Models\User'],
+            'email' => ['nullable' ,'string', 'email:filter', 'max:100' , 'unique:App\Modules\User\Models\User'],
 
             'first_name' => ['nullable' ,'string', 'max:255' , 'min:2'],
             'last_name' => ['nullable' ,'string', 'max:255', 'min:2'],

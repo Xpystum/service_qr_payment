@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api\EditUser;
 use App\Http\Controllers\Controller;
 use App\Modules\User\Actions\UpdateUserAction;
 use App\Modules\User\DTO\UpdateUserDTO;
-use App\Modules\User\Models\User;
 use App\Modules\User\Requests\Edit\EditUserRequest;
 use App\Modules\User\Resources\UserResource;
 use Illuminate\Http\Request;
@@ -17,7 +16,6 @@ class EditUserController extends Controller
     public function __invoke(EditUserRequest $request)
     {
         $validated = $request->validated();
-
 
         $user = UpdateUserAction::run(
             new UpdateUserDTO(
@@ -33,7 +31,7 @@ class EditUserController extends Controller
             )
         );
 
-        response()->json(array_success(new UserResource($user) , 'Successfully update information user'), 200);
+        return response()->json(array_success(new UserResource($user) , 'Successfully update information user'), 200);
 
     }
 }
