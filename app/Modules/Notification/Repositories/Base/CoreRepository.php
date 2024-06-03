@@ -4,7 +4,6 @@ namespace App\Modules\Notification\Repositories\Base;
 
 
 use Illuminate\Database\Eloquent\Model;
-use \Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class CoreRepositories
@@ -38,7 +37,7 @@ abstract class CoreRepository
     abstract protected function getModelClass();
 
     /**
-     * @return Model|\Illuminate\Foundation\Application\mixed
+     * @return Model|mixed
      */
     protected function startConditions() : Model
     {

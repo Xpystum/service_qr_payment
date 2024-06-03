@@ -4,17 +4,24 @@ namespace App\Modules\User\Repositories;
 
 use App\Modules\Base\Repositories\CoreRepository;
 use App\Modules\User\Models\User as Model;
+use App\Services\Auth\AuthService;
 use App\Traits\TraitAuthService;
+
+use function App\Helpers\convertNullToEmptyString;
 
 class UserRepository extends CoreRepository
 {
-
-    use TraitAuthService;
 
     protected function getModelClass()
     {
         return Model::class;
     }
+
+    private function query() : \Illuminate\Database\Eloquent\Builder
+    {
+        return $this->startConditions()->query();
+    }
+
 
     /**
      * Проверить code у определённого user
@@ -23,9 +30,9 @@ class UserRepository extends CoreRepository
      *
      * @return bool
      */
-    public function isNotificationConfirmed(Model $user = null) : bool
+    public function isNotificationConfirmed(Model $user = null, AuthService $authService) : bool
     {
-        if($user === null) { $user = $this->authService->getUserAuth(); }
+        if($user === null) { $user = $authService->getUserAuth(); }
 
         $status = $user->email_confirmed_at || $user->phone_confirmed_at || null;
 
@@ -38,10 +45,25 @@ class UserRepository extends CoreRepository
         return $user->lastNotify()->where('value' , $user->{$property})->first();
     }
 
+    public function getUserByToken(AuthService $authService) {
 
-    public function getUserByToken() {
+        return $authService->getUserAuth();
 
-        return $this->authService->getUserAuth();
+    }
 
+    public function getUser(?string $phone = null , ?string $email = null) : ?Model
+    {
+
+        if(!$phone && !$email) { return null; }
+
+        $phone = convertNullToEmptyString($phone);
+        $email = convertNullToEmptyString($email);
+
+        $user = $this->query()
+                    ->where('email', '=' , $email)
+                    ->orWhere('phone' , '=' , $phone)
+                    ->first();
+
+        return $user;
     }
 }

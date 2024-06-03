@@ -60,7 +60,6 @@ class SelectSendNotificationAction
             case 'email':
             {
                 $dtoFriver = new SmtpDTO($user);
-
                 $this->notifyService
                     ->sendNotification()
                     ->typeDriver('smtp')

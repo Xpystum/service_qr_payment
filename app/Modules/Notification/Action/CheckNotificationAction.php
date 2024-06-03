@@ -35,7 +35,7 @@ class CheckNotificationAction
         /**
          * @var Notification
          */
-        $model = $this->repository->checkCodeNotification($this->code, $this->user->id);
+        $model = $this->repository->checkCodeNotification($this->code, $this?->user?->id);
 
         if($model)
         {

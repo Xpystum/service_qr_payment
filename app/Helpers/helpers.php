@@ -48,4 +48,21 @@ function Mylog(string $message) : void
 }
 
 
+function valueIfSet(&$var, $default = null) {
+
+    return isset($var) ? $var : $default;
+
+}
+
+function convertNullToEmptyString($var)
+{
+    if($var === null)
+    {
+        return '';
+    }
+
+    return $var;
+}
+
+
 

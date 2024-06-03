@@ -1,14 +1,14 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
-use App\Http\Controllers\Api\EditUser\EditUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Entry\LoginController;
 use App\Http\Controllers\Api\Entry\RegistrationController;
 use App\Http\Controllers\Api\Notification\NotificationController;
+use App\Http\Controllers\Api\User\Edit\EditUserController;
+use App\Http\Controllers\Api\User\Password\PassworController;
 
-
-
+//Регистрация и вход
 Route::post('/login', [LoginController::class, 'store']);
 Route::post('/registration', [RegistrationController::class, 'store']);
 
@@ -35,10 +35,15 @@ Route::middleware(['auth:api'])->group(function () {
 
 });
 
-// Route::middleware(['auth:api']);
-Route::prefix('user')->group(function () {
-
+//работа с user (edit)
+Route::prefix('user')->middleware(['auth:api'])->group(function () {
     Route::post('/edit', EditUserController::class);
+});
+
+Route::prefix('password')->group(function () {
+
+    Route::post('/forgot', [PassworController::class, 'forgot']);
+    Route::post('/change', [PassworController::class, 'change']);
 
 });
 

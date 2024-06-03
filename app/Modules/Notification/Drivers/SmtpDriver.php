@@ -24,18 +24,13 @@ class SmtpDriver extends BaseDriver implements NotificationDriverInterface
     */
     public function send(BaseDto $dto) : void
     {
+
         if ($dto instanceof SmtpDTO) {
-            event(new SendNotificationEvent($dto, $this->getMethodDriver()) );
+            event(new SendNotificationEvent($dto, $this->getMethodDriver()));
         } else {
             throw new \InvalidArgumentException("Invalid DTO type");
         }
     }
-
-    public function check()
-    {
-
-    }
-
 
     public function getNameString() : string
     {

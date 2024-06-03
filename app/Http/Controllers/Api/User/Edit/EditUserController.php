@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api\EditUser;
-
+namespace App\Http\Controllers\Api\User\Edit;
 use App\Http\Controllers\Controller;
 use App\Modules\User\Actions\UpdateUserAction;
 use App\Modules\User\DTO\UpdateUserDTO;
 use App\Modules\User\Requests\Edit\EditUserRequest;
 use App\Modules\User\Resources\UserResource;
-use Illuminate\Http\Request;
+
 
 use function App\Helpers\array_success;
 

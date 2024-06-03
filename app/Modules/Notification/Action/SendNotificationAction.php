@@ -10,6 +10,7 @@ use App\Modules\Notification\Services\NotificationService;
 use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 
+use function App\Helpers\Mylog;
 
 class SendNotificationAction
 {
@@ -50,6 +51,7 @@ class SendNotificationAction
             $driver = $this->typeDriver;
         }
 
+
         //использования паттерна стратегии для выбора логики драйвера
         switch($driver){
 
@@ -67,13 +69,10 @@ class SendNotificationAction
 
             default:
             {
-                // throw new \Exception("Unsupported Driver type", 404);
-                $error = throw new InvalidArgumentException(
+                Mylog('Не поддерживаемый драйвер при send notification');
+                throw new InvalidArgumentException(
                     "Драйвер [{$this->typeDriver}] не поддерживается", 500
                 );
-
-                Log::info($error . now());
-                break;
             }
 
         }

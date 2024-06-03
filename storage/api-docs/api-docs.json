@@ -6,6 +6,137 @@
     },
     "paths": {
         "/api/": {},
+        "/api/user/edit": {
+            "post": {
+                "tags": [
+                    "Edit\\User"
+                ],
+                "summary": "Изменить данные у user",
+                "operationId": "de267fc3df661f8422a9d326efe05a71",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "id": {
+                                                "description": "Id у User",
+                                                "type": "integer",
+                                                "example": "1"
+                                            },
+                                            "email": {
+                                                "description": "User's email address",
+                                                "type": "string",
+                                                "format": "email",
+                                                "example": "test@gmail.com"
+                                            },
+                                            "phone": {
+                                                "description": "User's phone number",
+                                                "type": "string",
+                                                "pattern": "^\\+?[0-9]{1,3}[0-9]{9}$",
+                                                "example": "+79200264425"
+                                            },
+                                            "first_name": {
+                                                "description": "Имя",
+                                                "type": "string",
+                                                "example": "Ваня"
+                                            },
+                                            "last_name": {
+                                                "description": "Фамилие",
+                                                "type": "string",
+                                                "example": "Лучший"
+                                            },
+                                            "father_name": {
+                                                "description": "Отчество",
+                                                "type": "string",
+                                                "example": "СеньёрВерстальщик"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserResource"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully update information user"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Может быть множество ошибок валдиации по 422 (Например при указании только id  в параметры выпадет ошибка)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The id field is required. (and 1 more error)"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "id": {
+                                                    "description": "An array of error messages related to the id field.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The id field is required."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Общая ошибка сервера.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message_error": {
+                                            "type": "string",
+                                            "example": "Общая ошибка сервера."
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": "500"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/login": {
             "post": {
                 "tags": [

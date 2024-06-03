@@ -41,10 +41,7 @@ class RegistrationController extends Controller
             )
 
         );
-
-
         abort_unless( (bool) $user, 500, "Error server");
-
 
         $token = $this->authService->loginUser($user);
 

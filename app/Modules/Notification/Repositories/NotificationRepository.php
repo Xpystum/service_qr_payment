@@ -26,11 +26,12 @@ class NotificationRepository extends CoreRepository
      *
      * @return bool
      */
-    public function checkCodeNotification(int $code, int $userId) : Model
+    public function checkCodeNotification(int $code, ?int $userId) : Model
     {
+        #TODO может быть проблема когда наш код может повториться 6 - число маленькое (надо сделать код уникальным)
         $model = $this->query()
-                    ->where("user_id", $userId)
                     ->where('code', $code)
+                    ->orWhere("user_id", $userId)
                     ->first();
 
         return $model;
@@ -62,6 +63,17 @@ class NotificationRepository extends CoreRepository
             return true;
         }
         return false;
+    }
+
+    public function getNotification(int $code, string $value) : ?Model
+    {
+        $model = $this->query()
+            ->where("code", '=' , $code)
+            ->where("value", '=' , $value)
+            ->first();
+
+        return $model;
+
     }
 
 }
