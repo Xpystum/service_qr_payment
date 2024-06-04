@@ -23,8 +23,7 @@ class NotificationController extends Controller
     public function __construct(
         public NotificationService $serviceNotify,
         public AuthService $authService,
-    )
-    {}
+    ) {}
 
     public function confirmCode(ConfirmCodeRequest $request)
     {
@@ -60,12 +59,14 @@ class NotificationController extends Controller
     public function sendNotification(SendNotificationRequest $request)
     {
         $validated = $request->validated();
-        
+
         /**
         * получаем авторизированного User
         * @var User
         */
         $user = $this->authService->getUserAuth();
+
+        abort_unless( (bool) $user, 401, "Не авторизован");
 
         $type = $validated['type'];
 

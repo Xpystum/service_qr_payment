@@ -66,6 +66,14 @@ use App\Http\Controllers\Controller;
  *          ),
  *      ),
  *
+ *      @OA\Response(
+ *          response=401,
+ *          description="Пользователь не подтвердил email/phone",
+ *          @OA\JsonContent(
+ *              @OA\Property(property="message", type="string", example="Пользователь не до конца прошёл регистрацию."),
+ *          ),
+ *       ),
+ *
  *      security={
  *          {"bearerAuth": {}}
  *      },

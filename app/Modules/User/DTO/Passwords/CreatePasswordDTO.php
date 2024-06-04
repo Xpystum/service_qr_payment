@@ -9,12 +9,11 @@ class CreatePasswordDTO
 {
     public function __construct(
 
-        public readonly Notification $notify,
+        public readonly ?Notification $notify,
 
         public readonly int $user_id,
 
         public readonly string $ip,
-
 
     ) { }
 

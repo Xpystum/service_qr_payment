@@ -29,9 +29,10 @@ return new class extends Migration
             $table->timestamp('phone_confirmed_at')->nullable();
 
             $table->string('password');
-            $table->rememberToken();
+            $table->rememberToken(); //? нужен ли при JWT
 
-            $table->boolean('active')->default(true);
+            $table->boolean('active')->default(true)->comment('Для блокировки пользователя.');
+            $table->boolean('auth')->default(false)->comment('Прошёл ли пользователь валидацию.');
 
             $table->timestamps();
         });

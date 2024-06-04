@@ -19,8 +19,8 @@ class CreatePasswordAction
             [
                 'user_id' => $data->user_id,
                 'status' => $data->notify->status,
-                'code' => $data->notify->code,
-                'notification_id' => $data->notify->id,
+                'code' => $data->notify->code ?? null,
+                'notification_id' => $data->notify->id ?? null,
                 'ip' => $data->ip,
             ]
         );

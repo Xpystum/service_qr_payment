@@ -66,4 +66,29 @@ class UserRepository extends CoreRepository
 
         return $user;
     }
+
+    /**
+     * Вернуть пользователя по phone/email и если он прошёл регистрацию до конца
+     *
+     * @param string|null $phone
+     * @param string|null $email
+     *
+     * @return Model|null
+     */
+    public function getUserAndRegister(?string $phone = null , ?string $email = null) : ?Model
+    {
+
+        if(!$phone && !$email) { return null; }
+
+        $phone = convertNullToEmptyString($phone);
+        $email = convertNullToEmptyString($email);
+
+        $user = $this->query()
+                    ->where('auth' , '=' , true)
+                    ->where('email', '=' , $email)
+                    ->orWhere('phone' , '=' , $phone)
+                    ->first();
+
+        return $user;
+    }
 }

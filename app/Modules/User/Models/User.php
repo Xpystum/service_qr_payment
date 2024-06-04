@@ -42,6 +42,7 @@ class User extends Authenticatable implements JWTSubject
     protected $guarded = [
         'role',
         'active',
+        'auth',
         'id',
     ];
 
@@ -61,6 +62,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array<string, string>
      */
     protected $casts = [
+        'auth' => 'boolean',
         'active' => 'boolean',
         'password' => 'hashed',
         'role' => RoleUserEnum::class,

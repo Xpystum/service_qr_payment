@@ -75,39 +75,50 @@ class SendNotificationListener //implements ShouldQueue
 
 
         #TODO сделать нотификацию (по методу)
-        if($this->existNotificationModelAndComplteted($notifyModel))
-        {
-            Log::info("зашли в event - где заявка уже выполнена" . now());
-            return;
-        }
+        // if($this->existNotificationModelAndComplteted($notifyModel))
+        // {
+        //     Log::info("зашли в event - где заявка уже выполнена" . now());
+        //     return;
+        // }
 
-        //проверка у юзера запись нотификации если panding - то обновить код
-        if($this->existNotificationModelAndPending($notifyModel))
-        {
-            $status = $this->service->updateNotification()
-                ->updateCode()
-                ->run($notifyModel);
+        // //проверка у юзера запись нотификации если panding - то обновить код
+        // if($this->existNotificationModelAndPending($notifyModel))
+        // {
+        //     $status = $this->service->updateNotification()
+        //         ->updateCode()
+        //         ->run($notifyModel);
 
-            !($status) ? Log::info("при обновлении coda в модели Notification произошла ошибка: " . now()) : '' ;
+        //     !($status) ? Log::info("при обновлении coda в модели Notification произошла ошибка: " . now()) : '' ;
 
-            $notification = new SendMessageSmtpNotification($notifyModel);
-            $user->notify($notification);
+        //     $notification = new SendMessageSmtpNotification($notifyModel);
+        //     $user->notify($notification);
 
-            return;
+        //     return;
 
-        } else {
+        // } else {
 
-            /**
-            * @var Notification
-            */
-            $notifyModel = $this->service->createNotification()
-            ->user($user)
-            ->method($event->notifyMethod)
-            ->run();
+        //     /**
+        //     * @var Notification
+        //     */
+        //     $notifyModel = $this->service->createNotification()
+        //     ->user($user)
+        //     ->method($event->notifyMethod)
+        //     ->run();
 
-            $notification = new SendMessageSmtpNotification($notifyModel);
-            $user->notify($notification);
-        }
+        //     $notification = new SendMessageSmtpNotification($notifyModel);
+        //     $user->notify($notification);
+        // }
+
+        /**
+        * @var Notification
+        */
+        $notifyModel = $this->service->createNotification()
+        ->user($user)
+        ->method($event->notifyMethod)
+        ->run();
+
+        $notification = new SendMessageSmtpNotification($notifyModel);
+        $user->notify($notification);
     }
 
 
@@ -153,29 +164,37 @@ class SendNotificationListener //implements ShouldQueue
 
 
         //проверка у юзера запись нотификации если panding - то обновить код
-        if($this->existNotificationModelAndComplteted($notifyModel))
-        {
-            Log::info("зашли в event - где заявка уже выполнена" . now());
-            return;
-        }
-        if($this->existNotificationModelAndPending($notifyModel))
-        {
-            $status = $this->service->updateNotification()
-                ->updateCode()
-                ->run($notifyModel);
+        // if($this->existNotificationModelAndComplteted($notifyModel))
+        // {
+        //     Log::info("зашли в event - где заявка уже выполнена" . now());
+        //     return;
+        // }
+        // if($this->existNotificationModelAndPending($notifyModel))
+        // {
+        //     $status = $this->service->updateNotification()
+        //         ->updateCode()
+        //         ->run($notifyModel);
 
-            !($status) ? Log::info("при обновлении coda в модели Notification произошла ошибка: " . now()) : '' ;
+        //     !($status) ? Log::info("при обновлении coda в модели Notification произошла ошибка: " . now()) : '' ;
 
 
-        } else {
-            /**
-            * @var Notification
-            */
-            $notifyModel = $this->service->createNotification()
-            ->user($user)
-            ->method($event->notifyMethod)
-            ->run();
-        }
+        // } else {
+        //     /**
+        //     * @var Notification
+        //     */
+        //     $notifyModel = $this->service->createNotification()
+        //     ->user($user)
+        //     ->method($event->notifyMethod)
+        //     ->run();
+        // }
+
+        /**
+        * @var Notification
+        */
+        $notifyModel = $this->service->createNotification()
+        ->user($user)
+        ->method($event->notifyMethod)
+        ->run();
 
         // добавление акутального кода в текст смс
         $this->concatenationTextAndCode($dto, $notifyModel->code);

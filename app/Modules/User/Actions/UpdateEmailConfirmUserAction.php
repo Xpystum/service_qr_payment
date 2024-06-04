@@ -25,6 +25,7 @@ class UpdateEmailConfirmUserAction
             {
                 $status = $user->query()->update([
                     'email_confirmed_at' => now(),
+                    'auth' => true,
                 ]);
 
                 //что бы сразу акутальные данные отправлилсь в ответ api
@@ -37,6 +38,7 @@ class UpdateEmailConfirmUserAction
             {
                 $status = $user->query()->update([
                     'phone_confirmed_at' => now(),
+                    'auth' => true,
                 ]);
 
                 //что бы сразу акутальные данные отправлилсь в ответ api

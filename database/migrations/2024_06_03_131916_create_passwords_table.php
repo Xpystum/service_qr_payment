@@ -16,8 +16,8 @@ return new class extends Migration
 
             $table->id()->from(1001);
             $table->uuid('uuid')->unique();
-            $table->string('code')->index();
-            $table->foreignId('notification_id')->nullable()->constrained('notification');
+            $table->string('code')->index()->nullable();
+            $table->foreignId('notification_id')->nullable()->constrained('notification')->nullable();
             $table->timestamps();
 
             $table->foreignId('user_id')->nullable()->constrained('users');

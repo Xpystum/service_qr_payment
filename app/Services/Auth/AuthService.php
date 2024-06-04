@@ -4,6 +4,7 @@ namespace App\Services\Auth;
 
 use App\Services\Auth\App\Action\AttemptUserAuthAction;
 use App\Services\Auth\App\Action\GetUserAuthAction;
+use App\Services\Auth\App\Action\GetUserAuthRegisterAction;
 use App\Services\Auth\App\Action\loginUserAuthAction;
 use App\Services\Auth\App\Action\LogoutUserAuthAction;
 use App\Services\Auth\App\Action\RefreshUserAuthAction;
@@ -21,6 +22,16 @@ class AuthService
 
     ) {
         $this->serviceAuth = $serviceAuth;
+    }
+
+    /**
+     * Вернуть юзера по Bearer токену и зарегистрированного (auth:true в БД)
+     *
+     * @return null|Model
+     */
+    public function getUserAuthRegister() : null|Model
+    {
+        return GetUserAuthRegisterAction::make($this->serviceAuth)->run();
     }
 
     /**

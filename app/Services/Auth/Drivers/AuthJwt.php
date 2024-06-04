@@ -68,6 +68,16 @@ class AuthJwt implements AuthInterface
         return auth($this->config->guard)->user();
     }
 
+    //возвращает user по jwt token в headere который прошёл регистрацию (auth:true в бд) иначел возвращает null
+    public function userIsRegister() : ?Model
+    {
+        $user = auth($this->config->guard)->user();
+
+        if($user->auth) { return $user; }
+
+        return null;
+    }
+
     /**
      * Добавление токена в черный список (выход)
      * если - true мы удалили токен
