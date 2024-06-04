@@ -2,8 +2,8 @@
 
 namespace App\Modules\User\Actions\Passwords;
 
-use App\Modules\User\DTO\CreatePasswordDTO;
-use App\Modules\User\DTO\CreatUserDTO;
+use App\Modules\User\DTO\Passwords\CreatePasswordDTO;
+use App\Modules\User\Models\Password;
 use App\Modules\User\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -11,14 +11,11 @@ use function App\Helpers\Mylog;
 
 class CreatePasswordAction
 {
-    public static function run(CreatePasswordDTO $data) : User
+    public static function run(CreatePasswordDTO $data) : Password
     {
-
-
-        $user = User::create(
+        $pass = Password::create(
             [
                 'user_id' => $data->user_id,
-                'status' => $data->notify->status,
                 'code' => $data->notify->code ?? null,
                 'notification_id' => $data->notify->id ?? null,
                 'ip' => $data->ip,
@@ -26,13 +23,13 @@ class CreatePasswordAction
         );
 
 
-        if(!$user->save()){
+        if(!$pass->save()){
             Mylog('Не удалось создать запись изменение пароля в таблице {password} у User');
             throw new ModelNotFoundException('Не удалось создать запись password.', 500);
         }
 
 
-        return $user;
+        return $pass;
     }
 
 }

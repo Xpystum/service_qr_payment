@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Modules\User\DTO;
-
+namespace App\Modules\User\DTO\Passwords;
 use App\Modules\Notification\Models\Notification;
 use Illuminate\Contracts\Support\Arrayable;
 

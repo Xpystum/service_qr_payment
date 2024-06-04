@@ -18,12 +18,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
 
         'phone',
@@ -36,6 +30,8 @@ class User extends Authenticatable implements JWTSubject
 
         'email_confirmed_at',
         'phone_confirmed_at',
+
+        'password',
 
     ];
 
@@ -52,7 +48,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $hidden = [
-        // 'password',
+        'password',
         'remember_token',
     ];
 

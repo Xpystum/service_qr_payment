@@ -12,6 +12,9 @@ use Illuminate\Queue\SerializesModels;
 class UserCreatedEvent implements ShouldDispatchAfterCommit
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
+
     public function __construct(public User $user) {}
+
 
 }

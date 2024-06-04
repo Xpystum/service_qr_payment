@@ -24,19 +24,44 @@ class UpdateUserAction
         try {
 
             //кринж ситуатция с повторным обновлением полей =) - но что бы сделать быстрее #TODO потом переделать
-            $user->updateOrFail(
-                [
-                    'email' => $data->email ?? $user->email,
-                    'phone' => $data->phone ?? $user->phone,
 
-                    'first_name' => $data->first_name ?? $user->first_name,
-                    'last_name' => $data->last_name ?? $user->last_name,
-                    'father_name' => $data->father_name ?? $user->father_name,
+            if(!empty($data->password)) {
 
-                    'email_confirmed_at' => $data->email ? null : $user->email_confirmed_at,
-                    'phone_confirmed_at' => $data->phone ? null : $user->phone_confirmed_at,
-                ]
-            );
+                $user->updateOrFail(
+                    [
+                        'email' => $data->email ?? $user->email,
+                        'phone' => $data->phone ?? $user->phone,
+
+                        'first_name' => $data->first_name ?? $user->first_name,
+                        'last_name' => $data->last_name ?? $user->last_name,
+                        'father_name' => $data->father_name ?? $user->father_name,
+
+                        'email_confirmed_at' => $data->email ? null : $user->email_confirmed_at,
+                        'phone_confirmed_at' => $data->phone ? null : $user->phone_confirmed_at,
+
+                        'password' => $data->password,
+                    ]
+                );
+
+            } else {
+
+                $user->updateOrFail(
+                    [
+                        'email' => $data->email ?? $user->email,
+                        'phone' => $data->phone ?? $user->phone,
+
+                        'first_name' => $data->first_name ?? $user->first_name,
+                        'last_name' => $data->last_name ?? $user->last_name,
+                        'father_name' => $data->father_name ?? $user->father_name,
+
+                        'email_confirmed_at' => $data->email ? null : $user->email_confirmed_at,
+                        'phone_confirmed_at' => $data->phone ? null : $user->phone_confirmed_at,
+
+                    ]
+                );
+
+            }
+
 
             // $user = $user->updateOrFail($attributesToUpdate);
 

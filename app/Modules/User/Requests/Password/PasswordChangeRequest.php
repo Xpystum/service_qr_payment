@@ -23,7 +23,9 @@ class PasswordChangeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => ['required', 'string', Password::defaults(), 'confirmed'],
+            'email' => ['required_without_all:phone', 'exclude_with:phone', 'string', 'email:filter', 'max:100'],
+            'phone' => ['required_without_all:email', 'exclude_with:email', 'numeric', 'regex:/^(\+7|8)(\d{10})$/'],
+            'password' => ['required', 'string', Password::defaults()],
             'code' => ['required', 'integer', 'min_digits:6', 'max_digits:6'],
         ];
     }

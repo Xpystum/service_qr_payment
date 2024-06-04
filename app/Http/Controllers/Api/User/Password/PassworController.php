@@ -5,6 +5,9 @@ use App\Http\Controllers\Controller;
 use App\Modules\Notification\DTO\PhoneOrEmailDTO;
 use App\Modules\Notification\Enums\MethodNotificationEnum;
 use App\Modules\Notification\Services\NotificationService;
+use App\Modules\User\Actions\Passwords\UpdatePasswordAction;
+use App\Modules\User\Actions\UpdateUserAction;
+use App\Modules\User\DTO\UpdateUserDTO;
 use App\Modules\User\Events\PasswordCreatedEvent;
 use App\Modules\User\Models\User;
 use App\Modules\User\Repositories\UserRepository;
@@ -20,8 +23,9 @@ class PassworController extends Controller
     public function __construct(
         public NotificationService $serviceNotify,
         public AuthService $authService,
+        public UserRepository $userRepository,
     ) { }
-    public function forgot(PasswordForgotRequest $request, UserRepository $userRepository)
+    public function forgot(PasswordForgotRequest $request)
     {
         $validated = $request->validated();
 
@@ -32,7 +36,7 @@ class PassworController extends Controller
         * получаем авторизированного user у которого прошла авторизация
         * @var User
         */
-        $user = $userRepository->getUserAndRegister(valueIfSet($validated['phone']) , valueIfSet($validated['email']));
+        $user = $this->userRepository->getUserAndRegister(valueIfSet($validated['phone']) , valueIfSet($validated['email']));
 
         //выкидываем 404 если пользователь по полученным данным не найден
         abort_unless( (bool) $user , 404 , 'Пользователь не найден или не до конца прошёл регистрацию.');
@@ -52,7 +56,6 @@ class PassworController extends Controller
             ),
             $user,
         );
-
         //событие на создание password записи
         event(new PasswordCreatedEvent($user, $request->ip()));
 
@@ -60,15 +63,39 @@ class PassworController extends Controller
 
     }
 
-    public function change(PasswordChangeRequest $request)
+    public function change(PasswordChangeRequest $request, UpdatePasswordAction $updatePasswordAction, UpdateUserAction $updateUserAction)
     {
         $validated = $request->validated();
 
-        $status = $this->serviceNotify
+        /**
+        * получаем авторизированного user у которого прошла авторизация
+        * @var User
+        */
+        $user = $this->userRepository->getUserAndRegister(valueIfSet($validated['phone']) , valueIfSet($validated['email']));
+
+        //выкидываем 404 если пользователь по полученным данным не найден
+        abort_unless( (bool) $user , 404 , 'Пользователь не найден или не до конца прошёл регистрацию.');
+
+        $modelNotify = $this->serviceNotify
         ->checkNotification()
         ->code($validated['code'] ?? null)
+        ->user($user)
         ->run();
 
-        dd($status);
+        abort_unless( (bool) $modelNotify, 'Неверный код.', 422);
+
+        //обновление записи в таблице pass
+        $updatePasswordAction::run($modelNotify);
+
+        //обновлем пароль у user - надо выносить в event
+        $updateUserAction::run(
+            new UpdateUserDTO(
+                id: $modelNotify->user_id,
+                password: $validated['password'],
+            )
+        );
+
+        return response()->json(array_error(null , 'Пароль был успешно изменён.'), 200);
+
     }
 }

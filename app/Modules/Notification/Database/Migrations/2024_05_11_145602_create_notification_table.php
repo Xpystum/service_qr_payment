@@ -21,10 +21,10 @@ return new class extends Migration
             $table->foreign('method_id')->references('id')->on('notification_method');
 
 
-
             $table->string('status')->default(ActiveStatusEnum::pending->value);
             $table->string('value')->nullable();
             $table->string('code')->index();
+            $table->unsignedTinyInteger('quantity')->default(5)->comment('Количество оставшихся попыток');
 
         });
     }

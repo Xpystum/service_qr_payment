@@ -8,6 +8,8 @@ use App\Modules\Notification\Traits\ConstructNotifyMethodRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 
+use function App\Helpers\Mylog;
+
 class GetMethodAction
 {
     use ConstructNotifyMethodRepository;
@@ -54,18 +56,18 @@ class GetMethodAction
             }
             elseif($this->enumMethodName)
             {
-
                 $valueCache = $this->useCache();
                 return $valueCache->firstWhere('name', $this->enumMethodName);
 
             }
             elseif($this->enumMethodDriver) {
 
-
                 $valueCache = $this->useCache();
                 return $valueCache->firstWhere('driver', $this->enumMethodDriver);
             }
             else{
+
+                throw new \InvalidArgumentException('Ошибка драйвера');
                 return null;
             }
 
@@ -88,15 +90,28 @@ class GetMethodAction
             }
 
         }
+
     }
 
     private function useCache()
     {
-        return Cache::remember('notificationMethod', 860, function ()  {
-
+        Cache::remember('notificationMethod', 3600, function ()  {
             return $this->repository->getMethodsAll();
-
         });
+
+
+        if (Cache::has('notificationMethod')) {
+
+            return  Cache::get('notificationMethod');
+
+        } else {
+
+            Mylog('Ошибка при котором у нас не записываются данные в кеш и возвращается null');
+            throw new \Exception('Ошибка в записи в кеш и получения данных из кеша.', 500);
+
+        }
+
+
     }
 
 }

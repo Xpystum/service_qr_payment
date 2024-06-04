@@ -44,7 +44,7 @@ class NotificationController extends Controller
         ->code($validated['code'] ?? null)
         ->run();
 
-        abort_unless($status, 400, 'Ошибка, неверный код или он уже был подтверждён.');
+        abort_unless( (bool) $status, 400, 'Ошибка, неверный код или он уже был подтверждён.');
 
         //для надежности проверки статуса
         return $status ?

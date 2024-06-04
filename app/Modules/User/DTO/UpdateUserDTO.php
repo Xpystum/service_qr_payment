@@ -10,13 +10,15 @@ class UpdateUserDTO implements Arrayable
 
         public readonly int $id,
 
-        public readonly ?string $email,
+        public readonly ?string $email = null,
 
-        public readonly ?string $phone,
+        public readonly ?string $phone = null,
 
-        public readonly ?string $first_name,
-        public readonly ?string $last_name,
-        public readonly ?string $father_name,
+        public readonly ?string $first_name = null,
+        public readonly ?string $last_name = null,
+        public readonly ?string $father_name = null,
+
+        public readonly ?string $password = null,
 
 
     ) { }

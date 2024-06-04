@@ -3,7 +3,7 @@
 namespace App\Modules\User\Listeners;
 
 use App\Modules\User\Actions\Passwords\CreatePasswordAction;
-use App\Modules\User\DTO\CreatePasswordDTO;
+use App\Modules\User\DTO\Passwords\CreatePasswordDTO;
 use App\Modules\User\Events\PasswordCreatedEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -12,9 +12,11 @@ use function App\Helpers\Mylog;
 class PasswordChangeListener
 {
 
-    public function handle(PasswordCreatedEvent $event, CreatePasswordAction $passAction): void
+    public function __construct(public CreatePasswordAction $passAction)
+    {}
+    public function handle(PasswordCreatedEvent $event): void
     {
-        $pass = $passAction->run(
+        $pass = $this->passAction::run(
             new CreatePasswordDTO(
                 notify: null,
                 user_id: $event->user->id,
