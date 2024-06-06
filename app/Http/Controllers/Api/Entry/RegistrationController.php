@@ -9,6 +9,8 @@ use App\Modules\User\Requests\Entry\RegistrationRequest;
 
 
 use App\Modules\User\DTO\CreatUserDTO;
+use App\Modules\User\Rules\EmailRule;
+use App\Modules\User\Rules\PhoneRule;
 use App\Traits\TraitAuthService;
 
 //для преобразование массива с сообщением
@@ -22,7 +24,6 @@ class RegistrationController extends Controller
     {
 
         $validated = $request->validated();
-
         //выкидываем ошибку - если у нас прислали email и phone вместе
         abort_if( !isset($validated['email']) && !isset($validated['phone']) , 400, 'Only Email or Phone');
 

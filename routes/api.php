@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Entry\LoginController;
 use App\Http\Controllers\Api\Entry\RegistrationController;
 use App\Http\Controllers\Api\Notification\NotificationController;
+use App\Http\Controllers\Api\User\Create\UserCreateController;
 use App\Http\Controllers\Api\User\Edit\EditUserController;
 use App\Http\Controllers\Api\User\Password\PassworController;
 
@@ -37,7 +38,8 @@ Route::middleware(['auth:api'])->group(function () {
 
 Route::prefix('create')->middleware(['auth:api'])->group(function () {
     //создание user который относится к админу: casier, manager
-    Route::post('/user', '')
+    Route::post('/user', UserCreateController::class);
+
 });
 
 //работа с user (edit)
