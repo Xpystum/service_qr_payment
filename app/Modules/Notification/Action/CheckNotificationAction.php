@@ -74,7 +74,7 @@ class CheckNotificationAction
      */
     private function reduceQuantity(User $user) : bool
     {
-
+        #TODO Проблема - получается будут удаляться все заявки что с pending и у них вычитаться количество попыток
         // $notifyAll = (new ReturnAllNotificationByUserAction)->user($user)::run();
         $notifyAll = ReturnAllNotificationByUserAndPendingAction::run($user);
 

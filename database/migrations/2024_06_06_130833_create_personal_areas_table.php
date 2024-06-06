@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notification_methods', function (Blueprint $table) {
-
+        Schema::create('personal_areas', function (Blueprint $table) {
             $table->id();
+
+            $table->uuid('uuid')->unique();
+            $table->foreignId('owner_id');
+            $table->foreign('owner_id')->references('id')->on('users');
+
             $table->timestamps();
-
-            $table->string('name');
-            $table->string('driver');
-            $table->boolean('active');
-
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notification_method');
+        Schema::dropIfExists('personal_areas');
     }
 };

@@ -11,15 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notification_methods', function (Blueprint $table) {
-
+        Schema::create('organizations', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-
-            $table->string('name');
-            $table->string('driver');
-            $table->boolean('active');
-
         });
     }
 
@@ -28,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notification_method');
+        Schema::dropIfExists('organizations');
     }
 };

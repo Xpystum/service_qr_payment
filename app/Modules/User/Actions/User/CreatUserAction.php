@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\User\Actions;
+namespace App\Modules\User\Actions\User;
 
 use App\Modules\User\DTO\CreatUserDTO;
 use App\Modules\User\Models\User;
@@ -11,20 +11,9 @@ class CreatUserAction
     public static function run(CreatUserDTO $data) : User
     {
 
-        // $user = (new User)->fill([
-
-        //     'email' => $data->email,
-
-        //     'phone' => $data->phone,
-
-        //     'password' =>  $data->password,
-
-        // ]);
-
-
         $user = User::firstOrCreate(
             ['email' => $data->email, 'phone' => $data->phone], // Критерии для поиска пользователя
-            ['password' =>  $data->password] // Данные нового по/*  */льзователя
+            ['password' =>  $data->password] // Данные нового пользователя
         );
 
 

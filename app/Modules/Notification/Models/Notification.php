@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Notification extends Model
 {
-    protected $table = 'notification';
+    protected $table = 'notifications';
     use HasFactory;
     use HasUuid;
     use HasCode;

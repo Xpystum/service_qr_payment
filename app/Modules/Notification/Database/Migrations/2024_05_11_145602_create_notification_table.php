@@ -9,7 +9,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('notification', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
 
             $table->id();
             $table->uuid('uuid')->unique();
@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
 
             $table->foreignId('method_id');
-            $table->foreign('method_id')->references('id')->on('notification_method');
+            $table->foreign('method_id')->references('id')->on('notification_methods');
 
 
             $table->string('status')->default(ActiveStatusEnum::pending->value);

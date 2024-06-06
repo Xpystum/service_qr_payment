@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class NotificationMethod extends Model
 {
 
-    protected $table = 'notification_method';
+    protected $table = 'notification_methods';
     use HasFactory;
 
     protected $fillable = [

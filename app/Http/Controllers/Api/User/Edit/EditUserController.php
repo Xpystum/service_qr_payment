@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\User\Edit;
 use App\Http\Controllers\Controller;
-use App\Modules\User\Actions\UpdateUserAction;
+use App\Modules\User\Actions\User\UpdateUserAction;
 use App\Modules\User\DTO\UpdateUserDTO;
 use App\Modules\User\Models\User;
 use App\Modules\User\Requests\Edit\EditUserRequest;

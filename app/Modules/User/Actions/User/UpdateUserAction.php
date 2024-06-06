@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\User\Actions;
+namespace App\Modules\User\Actions\User;
 
 use App\Modules\User\DTO\UpdateUserDTO;
 use App\Modules\User\Models\User;
@@ -23,7 +23,7 @@ class UpdateUserAction
 
         try {
 
-            //кринж ситуатция с повторным обновлением полей =) - но что бы сделать быстрее #TODO потом переделать
+            //кринж ситуатция с повторным обновлением полей =) - но что бы сделать быстрее #TODO потом переделать dto->filter->array потом использовать fill
 
             if(!empty($data->password)) {
 

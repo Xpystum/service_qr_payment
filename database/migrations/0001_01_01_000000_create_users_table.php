@@ -34,6 +34,7 @@ return new class extends Migration
             $table->boolean('active')->default(true)->comment('Для блокировки пользователя.');
             $table->boolean('auth')->default(false)->comment('Прошёл ли пользователь валидацию.');
 
+
             $table->timestamps();
         });
 

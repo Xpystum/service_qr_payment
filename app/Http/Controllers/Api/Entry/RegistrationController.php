@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api\Entry;
 use App\Http\Controllers\Controller;
 use App\Modules\Notification\DTO\PhoneOrEmailDTO;
 use App\Modules\Notification\Services\NotificationService;
+use App\Modules\User\Actions\User\CreateUserAndPersonalArea;
 use App\Modules\User\Requests\Entry\RegistrationRequest;
 
-use App\Modules\User\Actions\CreatUserAction;
 
 use App\Modules\User\DTO\CreatUserDTO;
 use App\Traits\TraitAuthService;
@@ -26,9 +26,7 @@ class RegistrationController extends Controller
         //выкидываем ошибку - если у нас прислали email и phone вместе
         abort_if( !isset($validated['email']) && !isset($validated['phone']) , 400, 'Only Email or Phone');
 
-
-        #TODO Можеть быть такое что юзер уже создался, а у нас вылезла ошибка на api и при повторном запросе будет пытаться создавать такого же юзера
-        $user = CreatUserAction::run(
+        $user = CreateUserAndPersonalArea::run(
 
             new CreatUserDTO(
 
@@ -41,6 +39,7 @@ class RegistrationController extends Controller
             )
 
         );
+
         abort_unless( (bool) $user, 500, "Error server");
 
         $token = $this->authService->loginUser($user);

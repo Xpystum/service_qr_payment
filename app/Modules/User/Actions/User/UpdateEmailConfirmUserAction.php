@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\User\Actions;
+namespace App\Modules\User\Actions\User;
 
 use App\Modules\Notification\Models\Notification;
 use App\Modules\User\Models\User;

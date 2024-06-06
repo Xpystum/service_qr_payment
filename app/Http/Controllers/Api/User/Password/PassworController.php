@@ -6,7 +6,7 @@ use App\Modules\Notification\DTO\PhoneOrEmailDTO;
 use App\Modules\Notification\Enums\MethodNotificationEnum;
 use App\Modules\Notification\Services\NotificationService;
 use App\Modules\User\Actions\Passwords\UpdatePasswordAction;
-use App\Modules\User\Actions\UpdateUserAction;
+use App\Modules\User\Actions\User\UpdateUserAction;
 use App\Modules\User\DTO\UpdateUserDTO;
 use App\Modules\User\Events\PasswordCreatedEvent;
 use App\Modules\User\Models\User;

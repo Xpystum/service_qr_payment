@@ -12,6 +12,8 @@ use App\Http\Controllers\Api\User\Password\PassworController;
 Route::post('/login', [LoginController::class, 'store']);
 Route::post('/registration', [RegistrationController::class, 'store']);
 
+
+
 //routing аутентификации по токену
 Route::prefix('auth')->controller(AuthController::class)->group(function () {
 
@@ -29,10 +31,13 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
 
 //верификация email и отправка повторного сообщение
 Route::middleware(['auth:api'])->group(function () {
-
     Route::post('/confirmation/code', [NotificationController::class, 'confirmCode']);
     Route::post('/confirmation/send', [NotificationController::class, 'sendNotification']);
+});
 
+Route::prefix('create')->middleware(['auth:api'])->group(function () {
+    //создание user который относится к админу: casier, manager
+    Route::post('/user', '')
 });
 
 //работа с user (edit)
