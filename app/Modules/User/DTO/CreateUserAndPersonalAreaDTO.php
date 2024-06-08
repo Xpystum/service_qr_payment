@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Modules\User\DTO;
+namespace App\Modules\Organization\DTO;
 
+use App\Modules\User\DTO\CreatUserDTO;
 use App\Modules\User\DTO\PersonalArea\CreatePersonalAreaDTO;
 
-class CreateUserAndPersonalAreaDTO
+class CreateOrganizationDTO
 {
     public function __construct(
 

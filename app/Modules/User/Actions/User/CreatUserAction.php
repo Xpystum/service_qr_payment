@@ -26,7 +26,7 @@ class CreatUserAction
 
             $user = User::firstOrCreate(
                 ['email' => $data->email, 'phone' => $data->phone ], // Критерии для поиска пользователя
-                ['password' =>  $data->password] // Данные нового пользователя
+                ['password' => $data->password] // Данные нового пользователя
             );
 
         }
