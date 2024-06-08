@@ -5,6 +5,7 @@ use Illuminate\Contracts\Support\Arrayable;
 
 class CreatUserDTO implements Arrayable
 {
+
     public function __construct(
 
         public readonly ?string $email,
@@ -13,7 +14,13 @@ class CreatUserDTO implements Arrayable
 
         public readonly ?string $password,
 
-    ) { }
+        public readonly ?string $personal_area_id = null,
+
+        public readonly ?string $role = null,
+
+    ) {
+
+    }
 
     public function inMailOrPhone()
     {
@@ -21,6 +28,7 @@ class CreatUserDTO implements Arrayable
     }
 
     public function toArray(): array {
+
         return [
             'email' => $this->email,
             'phone' => $this->phone,

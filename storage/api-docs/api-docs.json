@@ -128,6 +128,22 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Пользователь не подтвердил email/phone",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Пользователь не до конца прошёл регистрацию."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -995,15 +1011,8 @@
                     "role": {
                         "type": "string"
                     },
-                    "email_confirmed_at": {
-                        "description": "Дата и время или null",
-                        "type": "string",
-                        "format": "date-time"
-                    },
-                    "phone_confirmed_at": {
-                        "description": "Дата и время или null",
-                        "type": "string",
-                        "format": "date-time"
+                    "auth": {
+                        "type": "boolean"
                     }
                 },
                 "type": "object"

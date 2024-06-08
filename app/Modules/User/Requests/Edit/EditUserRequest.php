@@ -2,6 +2,8 @@
 
 namespace App\Modules\User\Requests\Edit;
 
+use App\Modules\User\Rules\EmailRule;
+use App\Modules\User\Rules\PhoneRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EditUserRequest extends FormRequest
@@ -18,8 +20,11 @@ class EditUserRequest extends FormRequest
 
             'id' => ['required', 'integer','exists:App\Modules\User\Models\User'],
 
-            'phone' => ['nullable' ,'numeric', 'regex:/^(\+7|8)(\d{10})$/' , 'unique:App\Modules\User\Models\User'],
-            'email' => ['nullable' ,'string', 'email:filter', 'max:100' , 'unique:App\Modules\User\Models\User'],
+
+            'email' => (new EmailRule)->addRule('unique:App\Modules\User\Models\User')->toArray(),
+            'phone' => (new PhoneRule)->addRule('unique:App\Modules\User\Models\User')->toArray(),
+            // 'phone' => ['nullable' ,'numeric', 'regex:/^(\+7|8)(\d{10})$/' , 'unique:App\Modules\User\Models\User'],
+            // 'email' => ['nullable' ,'string', 'email:filter', 'max:100' , 'unique:App\Modules\User\Models\User'],
 
             'first_name' => ['nullable' ,'string', 'max:255' , 'min:2'],
             'last_name' => ['nullable' ,'string', 'max:255', 'min:2'],

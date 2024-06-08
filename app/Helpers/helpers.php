@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use App\Modules\User\Models\User;
+use App\Services\Auth\AuthService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -62,6 +64,20 @@ function convertNullToEmptyString($var)
     }
 
     return $var;
+}
+
+function isAuthorized(AuthService $authService) : User
+{
+    /**
+    * получаем авторизированного user
+    * @var User
+    */
+
+    $user = $authService->getUserAuth();
+
+    abort_unless( (bool) $user, 401, "Не авторизован");
+
+    return $user;
 }
 
 

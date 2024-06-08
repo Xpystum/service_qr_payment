@@ -12,8 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('personal_area_id')->nullable();
-            $table->foreign('personal_area_id')->references('id')->on('personal_areas');
+            $table->foreignId('personal_area_id')
+                ->nullable()
+                ->constrained('personal_areas');
+            // $table->foreignId('personal_area_id')->nullable()->onDelete('cascade');
+            // $table->foreign('personal_area_id')->references('id')->on('personal_areas')->onDelete('cascade');
         });
     }
 

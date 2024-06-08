@@ -2,6 +2,8 @@
 
 namespace App\Modules\User\Requests\Password;
 
+use App\Modules\User\Rules\EmailRule;
+use App\Modules\User\Rules\PhoneRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PasswordForgotRequest extends FormRequest
@@ -22,8 +24,11 @@ class PasswordForgotRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required_without_all:phone', 'exclude_with:phone', 'string', 'email:filter', 'max:100'],
-            'phone' => ['required_without_all:email', 'exclude_with:email', 'numeric', 'regex:/^(\+7|8)(\d{10})$/'],
+
+            'email' => (new EmailRule)->toArray(),
+            'phone' => (new PhoneRule)->toArray(),
+            // 'email' => ['required_without_all:phone', 'exclude_with:phone', 'string', 'email:filter', 'max:100'],
+            // 'phone' => ['required_without_all:email', 'exclude_with:email', 'numeric', 'regex:/^(\+7|8)(\d{10})$/'],
         ];
     }
 }

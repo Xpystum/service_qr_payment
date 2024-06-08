@@ -22,9 +22,10 @@ class UserResource extends JsonResource
             'father_name' => $this->father_name,
 
             'role' => $this->role,
+            'auth' => $this->auth,
 
-            'email_confirmed_at' => ($this->email_confirmed_at) ? date('Y-m-d H:i:s', strtotime($this->email_confirmed_at)) : null,
-            'phone_confirmed_at' => ($this->phone_confirmed_at) ? date('Y-m-d H:i:s', strtotime($this->phone_confirmed_at)) : null,
+            // 'email_confirmed_at' => ($this->email_confirmed_at) ? date('Y-m-d H:i:s', strtotime($this->email_confirmed_at)) : null,
+            // 'phone_confirmed_at' => ($this->phone_confirmed_at) ? date('Y-m-d H:i:s', strtotime($this->phone_confirmed_at)) : null,
         ];
     }
 }

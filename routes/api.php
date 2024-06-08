@@ -36,15 +36,14 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/confirmation/send', [NotificationController::class, 'sendNotification']);
 });
 
-Route::prefix('create')->middleware(['auth:api'])->group(function () {
-    //создание user который относится к админу: casier, manager
-    Route::post('/user', UserCreateController::class);
-
-});
 
 //работа с user (edit)
 Route::prefix('user')->middleware(['auth:api'])->group(function () {
+    
     Route::post('/edit', EditUserController::class);
+
+     //создание user который относится к админу: casier, manager
+     Route::post('/create', UserCreateController::class);
 });
 
 Route::prefix('password')->group(function () {

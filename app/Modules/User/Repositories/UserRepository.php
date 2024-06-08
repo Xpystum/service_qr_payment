@@ -3,7 +3,9 @@
 namespace App\Modules\User\Repositories;
 
 use App\Modules\Base\Repositories\CoreRepository;
+use App\Modules\User\Models\PersonalArea;
 use App\Modules\User\Models\User as Model;
+use App\Modules\User\Models\User;
 use App\Services\Auth\AuthService;
 use App\Traits\TraitAuthService;
 
@@ -82,7 +84,7 @@ class UserRepository extends CoreRepository
 
         $phone = convertNullToEmptyString($phone);
         $email = convertNullToEmptyString($email);
-
+        
         $user = $this->query()
                     ->where('auth' , '=' , true)
                     ->where('email', '=' , $email)
@@ -91,4 +93,6 @@ class UserRepository extends CoreRepository
 
         return $user;
     }
+
+
 }
