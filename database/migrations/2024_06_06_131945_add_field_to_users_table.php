@@ -15,8 +15,6 @@ return new class extends Migration
             $table->foreignId('personal_area_id')
                 ->nullable()
                 ->constrained('personal_areas');
-            // $table->foreignId('personal_area_id')->nullable()->onDelete('cascade');
-            // $table->foreign('personal_area_id')->references('id')->on('personal_areas')->onDelete('cascade');
         });
     }
 

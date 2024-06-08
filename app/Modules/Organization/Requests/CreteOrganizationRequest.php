@@ -35,7 +35,7 @@ class CreteOrganizationRequest extends FormRequest
             'email' => ['required', "string", "email:filter", "max:100"],
             'website' => ['required', "string"],
             'type' =>  ['required', 'string' , Rule::enum(TypeOrganizationEnum::class)->only([TypeOrganizationEnum::ooo, TypeOrganizationEnum::ip])],
-            'desctiprion' => ['nullable'],
+            'description' => ['nullable'],
             'industry' => ['nullable'],
             'founded_date' => ['nullable'],
         ];
