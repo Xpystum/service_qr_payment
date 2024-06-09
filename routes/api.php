@@ -15,7 +15,6 @@ Route::post('/login', [LoginController::class, 'store']);
 Route::post('/registration', [RegistrationController::class, 'store']);
 
 
-
 //routing аутентификации по токену
 Route::prefix('auth')->controller(AuthController::class)->group(function () {
 
@@ -40,7 +39,7 @@ Route::middleware(['auth:api'])->group(function () {
 
 //работа с user
 Route::prefix('user')->middleware(['auth:api'])->group(function () {
-    Route::post('/update', EditUserController::class);
+    Route::update('/update', EditUserController::class);
 
     //TODO сделать потом
     // Route::post('/get', EditUserController::class);
