@@ -5,7 +5,6 @@ namespace App\Modules\Organization\Requests;
 use App\Modules\Organization\Enums\TypeOrganizationEnum;
 use App\Modules\Organization\Rules\OgrnepRule;
 use App\Modules\Organization\Rules\OgrnRule;
-use App\Modules\User\Rules\EmailRule;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -29,6 +28,7 @@ class CreteOrganizationRequest extends FormRequest
 
 
         $rules = [
+
             'name' => ['required' , 'string' , 'max:101' , 'min:2'],
             'address' => ['required' , 'string' , 'max:255' , 'min:12'],
             'phone_number' => ['required' , 'string'],
@@ -38,11 +38,11 @@ class CreteOrganizationRequest extends FormRequest
             'description' => ['nullable'],
             'industry' => ['nullable'],
             'founded_date' => ['nullable'],
+            'inn' => ['required' , 'numeric', 'regex:/^(([0-9]{12})|([0-9]{10}))?$/'],
         ];
-        // dd($this->input('type'));
+
         // Если тип ооо, добавляем к правилам валидации kpp и ogrn
         if (strtolower($this->input('type')) == strtolower(TypeOrganizationEnum::ooo->value)) {
-            $rules['inn'] = ['required' , 'numeric', 'regex:/^(([0-9]{12})|([0-9]{10}))?$/'];
             $rules['kpp'] = ['required', 'numeric' , 'regex:/^([0-9]{9})?$/'];
             $rules['registration_number'] = ['required' , 'numeric' , 'regex:/^([0-9]{13})?$/' , (new OgrnRule)];
         }
@@ -50,11 +50,12 @@ class CreteOrganizationRequest extends FormRequest
         // если ИП, добавляем огрнип
         if( strtolower($this->input('type')) == strtolower(TypeOrganizationEnum::ip->value))
         {
-            $rules['inn'] = ['required' , 'numeric', 'regex:/^(([0-9]{12})|([0-9]{10}))?$/'];
             $rules['registration_number_individual'] = ['required' , 'numeric' , 'regex:/^\d{15}$/', (new OgrnepRule)];
         }
 
         return $rules;
     }
+
+
 
 }

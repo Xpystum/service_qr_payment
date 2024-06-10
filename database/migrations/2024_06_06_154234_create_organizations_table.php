@@ -26,10 +26,10 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('website')->nullable();
             $table->string('type');
-            $table->text('desctiprion')->nullable();
+            $table->text('description')->nullable();
             $table->string('industry')->nullable();
             $table->string('founded_date')->nullable();
-            $table->string('inn', 12)->index();
+            $table->string('inn', 12)->unique();
             $table->string('kpp' , 9)->nullable();
             $table->string('registration_number', 13)->nullable();
             $table->string('registration_number_individual', 15)->nullable();

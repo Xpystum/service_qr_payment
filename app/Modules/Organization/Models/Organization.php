@@ -41,4 +41,9 @@ class Organization extends Model
     protected $casts = [
         'type' => TypeOrganizationEnum::class
     ];
+
+    public static function findByUuid(string $uuid)
+    {
+        return self::where('uuid', '=' , $uuid);
+    }
 }

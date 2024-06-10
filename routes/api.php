@@ -6,6 +6,9 @@ use App\Http\Controllers\Api\Entry\LoginController;
 use App\Http\Controllers\Api\Entry\RegistrationController;
 use App\Http\Controllers\Api\Notification\NotificationController;
 use App\Http\Controllers\Api\Organization\Create\OrganizationCreateController;
+use App\Http\Controllers\Api\Organization\Deleted\OrganizationDeletedController;
+use App\Http\Controllers\Api\Organization\Get\OrganizationGetController;
+use App\Http\Controllers\Api\Organization\Update\OrganizationUpdateController;
 use App\Http\Controllers\Api\User\Create\UserCreateController;
 use App\Http\Controllers\Api\User\Edit\EditUserController;
 use App\Http\Controllers\Api\User\Password\PassworController;
@@ -39,21 +42,35 @@ Route::middleware(['auth:api'])->group(function () {
 
 //работа с user
 Route::prefix('user')->middleware(['auth:api'])->group(function () {
-    Route::update('/update', EditUserController::class);
 
-    //TODO сделать потом
-    // Route::post('/get', EditUserController::class);
+    //TODO вернуть user
+    Route::get('/', [EditUserController::class, 'all']);
+
     // Route::post('/deleted', EditUserController::class);
 
-     //создание user который относится к админу: casier, manager
+    //создание user который относится к админу: casier, manager
     Route::post('/create', UserCreateController::class);
+
+    //обновление данных у user
+    Route::put('/update', EditUserController::class);
+
 });
 
 //работа с organization
 Route::prefix('organization')->middleware([])->group(function () {
-    // Route::post('/edit', EditUserController::class);
 
+    //вернуть все организации User
+    Route::get('/', [OrganizationGetController::class, 'getAll']);
+
+    //Создать организацию User
     Route::post('/create', OrganizationCreateController::class);
+
+    //Изменить данные организации User
+    Route::post('/put', OrganizationCreateController::class);
+
+    //Удалить организацию User
+    Route::delete('/delete', OrganizationDeletedController::class);
+
 });
 
 Route::prefix('password')->group(function () {

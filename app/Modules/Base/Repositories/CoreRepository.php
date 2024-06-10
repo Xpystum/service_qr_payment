@@ -45,6 +45,11 @@ abstract class CoreRepository
         return clone $this->model;
     }
 
+    protected function query() : \Illuminate\Database\Eloquent\Builder
+    {
+        return $this->startConditions()->query();
+    }
+
 }
 
 

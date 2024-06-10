@@ -59,7 +59,12 @@ class OrganizationCreateController extends Controller
             )
         );
 
+        #TODO сделать конструкцию if снизу
         $organizationResource = new OrganizationResource($model);
-        return response()->json(array_success( $organizationResource, 'Successfully create organization'), 200);
+
+        return $model?
+        response()->json(array_success( $organizationResource, 'Successfully create organization'), 200)
+            :
+        response()->json(array_success(null, 'Failed create organization'), 404);
     }
 }

@@ -8,6 +8,7 @@ use App\Modules\User\Models\User as Model;
 use App\Modules\User\Models\User;
 use App\Services\Auth\AuthService;
 use App\Traits\TraitAuthService;
+use Illuminate\Database\Eloquent\Collection;
 
 use function App\Helpers\convertNullToEmptyString;
 
@@ -18,12 +19,6 @@ class UserRepository extends CoreRepository
     {
         return Model::class;
     }
-
-    private function query() : \Illuminate\Database\Eloquent\Builder
-    {
-        return $this->startConditions()->query();
-    }
-
 
     /**
      * Проверить code у определённого user
@@ -84,7 +79,7 @@ class UserRepository extends CoreRepository
 
         $phone = convertNullToEmptyString($phone);
         $email = convertNullToEmptyString($email);
-        
+
         $user = $this->query()
                     ->where('auth' , '=' , true)
                     ->where('email', '=' , $email)
@@ -92,6 +87,24 @@ class UserRepository extends CoreRepository
                     ->first();
 
         return $user;
+    }
+
+    /**
+     * Вернуть всех user которые принадлежат user:admin
+     * @param User $user
+     *
+     * @return Collection|null
+     */
+    public function getAssocialUser(User $user) : ?Collection
+    {
+        $pa = PersonalArea::where('owner_id' , '=' , $user->id);
+
+        $users = $this->query()
+                    ->where('personal_area_id', '=' , $pa->id)
+                    ->get();
+
+        return $users;
+
     }
 
 

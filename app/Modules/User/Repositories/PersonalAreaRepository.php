@@ -14,18 +14,12 @@ class PersonalAreaRepository extends CoreRepository
         return Model::class;
     }
 
-    private function query() : \Illuminate\Database\Eloquent\Builder
-    {
-        return $this->startConditions()->query();
-    }
-
-
     public function getPersonalArea(User $user) : ?Model
     {
         $personalArea = $this->query()
                         ->where('owner_id' , '=' , $user->id)
                         ->first();
-                        
+
         return $personalArea;
     }
 }
