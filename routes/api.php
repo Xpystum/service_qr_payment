@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Organization\Get\OrganizationGetController;
 use App\Http\Controllers\Api\Organization\Update\OrganizationUpdateController;
 use App\Http\Controllers\Api\User\Create\UserCreateController;
 use App\Http\Controllers\Api\User\Edit\EditUserController;
+use App\Http\Controllers\Api\User\Get\UserGetController;
 use App\Http\Controllers\Api\User\Password\PassworController;
 
 //Регистрация и вход
@@ -44,7 +45,7 @@ Route::middleware(['auth:api'])->group(function () {
 Route::prefix('user')->middleware(['auth:api'])->group(function () {
 
     //TODO вернуть user
-    Route::get('/', [EditUserController::class, 'all']);
+    Route::get('/', [UserGetController::class, 'all']);
 
     // Route::post('/deleted', EditUserController::class);
 

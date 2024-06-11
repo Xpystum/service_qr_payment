@@ -2,9 +2,9 @@
   'app' => 
   array (
     'name' => 'Laravel',
-    'env' => 'local',
+    'env' => 'production',
     'debug' => true,
-    'url' => 'http://localhost',
+    'url' => 'http://127.0.0.1:8000',
     'frontend_url' => 'http://localhost:3000',
     'asset_url' => NULL,
     'timezone' => 'UTC',
@@ -12,7 +12,7 @@
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
     'cipher' => 'AES-256-CBC',
-    'key' => 'base64:w609WjX/AUOd4c8MnkcZzFSAIKeRBbxwXBlnoHu+xGc=',
+    'key' => 'base64:QR8x5gjTgtkh32CqApPRI+qm0CKHh7wBPZbfPsFUryA=',
     'previous_keys' => 
     array (
     ),
@@ -157,8 +157,8 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'C:\\Users\\eftva\\Desktop\\qr_payment\\storage\\framework/cache/data',
-        'lock_path' => 'C:\\Users\\eftva\\Desktop\\qr_payment\\storage\\framework/cache/data',
+        'path' => 'C:\\Users\\Byfet\\Desktop\\service_qr_payment_windows\\service_qr_payment\\storage\\framework/cache/data',
+        'lock_path' => 'C:\\Users\\Byfet\\Desktop\\service_qr_payment_windows\\service_qr_payment\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -222,10 +222,10 @@
         'driver' => 'mysql',
         'url' => NULL,
         'host' => '127.0.0.1',
-        'port' => '5432',
+        'port' => '5433',
         'database' => 'qr_payment',
-        'username' => 'postgres',
-        'password' => '1911',
+        'username' => 'root',
+        'password' => '123',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -242,10 +242,10 @@
         'driver' => 'mariadb',
         'url' => NULL,
         'host' => '127.0.0.1',
-        'port' => '5432',
+        'port' => '5433',
         'database' => 'qr_payment',
-        'username' => 'postgres',
-        'password' => '1911',
+        'username' => 'root',
+        'password' => '123',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -262,10 +262,10 @@
         'driver' => 'pgsql',
         'url' => NULL,
         'host' => '127.0.0.1',
-        'port' => '5432',
+        'port' => '5433',
         'database' => 'qr_payment',
-        'username' => 'postgres',
-        'password' => '1911',
+        'username' => 'root',
+        'password' => '123',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -277,10 +277,10 @@
         'driver' => 'sqlsrv',
         'url' => NULL,
         'host' => '127.0.0.1',
-        'port' => '5432',
+        'port' => '5433',
         'database' => 'qr_payment',
-        'username' => 'postgres',
-        'password' => '1911',
+        'username' => 'root',
+        'password' => '123',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -327,14 +327,14 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\Users\\eftva\\Desktop\\qr_payment\\storage\\app',
+        'root' => 'C:\\Users\\Byfet\\Desktop\\service_qr_payment_windows\\service_qr_payment\\storage\\app',
         'throw' => false,
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\Users\\eftva\\Desktop\\qr_payment\\storage\\app/public',
-        'url' => 'http://localhost/storage',
+        'root' => 'C:\\Users\\Byfet\\Desktop\\service_qr_payment_windows\\service_qr_payment\\storage\\app/public',
+        'url' => 'http://127.0.0.1:8000/storage',
         'visibility' => 'public',
         'throw' => false,
       ),
@@ -353,13 +353,13 @@
     ),
     'links' => 
     array (
-      'C:\\Users\\eftva\\Desktop\\qr_payment\\public\\storage' => 'C:\\Users\\eftva\\Desktop\\qr_payment\\storage\\app/public',
-      'C:\\Users\\eftva\\Desktop\\qr_payment\\public_html' => 'C:\\Users\\eftva\\Desktop\\qr_payment\\public',
+      'C:\\Users\\Byfet\\Desktop\\service_qr_payment_windows\\service_qr_payment\\public\\storage' => 'C:\\Users\\Byfet\\Desktop\\service_qr_payment_windows\\service_qr_payment\\storage\\app/public',
+      'C:\\Users\\Byfet\\Desktop\\service_qr_payment_windows\\service_qr_payment\\public_html' => 'C:\\Users\\Byfet\\Desktop\\service_qr_payment_windows\\service_qr_payment\\public',
     ),
   ),
   'jwt' => 
   array (
-    'secret' => 'CiS2rZhXFlyDg9HpgBpP9eQMb3OtpTgLH6pNEoWXPdFj2tWoiAbLgI9pnz8sPbFg',
+    'secret' => 'VBOwq2iXINzodc1fHP6EwYLTye0dFGJne8FdrMG6X2Dy8F7lP2BocpyxcOa4tomUooufnLLnMZfhgrE99xxA8EqZydy8RqgE9MU6BJQbLsefPzgfIugyROyljYjhDmWGRb77oieldcktthiSK0p6jnqawpXt4h1FH0L4w6ex2EClbmdHu4SMwGXBG08i42ZQ',
     'keys' => 
     array (
       'public' => NULL,
@@ -416,7 +416,7 @@
           'format_to_use_for_docs' => 'json',
           'annotations' => 
           array (
-            0 => 'C:\\Users\\eftva\\Desktop\\qr_payment\\app',
+            0 => 'C:\\Users\\Byfet\\Desktop\\service_qr_payment_windows\\service_qr_payment\\app',
           ),
         ),
       ),
@@ -448,8 +448,8 @@
       ),
       'paths' => 
       array (
-        'docs' => 'C:\\Users\\eftva\\Desktop\\qr_payment\\storage\\api-docs',
-        'views' => 'C:\\Users\\eftva\\Desktop\\qr_payment\\resources/views/vendor/l5-swagger',
+        'docs' => 'C:\\Users\\Byfet\\Desktop\\service_qr_payment_windows\\service_qr_payment\\storage\\api-docs',
+        'views' => 'C:\\Users\\Byfet\\Desktop\\service_qr_payment_windows\\service_qr_payment\\resources/views/vendor/l5-swagger',
         'base' => NULL,
         'swagger_ui_assets_path' => 'vendor/swagger-api/swagger-ui/dist/',
         'excludes' => 
@@ -531,14 +531,14 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'C:\\Users\\eftva\\Desktop\\qr_payment\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\Byfet\\Desktop\\service_qr_payment_windows\\service_qr_payment\\storage\\logs/laravel.log',
         'level' => 'debug',
         'replace_placeholders' => true,
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'C:\\Users\\eftva\\Desktop\\qr_payment\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\Byfet\\Desktop\\service_qr_payment_windows\\service_qr_payment\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
         'replace_placeholders' => true,
@@ -603,7 +603,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'C:\\Users\\eftva\\Desktop\\qr_payment\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\Byfet\\Desktop\\service_qr_payment_windows\\service_qr_payment\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -619,7 +619,7 @@
         'host' => 'smtp.mail.ru',
         'port' => '465',
         'encryption' => 'ssl',
-        'username' => 'i.kuzmin@pro-prog.ru',
+        'username' => 'i.kuzmin@pro-prog',
         'password' => '6hsbkvipTePPX9kmT3bz',
         'timeout' => NULL,
         'local_domain' => NULL,
@@ -679,7 +679,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'C:\\Users\\eftva\\Desktop\\qr_payment\\resources\\views/vendor/mail',
+        0 => 'C:\\Users\\Byfet\\Desktop\\service_qr_payment_windows\\service_qr_payment\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -733,13 +733,13 @@
     ),
     'batching' => 
     array (
-      'database' => 'sqlite',
+      'database' => 'pgsql',
       'table' => 'job_batches',
     ),
     'failed' => 
     array (
       'driver' => 'database-uuids',
-      'database' => 'sqlite',
+      'database' => 'pgsql',
       'table' => 'failed_jobs',
     ),
   ),
@@ -754,6 +754,10 @@
       'key' => '',
       'secret' => '',
       'region' => 'us-east-1',
+    ),
+    'resend' => 
+    array (
+      'key' => NULL,
     ),
     'slack' => 
     array (
@@ -770,7 +774,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'C:\\Users\\eftva\\Desktop\\qr_payment\\storage\\framework/sessions',
+    'files' => 'C:\\Users\\Byfet\\Desktop\\service_qr_payment_windows\\service_qr_payment\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -892,9 +896,9 @@
   array (
     'paths' => 
     array (
-      0 => 'C:\\Users\\eftva\\Desktop\\qr_payment\\resources\\views',
+      0 => 'C:\\Users\\Byfet\\Desktop\\service_qr_payment_windows\\service_qr_payment\\resources\\views',
     ),
-    'compiled' => 'C:\\Users\\eftva\\Desktop\\qr_payment\\storage\\framework\\views',
+    'compiled' => 'C:\\Users\\Byfet\\Desktop\\service_qr_payment_windows\\service_qr_payment\\storage\\framework\\views',
   ),
   'flare' => 
   array (
@@ -980,7 +984,7 @@
     array (
     ),
     'enable_runnable_solutions' => NULL,
-    'remote_sites_path' => 'C:\\Users\\eftva\\Desktop\\qr_payment',
+    'remote_sites_path' => 'C:\\Users\\Byfet\\Desktop\\service_qr_payment_windows\\service_qr_payment',
     'local_sites_path' => '',
     'housekeeping_endpoint_prefix' => '_ignition',
     'settings_file_path' => '',

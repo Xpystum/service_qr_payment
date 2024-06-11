@@ -9,6 +9,7 @@ use App\Modules\User\Models\User;
 use App\Services\Auth\AuthService;
 use App\Traits\TraitAuthService;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 use function App\Helpers\convertNullToEmptyString;
 
@@ -95,16 +96,15 @@ class UserRepository extends CoreRepository
      *
      * @return Collection|null
      */
-    public function getAssocialUser(User $user) : ?Collection
+    public function getAssocialUser(User $user) : \Illuminate\Support\Collection
     {
-        $pa = PersonalArea::where('owner_id' , '=' , $user->id);
-
-        $users = $this->query()
-                    ->where('personal_area_id', '=' , $pa->id)
-                    ->get();
-
+        $users = DB::table('users')
+            ->join('personal_areas', 'users.personal_area_id', '=', 'personal_areas.id')
+            ->where('personal_areas.owner_id', '=', $user->id)
+            ->select('users.*')
+            ->get();
+            
         return $users;
-
     }
 
 

@@ -16,6 +16,7 @@ class EditUserController extends Controller
     public function __construct(
         public AuthService $authService,
     ) {}
+
     public function __invoke(EditUserRequest $request)
     {
         $validated = $request->validated();
