@@ -14,6 +14,14 @@ ENV XDEBUG_CONFIG=$XDEBUG_CONFIG
 ARG XDEBUG_VERSION=3.3.1
 ENV XDEBUG_VERSION=$XDEBUG_VERSION
 
+# Определим переменные окружения DataBase
+ENV DB_CONNECTION=pgsql
+ENV DB_HOST=db
+ENV DB_PORT=3306
+ENV DB_DATABASE=laravel
+ENV DB_USERNAME=root
+ENV DB_PASSWORD=root
+
 # check environment
 RUN if [ "$BUILD_ARGUMENT_ENV" = "default" ]; then echo "Set BUILD_ARGUMENT_ENV in docker build-args like --build-arg BUILD_ARGUMENT_ENV=dev" && exit 2; \
     elif [ "$BUILD_ARGUMENT_ENV" = "dev" ]; then echo "Building development environment."; \
