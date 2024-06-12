@@ -8,7 +8,6 @@ use App\Http\Controllers\Api\Notification\NotificationController;
 use App\Http\Controllers\Api\Organization\Create\OrganizationCreateController;
 use App\Http\Controllers\Api\Organization\Deleted\OrganizationDeletedController;
 use App\Http\Controllers\Api\Organization\Get\OrganizationGetController;
-use App\Http\Controllers\Api\Organization\Update\OrganizationUpdateController;
 use App\Http\Controllers\Api\User\Create\UserCreateController;
 use App\Http\Controllers\Api\User\Edit\EditUserController;
 use App\Http\Controllers\Api\User\Get\UserGetController;

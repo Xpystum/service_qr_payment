@@ -8,7 +8,6 @@ use App\Modules\Organization\Resources\OrganizationResource;
 use App\Modules\User\Models\User;
 
 use App\Traits\TraitAuthService;
-use Illuminate\Http\Request;
 
 use function App\Helpers\array_success;
 use function App\Helpers\isAuthorized;

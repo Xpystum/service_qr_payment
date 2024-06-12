@@ -7,7 +7,6 @@ use App\Modules\User\Models\User;
 use App\Modules\User\Repositories\UserRepository;
 use App\Modules\User\Resources\UserResource;
 use App\Traits\TraitAuthService;
-use Illuminate\Http\Request;
 
 use function App\Helpers\array_success;
 use function App\Helpers\isAuthorized;

@@ -7,7 +7,6 @@ use App\Modules\Notification\DTO\Base\BaseDTO;
 use App\Modules\Notification\Enums\NotificationDriverEnum;
 use App\Modules\Notification\Interface\NotificationDriverInterface;
 use App\Modules\Notification\Services\NotificationService;
-use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 
 use function App\Helpers\Mylog;

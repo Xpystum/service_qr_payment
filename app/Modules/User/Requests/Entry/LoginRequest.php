@@ -3,7 +3,6 @@
 namespace App\Modules\User\Requests\Entry;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Modules\User\Rules\EmailOrPhoneRule;
 use App\Modules\User\Rules\EmailRule;
 use App\Modules\User\Rules\PhoneRule;
 use Illuminate\Validation\Rules\Password;

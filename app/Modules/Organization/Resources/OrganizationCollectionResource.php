@@ -2,7 +2,6 @@
 
 namespace App\Modules\Organization\Resources;
 
-use App\Modules\Organization\Enums\TypeOrganizationEnum;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 

@@ -2,16 +2,12 @@
 
 namespace App\Modules\Notification\View\Http\Controllers;
 
-use App\Models\User;
 use App\Modules\Notification\DTO\AeroDTO;
 use App\Modules\Notification\DTO\Phone\AeroPhoneDTO;
-use App\Modules\Notification\DTO\SmtpDTO;
-use App\Modules\Notification\Enums\MethodNotificationEnum;
-use App\Modules\Notification\Enums\NotificationDriverEnum;
 use App\Modules\Notification\Services\NotificationService;
 use App\Modules\Notification\Models\NotificationMethod;
+use App\Modules\User\Models\User;
 
-use function App\Modules\Notification\Helpers\code;
 
 class NotificationController
 {

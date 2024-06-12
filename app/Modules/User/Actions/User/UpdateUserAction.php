@@ -7,7 +7,6 @@ use App\Modules\User\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 
-use function App\Helpers\Mylog;
 
 /**
  * Обновление данных user, возвращает User - c обновленнымии данными

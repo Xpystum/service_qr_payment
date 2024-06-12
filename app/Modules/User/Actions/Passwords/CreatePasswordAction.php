@@ -4,7 +4,6 @@ namespace App\Modules\User\Actions\Passwords;
 
 use App\Modules\User\DTO\Passwords\CreatePasswordDTO;
 use App\Modules\User\Models\Password;
-use App\Modules\User\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use function App\Helpers\Mylog;

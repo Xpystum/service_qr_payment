@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Modules\Organization\Action\Organization\UpdateOrganizationAction;
 use App\Modules\Organization\DTO\UpdateOrganizationDTO;
 use App\Modules\Organization\Enums\TypeOrganizationEnum;
-use App\Modules\Organization\Models\Organization;
 use App\Modules\Organization\Requests\UpdateOrganizationRequest;
 use App\Modules\User\Models\User;
 use App\Traits\TraitAuthService;

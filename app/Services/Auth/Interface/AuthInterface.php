@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Services\Auth\Interface;
-use Illuminate\Http\Request;
 use App\Services\Auth\DTO\BaseDTO;
 
 use App\Services\Auth\AuthConfig;

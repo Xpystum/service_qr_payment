@@ -2,8 +2,6 @@
 
 namespace App\Modules\User\Requests\Edit;
 
-use App\Modules\User\Rules\EmailRule;
-use App\Modules\User\Rules\PhoneRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EditUserRequest extends FormRequest

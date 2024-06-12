@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 namespace App\Modules\User\Requests\Entry;
 
 use App\Modules\User\Rules\EmailRule;

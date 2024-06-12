@@ -2,7 +2,6 @@
 
 namespace App\Services\Auth\Drivers;
 
-use Illuminate\Http\Request;
 use App\Services\Auth\Interface\AuthInterface;
 use App\Services\Auth\AuthConfig;
 use App\Services\Auth\DTO\BaseDTO;

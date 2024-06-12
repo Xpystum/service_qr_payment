@@ -10,7 +10,6 @@ use App\Modules\User\Repositories\PersonalAreaRepository;
 use App\Modules\User\Requests\Create\CreateUserRequest;
 use App\Modules\User\Resources\UserResource;
 use App\Services\Auth\AuthService;
-use Illuminate\Http\Request;
 
 use function App\Helpers\array_success;
 use function App\Helpers\isAuthorized;
@@ -51,7 +50,7 @@ class UserCreateController extends Controller
         abort_unless( (bool) $userCreate , 'Ошибка сервера'  , '500');
 
         $userResource = new UserResource($userCreate);
-        
+
         return response()->json(array_success( $userResource, 'Successfully create user'), 200);
 
     }

@@ -1,7 +1,6 @@
 <?php
 namespace App\Modules\User\Actions\User;
 
-use App\Modules\User\DTO\CreatUserDTO;
 use App\Modules\User\Models\User;
 
 use function App\Helpers\Mylog;

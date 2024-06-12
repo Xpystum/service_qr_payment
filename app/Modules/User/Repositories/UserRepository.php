@@ -3,11 +3,9 @@
 namespace App\Modules\User\Repositories;
 
 use App\Modules\Base\Repositories\CoreRepository;
-use App\Modules\User\Models\PersonalArea;
 use App\Modules\User\Models\User as Model;
 use App\Modules\User\Models\User;
 use App\Services\Auth\AuthService;
-use App\Traits\TraitAuthService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -103,7 +101,7 @@ class UserRepository extends CoreRepository
             ->where('personal_areas.owner_id', '=', $user->id)
             ->select('users.*')
             ->get();
-            
+
         return $users;
     }
 

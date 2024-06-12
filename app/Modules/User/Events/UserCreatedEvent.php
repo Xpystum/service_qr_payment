@@ -2,7 +2,6 @@
 
 namespace App\Modules\User\Events;
 
-use App\Modules\Notifications\Models\Email;
 use App\Modules\User\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Events\ShouldDispatchAfterCommit;

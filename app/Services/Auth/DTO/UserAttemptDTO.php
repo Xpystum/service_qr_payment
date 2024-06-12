@@ -2,7 +2,6 @@
 
 namespace App\Services\Auth\DTO;
 
-
 class UserAttemptDTO extends BaseDTO
 {
     public function __construct(

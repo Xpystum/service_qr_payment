@@ -2,7 +2,6 @@
 
 namespace App\Modules\User\Actions\PersonalAreas;
 use App\Modules\User\DTO\PersonalArea\CreatePersonalAreaDTO;
-use App\Modules\User\Models\Password;
 use App\Modules\User\Models\PersonalArea;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
