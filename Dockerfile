@@ -1,8 +1,9 @@
 FROM php:8.3-apache
 
 # set main params
-ARG BUILD_ARGUMENT_ENV=
-ENV ENV=$BUILD_ARGUMENT_ENV
+ARG BUILD_ARGUMENT_ENV=prod
+# ENV ENV=$BUILD_ARGUMENT_ENV
+ENV ENV=example
 ENV APP_HOME /var/www/html
 ARG HOST_UID=1000
 ARG HOST_GID=1000
@@ -25,7 +26,6 @@ ENV DB_PASSWORD=root
 # check environment
 RUN if [ "$BUILD_ARGUMENT_ENV" = "default" ]; then echo "Set BUILD_ARGUMENT_ENV in docker build-args like --build-arg BUILD_ARGUMENT_ENV=dev" && exit 2; \
     elif [ "$BUILD_ARGUMENT_ENV" = "dev" ]; then echo "Building development environment."; \
-    elif [ "$BUILD_ARGUMENT_ENV" = "" ]; then echo "Building development environment."; \
     elif [ "$BUILD_ARGUMENT_ENV" = "test" ]; then echo "Building test environment."; \
     elif [ "$BUILD_ARGUMENT_ENV" = "staging" ]; then echo "Building staging environment."; \
     elif [ "$BUILD_ARGUMENT_ENV" = "prod" ]; then echo "Building production environment."; \
@@ -109,7 +109,7 @@ USER ${USERNAME}
 # копируем исходные файлы и файл конфигурации
 COPY --chown=${USERNAME}:${USERNAME} . $APP_HOME/
 # COPY --chown=${USERNAME}:${USERNAME} .env.$ENV $APP_HOME/.env # поменял для теста тут
-COPY --chown=${USERNAME}:${USERNAME} .env.example $APP_HOME/.env
+COPY --chown=${USERNAME}:${USERNAME} .env.$ENV $APP_HOME/.env
 
 # устанавливаем все зависимости PHP
 # RUN if [ "$BUILD_ARGUMENT_ENV" = "dev" ] || [ "$BUILD_ARGUMENT_ENV" = "test" ]; then \
