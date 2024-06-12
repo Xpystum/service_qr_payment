@@ -108,7 +108,8 @@ USER ${USERNAME}
 
 # копируем исходные файлы и файл конфигурации
 COPY --chown=${USERNAME}:${USERNAME} . $APP_HOME/
-COPY --chown=${USERNAME}:${USERNAME} .env.$ENV $APP_HOME/.env
+# COPY --chown=${USERNAME}:${USERNAME} .env.$ENV $APP_HOME/.env # поменял для теста тут
+COPY --chown=${USERNAME}:${USERNAME} .env.example $APP_HOME/.env
 
 # устанавливаем все зависимости PHP
 # RUN if [ "$BUILD_ARGUMENT_ENV" = "dev" ] || [ "$BUILD_ARGUMENT_ENV" = "test" ]; then \
@@ -121,7 +122,7 @@ COPY --chown=${USERNAME}:${USERNAME} .env.$ENV $APP_HOME/.env
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Обновите Composer до последней снимка версии
-# RUN composer self-update
+RUN composer self-update
 
 USER root
 
