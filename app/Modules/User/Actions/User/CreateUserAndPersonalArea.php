@@ -27,7 +27,7 @@ class CreateUserAndPersonalArea
 
         } else {
             Mylog("CreateUserAndPersonalArea");
-            throw new ModelNotFoundException('ошибка в action CreateUserAndPersonalArea', 500);
+            throw new ModelNotFoundException('Ошибка в action CreateUserAndPersonalArea', 500);
         }
 
     }

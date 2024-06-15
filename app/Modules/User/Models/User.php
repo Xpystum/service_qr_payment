@@ -5,6 +5,7 @@ namespace App\Modules\User\Models;
 
 use App\Modules\Base\Enums\ActiveStatusEnum;
 use App\Modules\Notification\Models\Notification;
+use App\Modules\Notification\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use App\Modules\User\Enums\RoleUserEnum;
 use App\Modules\User\Observers\UserObserver;
@@ -14,10 +15,10 @@ use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[ObservedBy([UserObserver::class])]
+#[ObservedBy([UserObserver::class])] // наблюдатель
 class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasUuid;
     protected $fillable = [
 
         'phone',
@@ -37,6 +38,7 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     protected $guarded = [
+        'uuid',
         'role',
         'active',
         'auth',

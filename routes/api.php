@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Organization\Create\OrganizationCreateController;
 use App\Http\Controllers\Api\Organization\Deleted\OrganizationDeletedController;
 use App\Http\Controllers\Api\Organization\Get\OrganizationGetController;
 use App\Http\Controllers\Api\User\Create\UserCreateController;
+use App\Http\Controllers\Api\User\Deleted\DeletedUserController;
 use App\Http\Controllers\Api\User\Edit\EditUserController;
 use App\Http\Controllers\Api\User\Get\UserGetController;
 use App\Http\Controllers\Api\User\Password\PassworController;
@@ -46,13 +47,14 @@ Route::prefix('user')->middleware(['auth:api'])->group(function () {
     //TODO вернуть user
     Route::get('/', [UserGetController::class, 'all']);
 
-    // Route::post('/deleted', EditUserController::class);
-
     //создание user который относится к админу: casier, manager
     Route::post('/create', UserCreateController::class);
 
     //обновление данных у user
     Route::put('/update', EditUserController::class);
+
+    //удаление user от user:admin
+    Route::delete('/deleted', DeletedUserController::class);
 
 });
 
