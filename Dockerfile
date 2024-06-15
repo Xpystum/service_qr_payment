@@ -124,6 +124,10 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Обновите Composer до последней снимка версии
 RUN composer self-update
 
+# Копируем скрипт инициализации (проверки подключение к бд и запуск миграции)
+COPY docker/init.sh /usr/local/bin/init.sh
+RUN chmod +x /usr/local/bin/init.sh
+
 USER root
 
 EXPOSE 5000
