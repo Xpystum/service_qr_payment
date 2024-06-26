@@ -12,9 +12,15 @@ use function App\Helpers\isAuthorized;
 
 class TerminalGetController extends Controller
 {
+    /**
+     *  Вернуть все терминалы относящиеся к user
+     *
+     * @param TerminalRepository $terminalRepository
+     *
+     * @return [type]
+     */
     public function __invoke(TerminalRepository $terminalRepository)
     {
-
         /**
         * @var User
         */
