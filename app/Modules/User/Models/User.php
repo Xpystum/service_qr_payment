@@ -6,6 +6,7 @@ namespace App\Modules\User\Models;
 use App\Modules\Base\Enums\ActiveStatusEnum;
 use App\Modules\Notification\Models\Notification;
 use App\Modules\Notification\Traits\HasUuid;
+use App\Modules\Terminal\Models\Terminal;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use App\Modules\User\Enums\RoleUserEnum;
 use App\Modules\User\Observers\UserObserver;
@@ -88,6 +89,11 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function terminal(): HasMany
+    {
+        return $this->hasMany(Terminal::class);
     }
 
     public function notifycation(): HasMany

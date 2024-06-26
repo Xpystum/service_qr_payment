@@ -11,6 +11,7 @@ use App\Modules\Organization\Resources\OrganizationResource;
 use App\Modules\User\Models\User;
 use App\Traits\TraitAuthService;
 
+use function App\Helpers\array_error;
 use function App\Helpers\array_success;
 use function App\Helpers\isAuthorized;
 
@@ -65,6 +66,6 @@ class OrganizationCreateController extends Controller
         return $model?
         response()->json(array_success( $organizationResource, 'Successfully create organization'), 200)
             :
-        response()->json(array_success(null, 'Failed create organization'), 404);
+        response()->json(array_error(null, 'Failed create organization'), 404);
     }
 }

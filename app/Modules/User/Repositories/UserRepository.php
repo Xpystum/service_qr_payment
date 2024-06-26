@@ -3,6 +3,7 @@
 namespace App\Modules\User\Repositories;
 
 use App\Modules\Base\Repositories\CoreRepository;
+use App\Modules\User\Enums\RoleUserEnum;
 use App\Modules\User\Models\User as Model;
 use App\Modules\User\Models\User;
 use App\Services\Auth\AuthService;
@@ -96,13 +97,26 @@ class UserRepository extends CoreRepository
      */
     public function getAssocialUser(User $user) : \Illuminate\Support\Collection
     {
-        $users = DB::table('users')
+        $users = $this->query()
             ->join('personal_areas', 'users.personal_area_id', '=', 'personal_areas.id')
             ->where('personal_areas.owner_id', '=', $user->id)
             ->select('users.*')
             ->get();
 
         return $users;
+    }
+
+    /**
+     * Проверить относится ли user к admin или manager
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function userIsAmindOrManager(User $user) : bool
+    {
+        $status = in_array($user->role, [RoleUserEnum::admin, RoleUserEnum::manager]);
+
+        return $status;
     }
 
 

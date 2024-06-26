@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Notification\NotificationController;
 use App\Http\Controllers\Api\Organization\Create\OrganizationCreateController;
 use App\Http\Controllers\Api\Organization\Deleted\OrganizationDeletedController;
 use App\Http\Controllers\Api\Organization\Get\OrganizationGetController;
+use App\Http\Controllers\Api\Terminal\Create\TerminalCreateController;
 use App\Http\Controllers\Api\User\Create\UserCreateController;
 use App\Http\Controllers\Api\User\Deleted\DeletedUserController;
 use App\Http\Controllers\Api\User\Edit\EditUserController;
@@ -59,7 +60,7 @@ Route::prefix('user')->middleware(['auth:api'])->group(function () {
 });
 
 //работа с organization
-Route::prefix('organization')->middleware([])->group(function () {
+Route::prefix('organization')->middleware(['auth:api'])->group(function () {
 
     //вернуть все организации User
     Route::get('/', [OrganizationGetController::class, 'getAll']);
@@ -72,6 +73,23 @@ Route::prefix('organization')->middleware([])->group(function () {
 
     //Удалить организацию User
     Route::delete('/delete', OrganizationDeletedController::class);
+
+});
+
+//работа с Terminal
+Route::prefix('terminal')->middleware(['auth:api'])->group(function () {
+
+    //вернуть все организации User
+    // Route::get('/', [OrganizationGetController::class, 'getAll']);
+
+    //Создать терминал для User
+    Route::post('/create', TerminalCreateController::class);
+
+    // //Изменить данные организации User
+    // Route::post('/put', OrganizationCreateController::class);
+
+    // //Удалить организацию User
+    // Route::delete('/delete', OrganizationDeletedController::class);
 
 });
 
