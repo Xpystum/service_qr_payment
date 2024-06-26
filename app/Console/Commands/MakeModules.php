@@ -5,11 +5,14 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 
+use Illuminate\Support\Facades\Artisan;
+use Psy\Readline\Hoa\Console;
+
 class MakeModules extends Command
 {
 
 
-    public const FOLDERS = ['Action', 'Repositories', 'DTO', 'Models', 'Requests', 'Resources'];
+    public const FOLDERS = ['Action', 'Repositories', 'Models' , 'DTO', 'Requests', 'Resources'];
 
     protected $signature = 'make:module';
 
@@ -19,14 +22,34 @@ class MakeModules extends Command
     {
 
         $nameModule = $this->ask("Установите название Модуля:");
-        $path = base_path("app/Modules/".$nameModule);
+
+        $this->createModule($nameModule);
+
+        $this->info('Модуль успешно создан.');
+    }
+
+    public function createModule(string $nameModule)
+    {
+        $path = ("app/Modules/" . $nameModule);
+
+        $pathModel = ("Modules\\"  . $nameModule . "\Models\\" . $nameModule);
 
         File::makeDirectory($path, 0777, true);
 
         foreach(self::FOLDERS as $folder){
+
+            if($folder == 'Models')
+            {
+                // Выполняет команду artisan make:model
+                Artisan::call('make:model', [
+                    'name' => $pathModel,
+                    '--migration' => true,
+                ]);
+
+                continue;
+            }
+
             File::makeDirectory($path . '/' . $folder);
         }
-
-
     }
 }
