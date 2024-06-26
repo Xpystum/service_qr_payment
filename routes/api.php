@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Organization\Create\OrganizationCreateController;
 use App\Http\Controllers\Api\Organization\Deleted\OrganizationDeletedController;
 use App\Http\Controllers\Api\Organization\Get\OrganizationGetController;
 use App\Http\Controllers\Api\Terminal\Create\TerminalCreateController;
+use App\Http\Controllers\Api\Terminal\Get\TerminalGetController;
 use App\Http\Controllers\Api\User\Create\UserCreateController;
 use App\Http\Controllers\Api\User\Deleted\DeletedUserController;
 use App\Http\Controllers\Api\User\Edit\EditUserController;
@@ -77,10 +78,10 @@ Route::prefix('organization')->middleware(['auth:api'])->group(function () {
 });
 
 //работа с Terminal
-Route::prefix('terminal')->middleware(['auth:api'])->group(function () {
+Route::prefix('terminal')->middleware(['auth:api', 'terminal'])->group(function () {
 
     //вернуть все организации User
-    // Route::get('/', [OrganizationGetController::class, 'getAll']);
+    Route::get('/', TerminalGetController::class);
 
     //Создать терминал для User
     Route::post('/create', TerminalCreateController::class);

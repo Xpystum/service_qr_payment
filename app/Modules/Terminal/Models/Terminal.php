@@ -13,7 +13,7 @@ class Terminal extends Model
     use HasFactory, HasUuid;
 
     protected $fillable = [
-        'user_id', 'name'
+        'user_id', 'name',
     ];
 
     protected $guarded = [

@@ -13,7 +13,7 @@ use function App\Helpers\isAuthorized;
 
 class UserGetController extends Controller
 {
-    use TraitAuthService;
+
     /**
      * Вернуть всех user которые принадлежат user:admin
      * @return [type]

@@ -13,7 +13,7 @@ use function App\Helpers\isAuthorized;
 
 class OrganizationDeletedController extends Controller
 {
-    use TraitAuthService;
+
     public function __invoke(DeletedOrganizationRequest $request , DeletedOrganizationAction $deletedOrganizationAction)
     {
         $validated = $request->validated();

@@ -14,7 +14,7 @@ use function App\Helpers\isAuthorized;
 
 class OrganizationGetController extends Controller
 {
-    use TraitAuthService;
+
     public function getAll(OrganizationRepositories $organizationRepositories)
     {
         /**

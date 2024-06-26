@@ -15,7 +15,7 @@ use function App\Helpers\isAuthorized;
 
 class OrganizationUpdateController extends Controller
 {
-    use TraitAuthService;
+
     public function __invoke(UpdateOrganizationRequest $request, UpdateOrganizationAction $updateOrganizationAction)
     {
         $validated = $request->validated();

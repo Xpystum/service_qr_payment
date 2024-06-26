@@ -12,7 +12,7 @@ use function App\Helpers\array_success;
 
 class DeletedUserController extends Controller
 {
-    use TraitAuthService;
+
     public function __invoke(DeleteUserRequest $request , DeleteUserAction $deleteUserAction)
     {
         $validated = $request->validated();

@@ -13,9 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // $middleware->alias([
-        //     'authApi' => Authenticate::class
-        // ]);
+        $middleware->alias([
+            'terminal' => \App\Http\Middleware\TerminalMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
 

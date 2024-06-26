@@ -9,7 +9,6 @@ use App\Modules\Terminal\Resources\TerminalResource;
 use App\Modules\User\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Http\Request;
 
 use function App\Helpers\array_error;
 use function App\Helpers\array_success;
@@ -22,7 +21,7 @@ class TerminalCreateController extends Controller
      *
      * @throws AuthorizationException
      */
-    public function __invoke(TerminalRequest $request,CreateTerminalAction $createTerminalAction)
+    public function __invoke(TerminalRequest $request, CreateTerminalAction $createTerminalAction)
     {
         $validated = $request->validated();
 
@@ -30,11 +29,6 @@ class TerminalCreateController extends Controller
         * @var User
         */
         $user = isAuthorized($this->authService);
-
-        //проверяем есть ли полномочия у пользователя на создание
-        $response = Gate::authorize('createTerminal', $user);
-
-        abort_unless($response->allowed(), 403, $response->message());
 
         $modelTerminal = $createTerminalAction::run($user, $validated['name']);
 

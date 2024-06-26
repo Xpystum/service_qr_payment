@@ -17,7 +17,7 @@ use function App\Helpers\isAuthorized;
 
 class OrganizationCreateController extends Controller
 {
-    use TraitAuthService;
+
     public function __invoke(CreteOrganizationRequest $request, CreateOrganizationAction $createOrganizationAction)
     {
         $validated = $request->validated();

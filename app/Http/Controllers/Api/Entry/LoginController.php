@@ -13,7 +13,7 @@ use function App\Helpers\array_success;
 
 class LoginController extends Controller
 {
-    use TraitAuthService;
+
 
     public function store(LoginRequest $request)
     {

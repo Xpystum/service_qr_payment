@@ -18,7 +18,7 @@ use function App\Helpers\array_success;
 
 class RegistrationController extends Controller
 {
-    use TraitAuthService;
+
 
     public function store(RegistrationRequest $request, NotificationService $serviceNotificaion)
     {
