@@ -1,8 +1,13 @@
 <?php
 namespace App\Modules\Payment\Models;
 
+use App\Helpers\Values\AmountValue;
 use App\Modules\Payment\Enums\PaymentDriverEnum;
 use App\Modules\Payment\Enums\PaymentStatusEnum;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Payment extends Model
 {

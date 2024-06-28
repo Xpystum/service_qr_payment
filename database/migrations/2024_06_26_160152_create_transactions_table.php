@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->string('status'); //pending, completed, cancelled
 
-            $table->foreignId('driver_currency_id')->constrained('currencies')->comment('Валюта провайдера');
+            $table->foreignId('terminal_id')->constrained('terminals')->comment('транзакция относящиеся к терминалу');
 
             $table->decimal('amount', 12, 2)->comment('сумма заказов');
 

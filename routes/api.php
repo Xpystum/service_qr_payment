@@ -10,11 +10,14 @@ use App\Http\Controllers\Api\Organization\Deleted\OrganizationDeletedController;
 use App\Http\Controllers\Api\Organization\Get\OrganizationGetController;
 use App\Http\Controllers\Api\Terminal\Create\TerminalCreateController;
 use App\Http\Controllers\Api\Terminal\Get\TerminalGetController;
+use App\Http\Controllers\Api\Transaction\Create\TransactionCreateController;
+use App\Http\Controllers\Api\Transaction\Get\TransactionGetController;
 use App\Http\Controllers\Api\User\Create\UserCreateController;
 use App\Http\Controllers\Api\User\Deleted\DeletedUserController;
 use App\Http\Controllers\Api\User\Edit\EditUserController;
 use App\Http\Controllers\Api\User\Get\UserGetController;
 use App\Http\Controllers\Api\User\Password\PassworController;
+
 
 //Регистрация и вход
 Route::post('/login', [LoginController::class, 'store']);
@@ -94,11 +97,27 @@ Route::prefix('terminal')->middleware(['auth:api', 'terminal'])->group(function 
 
 });
 
-Route::prefix('password')->group(function () {
 
+// Route::prefix('transaction')->group(function () {
+
+//     // Route::get('/transaction', 'index')->name('orders');
+
+//     Route::get('/', [GetTransactionTerminalController::class])->name('transactions');
+
+//     // Route::post('/orders/{order:uuid}/payment', 'payment')->name('orders.payment');
+
+// });
+
+Route::prefix('transaction')->group(function () {
+
+    Route::get('/{terminal:uuid}', TransactionGetController::class);
+    Route::post('/{terminal:uuid}/create', TransactionCreateController::class);
+
+})->whereUuid('terminal');
+
+Route::prefix('password')->group(function () {
     Route::post('/forgot', [PassworController::class, 'forgot']);
     Route::post('/change', [PassworController::class, 'change']);
-
 });
 
 

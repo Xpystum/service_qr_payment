@@ -13,10 +13,9 @@ class Currency extends Model
     use HasFactory;
 
     public const MAIN = 'RUB';
-
     public const RUB = 'RUB';
-    public const USD = 'USD';
-    public const EUR = 'EUR';
+    // public const USD = 'USD';
+    // public const EUR = 'EUR';
 
     protected $keyType = 'string';
 

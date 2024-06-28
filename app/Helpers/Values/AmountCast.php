@@ -18,7 +18,7 @@ class AmountCast implements CastsAttributes
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
         if($value instanceof AmountValue){
-
+            
             return $value->value();
 
         }

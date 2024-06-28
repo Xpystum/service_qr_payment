@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Modules\Currencies\Commands\InstallCurrenciesCommand;
 use App\Modules\User\Events\PasswordCreatedEvent;
 use App\Modules\User\Listeners\PasswordChangeListener;
 use App\Modules\User\Models\User;
 use App\Modules\User\Policies\UserPolicy;
+
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
@@ -39,6 +41,9 @@ class AppServiceProvider extends ServiceProvider
         //Регистрация политик
         Gate::policy(User::class, UserPolicy::class);
 
+        $this->commands([
+            InstallCurrenciesCommand::class,
+        ]);
 
     }
 

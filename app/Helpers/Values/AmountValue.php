@@ -27,6 +27,7 @@ class AmountValue implements Castable
         return $this->value;
     }
 
+    //уможение
     public function mul(AmountValue $amount, ?int $scale = null): AmountValue
     {
 
@@ -34,6 +35,7 @@ class AmountValue implements Castable
         return new AmountValue($result);
     }
 
+    //деление
     public function div(AmountValue $amount, ?int $scale = null): AmountValue
     {
 
@@ -42,6 +44,7 @@ class AmountValue implements Castable
         return new AmountValue($result);
     }
 
+    //сложение
     public function add(AmountValue $amount, ?int $scale = null): AmountValue
     {
 
@@ -49,6 +52,7 @@ class AmountValue implements Castable
         return new AmountValue($result);
     }
 
+    //вычитание
     public function sub(AmountValue $amount, ?int $scale = null): AmountValue
     {
 

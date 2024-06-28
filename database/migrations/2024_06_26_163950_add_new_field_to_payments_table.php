@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('payments', function (Blueprint $table) {
-            $table->foreignId('driver_currency_id')->constrained('currencies')->nullable()->comment('Валюта провайдера');
+            $table->string('driver_currency_id')->nullable()->comment('Валюта провайдера');
+            $table->foreign('driver_currency_id')->references('id')->on('currencies');
         });
     }
 
@@ -22,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('payments', function (Blueprint $table) {
-            //
+            $table->dropForeign(['driver_currency_id']);
+            $table->dropColumn('driver_currency_id');
         });
     }
 };

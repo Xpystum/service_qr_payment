@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Currencies\App\Commands;
+namespace App\Modules\Currencies\Commands;
 
 use App\Helpers\Values\AmountValue;
 use App\Modules\Currencies\Models\Currency;
@@ -41,30 +41,30 @@ class InstallCurrenciesCommand extends Command
                 [
                     'name' => 'Рубль',
                     'price' => new AmountValue(1),
-                    'source' => SourceEnum::manual
+                    'source' => SourceEnum::manual //источник цены - например из мануала или центрального банка россии
                 ],
         );
 
-        Currency::query()
-            ->firstOrCreate(
-                ['id' => Currency::USD]
-                ,
-                [
-                    'name' => 'Доллар',
-                    'price' => new AmountValue(100),
-                    'source' => SourceEnum::cbrf
-                ],
-        );
+        // Currency::query()
+        //     ->firstOrCreate(
+        //         ['id' => Currency::USD]
+        //         ,
+        //         [
+        //             'name' => 'Доллар',
+        //             'price' => new AmountValue(100),
+        //             'source' => SourceEnum::cbrf
+        //         ],
+        // );
 
-        Currency::query()
-            ->firstOrCreate(
-                ['id' => Currency::EUR]
-                ,
-                [
-                    'name' => 'Евро',
-                    'price' => new AmountValue(110),
-                    'source' => SourceEnum::cbrf
-                ],
-        );
+        // Currency::query()
+        //     ->firstOrCreate(
+        //         ['id' => Currency::EUR]
+        //         ,
+        //         [
+        //             'name' => 'Евро',
+        //             'price' => new AmountValue(110),
+        //             'source' => SourceEnum::cbrf
+        //         ],
+        // );
     }
 }

@@ -2,6 +2,10 @@
 
 namespace App\Modules\Payment\Models;
 
+use App\Modules\Payment\Enums\PaymentDriverEnum;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
 class PaymentMethod extends Model
 {
     use HasFactory;

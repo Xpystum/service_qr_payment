@@ -2,7 +2,7 @@
   'app' => 
   array (
     'name' => 'qr_payment',
-    'env' => 'production',
+    'env' => 'laravel',
     'debug' => true,
     'url' => 'http://localhost',
     'frontend_url' => 'http://localhost:3000',
@@ -206,14 +206,14 @@
   ),
   'database' => 
   array (
-    'default' => 'sqlite',
+    'default' => 'pgsql',
     'connections' => 
     array (
       'sqlite' => 
       array (
         'driver' => 'sqlite',
         'url' => NULL,
-        'database' => 'C:\\Users\\eftva\\Desktop\\qr_payment\\database\\database.sqlite',
+        'database' => 'qr_payment',
         'prefix' => '',
         'foreign_key_constraints' => true,
       ),
@@ -222,10 +222,10 @@
         'driver' => 'mysql',
         'url' => NULL,
         'host' => '127.0.0.1',
-        'port' => '3306',
+        'port' => '5432',
         'database' => 'qr_payment',
-        'username' => 'root',
-        'password' => '123',
+        'username' => 'postgres',
+        'password' => '1911',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -242,10 +242,10 @@
         'driver' => 'mariadb',
         'url' => NULL,
         'host' => '127.0.0.1',
-        'port' => '3306',
-        'database' => 'laravel',
-        'username' => 'root',
-        'password' => '',
+        'port' => '5432',
+        'database' => 'qr_payment',
+        'username' => 'postgres',
+        'password' => '1911',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -263,9 +263,9 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '5432',
-        'database' => 'laravel',
-        'username' => 'root',
-        'password' => '',
+        'database' => 'qr_payment',
+        'username' => 'postgres',
+        'password' => '1911',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -276,11 +276,11 @@
       array (
         'driver' => 'sqlsrv',
         'url' => NULL,
-        'host' => 'localhost',
-        'port' => '1433',
-        'database' => 'laravel',
-        'username' => 'root',
-        'password' => '',
+        'host' => '127.0.0.1',
+        'port' => '5432',
+        'database' => 'qr_payment',
+        'username' => 'postgres',
+        'password' => '1911',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -733,13 +733,13 @@
     ),
     'batching' => 
     array (
-      'database' => 'sqlite',
+      'database' => 'pgsql',
       'table' => 'job_batches',
     ),
     'failed' => 
     array (
       'driver' => 'database-uuids',
-      'database' => 'sqlite',
+      'database' => 'pgsql',
       'table' => 'failed_jobs',
     ),
   ),

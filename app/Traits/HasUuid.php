@@ -13,6 +13,7 @@ trait HasUuid
         //forceFill - если поле в модели не прописано, в $fillable - то оно все равно заполнится
         static::creating(function (Model $model){
 
+            //минуем защиту от fillable
             $model->forceFill([
                 'uuid' => uuid(),
             ]);

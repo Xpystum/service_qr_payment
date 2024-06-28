@@ -16,6 +16,7 @@
     php artisan migrate
 
     php artisan notification-method:install
+    php artisan currencies:install - установка валют
     
 ```
 
