@@ -98,16 +98,6 @@ Route::prefix('terminal')->middleware(['auth:api', 'terminal'])->group(function 
 });
 
 
-// Route::prefix('transaction')->group(function () {
-
-//     // Route::get('/transaction', 'index')->name('orders');
-
-//     Route::get('/', [GetTransactionTerminalController::class])->name('transactions');
-
-//     // Route::post('/orders/{order:uuid}/payment', 'payment')->name('orders.payment');
-
-// });
-
 Route::prefix('transaction')->group(function () {
 
     Route::get('/{terminal:uuid}', TransactionGetController::class);

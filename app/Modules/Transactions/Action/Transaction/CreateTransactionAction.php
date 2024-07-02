@@ -15,19 +15,12 @@ class CreateTransactionAction
     {
         $currencies = app(CurrenciesRepositories::class)::getRub();
 
-        // $terminal = Transaction::create([
-        //     'terminal_id' => $terminal->id,
-        //     'driver_currency_id' => $currencies->id,
-        //     'amount' => $amount,
-        // ]);
-
         $terminal = Transaction::create([
             'terminal_id' => $terminal->id,
             'driver_currency_id' => $currencies->id,
-            'amount' => '23,34',
+            'amount' => $amount,
         ]);
 
-        dd($terminal);
 
         if(!$terminal->save()){
             throw new ModelNotFoundException('Не удалось создать терминал.', 500);

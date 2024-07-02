@@ -14,17 +14,13 @@ class CreateUserAndPersonalArea
 {
     public static function run(CreatUserDTO $data) : User
     {
-
         $user = CreatUserAction::run($data);
         $personalArea = CreatePersonalArea::run(
             new CreatePersonalAreaDTO($user),
         );
-
         if($user && $personalArea)
         {
-
             return $user;
-
         } else {
             Mylog("CreateUserAndPersonalArea");
             throw new ModelNotFoundException('Ошибка в action CreateUserAndPersonalArea', 500);

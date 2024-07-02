@@ -28,12 +28,14 @@ class Transaction extends Model
     ];
 
     protected $cast = [
+
         'status' => TransactionStatusEnum::class,
 
-        'amount' => AmountValue::class ,
+        'amount' => AmountValue::class,
+
     ];
 
-    public function user(): BelongsTo
+    public function terminal(): BelongsTo
     {
         return $this->belongsTo(Terminal::class);
     }
