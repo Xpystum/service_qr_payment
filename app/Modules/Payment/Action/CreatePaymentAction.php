@@ -23,7 +23,6 @@ class CreatePaymentAction
     }
     public function run() : Payment
     {
-
         $payment = Payment::query()
 
             ->create([
@@ -31,7 +30,7 @@ class CreatePaymentAction
 
                 'status' => PaymentStatusEnum::pending,
 
-                'currency_id' => $this->payable->getPayableCurrencyId(),
+                'driver_currency_id' => $this->payable->getPayableCurrencyId(),
 
                 'amount' => $this->payable->getPayableAmount(),
 
@@ -42,7 +41,6 @@ class CreatePaymentAction
                 'method_id' => null ,
 
                 'drive' => null ,
-
         ]);
 
 

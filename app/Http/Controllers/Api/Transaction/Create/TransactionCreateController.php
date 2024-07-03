@@ -20,6 +20,7 @@ class TransactionCreateController extends Controller
 
         $model = $action::run($terminal, new AmountValue($validated['amount']));
 
+
         return $model?
         response()->json(array_success( new TransactionResource($model), 'Successfully create transaction'), 200)
             :

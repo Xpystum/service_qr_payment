@@ -27,4 +27,4 @@ class PaymentMethod extends Model
     ];
 
 
-}
+}   

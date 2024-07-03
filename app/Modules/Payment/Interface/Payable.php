@@ -13,6 +13,6 @@ interface Payable
     public function getPayableAmount(): AmountValue;
     public function getPayableType(): string;
     public function getPayableId(): int;
-    public function getPayableUrl(): string;
+    // public function getPayableUrl(): string;
 
 }

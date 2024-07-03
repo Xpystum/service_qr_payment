@@ -35,6 +35,7 @@
     31 => 'App\\Providers\\AuthServiceProvider',
     32 => 'Tymon\\JWTAuth\\Providers\\LaravelServiceProvider',
     33 => 'App\\Modules\\Notification\\Services\\NotificationServiceProvider',
+    34 => 'App\\Modules\\Payment\\Service\\PaymentServiceProvider',
   ),
   'eager' => 
   array (
@@ -58,6 +59,7 @@
     17 => 'App\\Providers\\AuthServiceProvider',
     18 => 'Tymon\\JWTAuth\\Providers\\LaravelServiceProvider',
     19 => 'App\\Modules\\Notification\\Services\\NotificationServiceProvider',
+    20 => 'App\\Modules\\Payment\\Service\\PaymentServiceProvider',
   ),
   'deferred' => 
   array (

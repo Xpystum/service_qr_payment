@@ -49,6 +49,7 @@
       23 => 'App\\Providers\\AuthServiceProvider',
       24 => 'Tymon\\JWTAuth\\Providers\\LaravelServiceProvider',
       25 => 'App\\Modules\\Notification\\Services\\NotificationServiceProvider',
+      26 => 'App\\Modules\\Payment\\Service\\PaymentServiceProvider',
     ),
     'aliases' => 
     array (

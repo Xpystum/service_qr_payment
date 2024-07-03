@@ -37,7 +37,7 @@ class InstallPaymentsCommand extends Command
                 'driver' => PaymentDriverEnum::test ,
                 'driver_currency_id' => Currency::RUB
             ], [
-                'name' => 'Тестовый способ',
+                'name' => 'QR',
                 'active' => app()->isProduction()? false : true,
             ]);
 
@@ -51,6 +51,7 @@ class InstallPaymentsCommand extends Command
                 'name' => 'Банковская Карта',
                 'active' => app()->isProduction()? false : true,
             ],);
+
 
     }
 }

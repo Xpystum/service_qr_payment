@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api\Transaction\Get;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Terminal\Models\Terminal;
-use App\Modules\Transactions\Models\Transaction;
 use App\Modules\Transactions\Repositories\TransactionReposiotory;
 
 use function App\Helpers\array_error;

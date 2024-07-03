@@ -11,7 +11,7 @@ class AmountCast implements CastsAttributes
 
     public function get(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        return (string) new AmountValue($value);
+        return new AmountValue($value);
     }
 
 

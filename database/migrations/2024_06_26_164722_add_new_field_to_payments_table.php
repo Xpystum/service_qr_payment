@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::table('payments', function (Blueprint $table) {
 
             //полиморфное отношение
-            $table->morphs('payple');
+            $table->morphs('payable');
 
-            $table->foreignId('method_id')->constrained('payment_methods')->comment('Валюта провайдера'); //способ оплаты у платежа QIWI, YOUCASSA, PAYPAL, BITCOIN
+            $table->foreignId('method_id')->constrained('payment_methods')->nullable()->comment('Валюта провайдера'); //способ оплаты у платежа QIWI, YOUCASSA, PAYPAL, BITCOIN
 
         });
     }
