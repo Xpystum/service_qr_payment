@@ -1,8 +1,6 @@
 <?php
 namespace App\Http\Controllers\Api\Transaction\CreatePayment;
 
-
-
 use App\Http\Controllers\Controller;
 use App\Modules\Payment\Requests\PaymentMethodRequest;
 use App\Modules\Payment\Service\PaymentService;
@@ -11,6 +9,7 @@ use App\Modules\Transactions\Models\Transaction;
 use function App\Helpers\array_error;
 use function App\Helpers\array_success;
 
+#TODO Возможно данный endpoint тут не нужен и его надо выносить в payment
 class TransactionCreatePaymentController extends Controller
 {
 

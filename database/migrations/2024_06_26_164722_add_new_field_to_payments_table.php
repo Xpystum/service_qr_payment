@@ -16,7 +16,7 @@ return new class extends Migration
             //полиморфное отношение
             $table->morphs('payable');
 
-            $table->foreignId('method_id')->constrained('payment_methods')->nullable()->comment('Валюта провайдера'); //способ оплаты у платежа QIWI, YOUCASSA, PAYPAL, BITCOIN
+            $table->foreignId('method_id')->nullable()->constrained('payment_methods')->comment('Валюта провайдера'); //способ оплаты у платежа QIWI, YOUCASSA, PAYPAL, BITCOIN
 
         });
     }

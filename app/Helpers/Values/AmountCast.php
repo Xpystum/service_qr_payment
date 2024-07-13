@@ -11,7 +11,13 @@ class AmountCast implements CastsAttributes
 
     public function get(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        return new AmountValue($value);
+
+        if (is_null($value)) {
+            return '32423.5';
+        }
+
+        // Преобразуем значение в строку перед передачей в AmountValue.
+        return new AmountValue((string) $value);
     }
 
 

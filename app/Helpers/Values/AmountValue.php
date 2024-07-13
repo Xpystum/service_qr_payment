@@ -3,22 +3,22 @@ namespace App\Helpers\Values;
 
 use Illuminate\Contracts\Database\Eloquent\Castable;
 use InvalidArgumentException;
+use JsonSerializable;
 
-class AmountValue implements Castable
+class AmountValue implements Castable, JsonSerializable
 {
     private string $value; //123.45
 
     public function __construct(string $value)
     {
-        if(!is_numeric($value)){
 
+        if(!is_numeric($value)){
             throw new InvalidArgumentException(
                 'Invalid amount value: ' . $value,
             );
         }
 
         $this->value = $value;
-
     }
 
     public function value(): string
@@ -67,6 +67,11 @@ class AmountValue implements Castable
 
     public function __toString()
     {
-        return $this->value();
+        return (string) $this->value();
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->value;
     }
 }

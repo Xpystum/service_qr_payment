@@ -24,7 +24,6 @@ class CreatePaymentAction
     public function run() : Payment
     {
         $payment = Payment::query()
-
             ->create([
                 'uuid' => (string) Str::uuid() ,
 
@@ -42,7 +41,6 @@ class CreatePaymentAction
 
                 'drive' => null ,
         ]);
-
 
         return $payment;
     }

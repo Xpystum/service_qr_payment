@@ -26,15 +26,13 @@ class Payment extends Model
 
         'method_id',
 
-
         'driver' ,
-
-        'driver_payment_id',
 
         'driver_currency_id',
 
-        'driver_amount'
+        'amount',
 
+        // 'driver_amount'
 
     ];
 
@@ -43,8 +41,6 @@ class Payment extends Model
         'status' => PaymentStatusEnum::class,
 
         'amount' => AmountValue::class,
-
-        'driver_amount' => AmountValue::class,
 
         'driver' => PaymentDriverEnum::class,
 

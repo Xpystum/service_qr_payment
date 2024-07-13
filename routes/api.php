@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\Notification\NotificationController;
 use App\Http\Controllers\Api\Organization\Create\OrganizationCreateController;
 use App\Http\Controllers\Api\Organization\Deleted\OrganizationDeletedController;
 use App\Http\Controllers\Api\Organization\Get\OrganizationGetController;
+use App\Http\Controllers\Api\Payment\Create\PaymentCreateController;
+use App\Http\Controllers\Api\Payment\Get\PaymentGetController;
 use App\Http\Controllers\Api\Terminal\Create\TerminalCreateController;
 use App\Http\Controllers\Api\Terminal\Get\TerminalGetController;
 use App\Http\Controllers\Api\Transaction\Create\TransactionCreateController;
@@ -110,8 +112,8 @@ Route::prefix('transaction')->group(function () {
 //работа с Payment
 Route::prefix('payment')->group(function () {
 
-    // Route::get('/{payment:uuid}', TransactionGetController::class);
-    // Route::post('/{transaction:uuid}/create', PaymentCreateController::class);
+    Route::get('/{payment:uuid}', PaymentGetController::class);
+    Route::post('/{transaction:uuid}/create', PaymentCreateController::class);
 
 })->whereUuid('payment');
 
