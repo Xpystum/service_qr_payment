@@ -2,7 +2,7 @@
 
 namespace App\Modules\Terminal\Resources;
 
-use App\Modules\User\Resources\UserResource;
+use App\Modules\Organization\Resources\OrganizationResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,7 +18,7 @@ class TerminalResource extends JsonResource
         return [
             'name' => $this->name,
             "uuid" => $this->uuid,
-            'user' => UserResource::make($this->user),
+            'organization' => OrganizationResource::make($this->organization),
         ];
     }
 }

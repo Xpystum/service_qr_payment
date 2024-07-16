@@ -8,10 +8,12 @@ use App\Http\Controllers\Api\Notification\NotificationController;
 use App\Http\Controllers\Api\Organization\Create\OrganizationCreateController;
 use App\Http\Controllers\Api\Organization\Deleted\OrganizationDeletedController;
 use App\Http\Controllers\Api\Organization\Get\OrganizationGetController;
+use App\Http\Controllers\Api\Organization\OrganizationController;
 use App\Http\Controllers\Api\Payment\Create\PaymentCreateController;
 use App\Http\Controllers\Api\Payment\Get\PaymentGetController;
 use App\Http\Controllers\Api\Terminal\Create\TerminalCreateController;
 use App\Http\Controllers\Api\Terminal\Get\TerminalGetController;
+use App\Http\Controllers\Api\Terminal\TerminalController;
 use App\Http\Controllers\Api\Transaction\Create\TransactionCreateController;
 use App\Http\Controllers\Api\Transaction\CreatePayment\TransactionCreatePaymentController;
 use App\Http\Controllers\Api\Transaction\Get\TransactionGetController;
@@ -67,33 +69,39 @@ Route::prefix('user')->middleware(['auth:api'])->group(function () {
 });
 
 //работа с organization
-Route::prefix('organization')->middleware(['auth:api'])->group(function () {
+Route::prefix('organization')->controller(OrganizationController::class)->middleware(['auth:api'])->group(function () {
 
     //вернуть все организации User
-    Route::get('/', [OrganizationGetController::class, 'getAll']);
+    Route::get('/', 'index');
+
+    //вернуть организацию по uuid
+    Route::get('/{organization:uuid}', 'show');
 
     //Создать организацию User
-    Route::post('/create', OrganizationCreateController::class);
+    Route::post('/', 'create');
 
     //Изменить данные организации User
-    Route::post('/put', OrganizationCreateController::class);
+    Route::put('/{organization:uuid}', 'updated');
 
     //Удалить организацию User
-    Route::delete('/delete', OrganizationDeletedController::class);
+    Route::delete('/{organization:uuid}', 'deleted');
 
 });
 
 //работа с Terminal
-Route::prefix('terminal')->middleware(['auth:api', 'terminal'])->group(function () {
+Route::prefix('terminal')->controller(TerminalController::class)->middleware(['auth:api', 'terminal'])->group(function () {
 
-    //вернуть все организации User
-    Route::get('/', TerminalGetController::class);
+    //вернуть все терминалы по организации
+    Route::get('/', 'index');
 
-    //Создать терминал для User
-    Route::post('/create', TerminalCreateController::class);
+    //вернуть терминал по uuid
+    Route::get('/{terminal:uuid}', 'show');
 
-    // //Изменить данные организации User
-    // Route::post('/put', OrganizationCreateController::class);
+    //Создать терминал по организации
+    Route::post('/', 'create');
+
+    //Изменить название терминала
+    Route::put('/{terminal:uuid}', 'update');
 
     // //Удалить организацию User
     // Route::delete('/delete', OrganizationDeletedController::class);

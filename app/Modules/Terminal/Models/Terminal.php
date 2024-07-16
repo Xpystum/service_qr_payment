@@ -3,8 +3,8 @@
 namespace App\Modules\Terminal\Models;
 
 use App\Modules\Notification\Traits\HasUuid;
+use App\Modules\Organization\Models\Organization;
 use App\Modules\Transactions\Models\Transaction;
-use App\Modules\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,7 +15,7 @@ class Terminal extends Model
     use HasFactory, HasUuid;
 
     protected $fillable = [
-        'user_id', 'name',
+        'organization_id', 'name',
     ];
 
     protected $guarded = [
@@ -26,9 +26,9 @@ class Terminal extends Model
 
     ];
 
-    public function user(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Organization::class);
     }
 
     public function transaction(): HasMany

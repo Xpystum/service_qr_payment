@@ -3,6 +3,7 @@
 namespace App\Modules\Terminal\Repositories;
 
 use App\Modules\Base\Repositories\CoreRepository;
+use App\Modules\Organization\Models\Organization;
 use App\Modules\Terminal\Models\Terminal as Model;
 use App\Modules\User\Models\User;
 use Illuminate\Support\Collection;
@@ -15,10 +16,10 @@ class TerminalRepository extends CoreRepository
         return Model::class;
     }
 
-    public function getTerminal(User $user) : ?Collection
+    public function getTerminal(?int $id) : ?Collection
     {
         $model = $this->query()
-                    ->where("user_id", $user->id)
+                    ->where("organization_id", $id)
                     ->get();
 
         return $model;

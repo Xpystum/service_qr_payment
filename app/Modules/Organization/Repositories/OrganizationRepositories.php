@@ -13,6 +13,20 @@ class OrganizationRepositories extends CoreRepository
     }
 
     /**
+    * Вернуть организацию по uuid
+    * @return Model|null
+    */
+    public function uuidOrganization(?string $uuid) : ?Model
+    {
+        $model = $this->query()
+            ->where('uuid' , '=' , $uuid)
+            ->first();
+
+        return $model;
+    }
+
+
+    /**
      * Возращает все организации которые относятся к User
      * @return Model|null
      */

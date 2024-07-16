@@ -4,24 +4,30 @@ namespace App\Modules\Terminal\Action\Terminal;
 
 use App\Modules\Organization\Models\Organization;
 use App\Modules\Terminal\Models\Terminal;
-use App\Modules\User\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class CreateTerminalAction
+class UpdateTerminalAction
 {
-    public static function run(Organization $organization, string $name) : Terminal
+
+    private string $name;
+
+    public function name(?string $name) : self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function run(Terminal $terminal) : bool
     {
 
-            $terminal = Terminal::create([
-                'organization_id' => $organization->id,
-                'name' => $name,
-            ]);
-
+        $terminal->name = $this->name;
 
         if(!$terminal->save()){
             throw new ModelNotFoundException('Не удалось создать терминал.', 500);
+        } else {
+            return true;
         }
 
-        return $terminal;
     }
 }
