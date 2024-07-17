@@ -136,14 +136,12 @@ Route::prefix('transaction')->controller(TransactionController::class)->group(fu
 //работа с Payment
 Route::prefix('payment')->controller(PaymentController::class)->group(function () {
 
-    //получение всех payment по transaction
-    Route::get('/{transaction:uuid}', 'index')->whereUuid('payment');
+    //Получение всех активных методов оплаты
+    Route::get('/', 'checkout')->whereUuid('payment');
 
     //Получение конкретного payment по uuid
     Route::get('/{payment:uuid}', 'show')->whereUuid('payment');
 
-    //создание payment
-    Route::post('/', 'create')->whereUuid('transaction');
 
 })->whereUuid('payment');
 

@@ -2,6 +2,7 @@
 namespace App\Modules\Payment\Models;
 
 use App\Helpers\Values\AmountValue;
+use App\Modules\Notification\Traits\HasUuid;
 use App\Modules\Payment\Enums\PaymentDriverEnum;
 use App\Modules\Payment\Enums\PaymentStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 class Payment extends Model
 {
 
-    use HasFactory;
+    use HasFactory, HasUuid;
 
     protected $fillable = [
 
@@ -31,8 +32,6 @@ class Payment extends Model
         'driver_currency_id',
 
         'amount',
-
-        // 'driver_amount'
 
     ];
 
@@ -56,6 +55,5 @@ class Payment extends Model
 
         return $this->BelongsTo(PaymentMethod::class);
     }
-
 
 }

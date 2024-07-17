@@ -25,7 +25,6 @@ class CreatePaymentAction
     {
         $payment = Payment::query()
             ->create([
-                'uuid' => (string) Str::uuid() ,
 
                 'status' => PaymentStatusEnum::pending,
 
