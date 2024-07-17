@@ -3,9 +3,7 @@
 namespace App\Modules\Terminal\Repositories;
 
 use App\Modules\Base\Repositories\CoreRepository;
-use App\Modules\Organization\Models\Organization;
 use App\Modules\Terminal\Models\Terminal as Model;
-use App\Modules\User\Models\User;
 use Illuminate\Support\Collection;
 
 class TerminalRepository extends CoreRepository
@@ -21,6 +19,15 @@ class TerminalRepository extends CoreRepository
         $model = $this->query()
                     ->where("organization_id", $id)
                     ->get();
+
+        return $model;
+    }
+
+    public function getTerminalByUuid(?string $uuid) : ?Model
+    {
+        $model = $this->query()
+                    ->where("uuid", $uuid)
+                    ->first();
 
         return $model;
     }

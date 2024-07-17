@@ -27,7 +27,6 @@ class UpdateOrganizationRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'uuid' => ['required', 'uuid'],
             'name' => ['nullable' , 'string' , 'max:101' , 'min:2'],
             'address' => ['nullable' , 'string' , 'max:255' , 'min:12'],
             'phone_number' => ['nullable' , 'string'],

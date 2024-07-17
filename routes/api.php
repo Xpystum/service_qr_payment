@@ -11,12 +11,14 @@ use App\Http\Controllers\Api\Organization\Get\OrganizationGetController;
 use App\Http\Controllers\Api\Organization\OrganizationController;
 use App\Http\Controllers\Api\Payment\Create\PaymentCreateController;
 use App\Http\Controllers\Api\Payment\Get\PaymentGetController;
+use App\Http\Controllers\Api\Payment\PaymentController;
 use App\Http\Controllers\Api\Terminal\Create\TerminalCreateController;
 use App\Http\Controllers\Api\Terminal\Get\TerminalGetController;
 use App\Http\Controllers\Api\Terminal\TerminalController;
 use App\Http\Controllers\Api\Transaction\Create\TransactionCreateController;
 use App\Http\Controllers\Api\Transaction\CreatePayment\TransactionCreatePaymentController;
 use App\Http\Controllers\Api\Transaction\Get\TransactionGetController;
+use App\Http\Controllers\Api\Transaction\TransactionController;
 use App\Http\Controllers\Api\User\Create\UserCreateController;
 use App\Http\Controllers\Api\User\Deleted\DeletedUserController;
 use App\Http\Controllers\Api\User\Edit\EditUserController;
@@ -75,16 +77,16 @@ Route::prefix('organization')->controller(OrganizationController::class)->middle
     Route::get('/', 'index');
 
     //вернуть организацию по uuid
-    Route::get('/{organization:uuid}', 'show');
+    Route::get('/{organization:uuid}', 'show')->whereUuid('organization');
 
     //Создать организацию User
     Route::post('/', 'create');
 
     //Изменить данные организации User
-    Route::put('/{organization:uuid}', 'updated');
+    Route::put('/{organization:uuid}', 'updated')->whereUuid('organization');
 
     //Удалить организацию User
-    Route::delete('/{organization:uuid}', 'deleted');
+    Route::delete('/{organization:uuid}', 'deleted')->whereUuid('organization');
 
 });
 
@@ -95,33 +97,53 @@ Route::prefix('terminal')->controller(TerminalController::class)->middleware(['a
     Route::get('/', 'index');
 
     //вернуть терминал по uuid
-    Route::get('/{terminal:uuid}', 'show');
+    Route::get('/{terminal:uuid}', 'show')->whereUuid('terminal');
 
     //Создать терминал по организации
     Route::post('/', 'create');
 
     //Изменить название терминала
-    Route::put('/{terminal:uuid}', 'update');
+    Route::put('/{terminal:uuid}', 'update')->whereUuid('terminal');
 
-    // //Удалить организацию User
-    // Route::delete('/delete', OrganizationDeletedController::class);
+    //Удалить организацию User
+    Route::delete('/{terminal:uuid}', 'deleted')->whereUuid('terminal');
 
 });
 
 //работа с Transaction
-Route::prefix('transaction')->group(function () {
+Route::prefix('transaction')->controller(TransactionController::class)->group(function () {
 
-    Route::get('/{terminal:uuid}', TransactionGetController::class)->whereUuid('terminal');
-    Route::post('/{terminal:uuid}/create', TransactionCreateController::class)->whereUuid('terminal');
-    Route::post('/{transaction:uuid}/payment', TransactionCreatePaymentController::class)->whereUuid('transaction');
+    //вернуть транзакции пагинацией по терминалу
+    Route::get('/{terminal:uuid}/pagination', 'index')->whereUuid('terminal');
+
+    //вернуть все транзакции у терминал без пагинации
+    Route::get('/{terminal:uuid}/all', 'all')->whereUuid('terminal');
+
+    //вернуть транзакцию по uuid
+    Route::get('/{transaction:uuid}', 'show')->whereUuid('transaction');
+
+    //создать транзакцию
+    Route::post('/', 'create');
+
+    //создание payment
+    Route::post('/{transaction:uuid}/payment', 'payment')->whereUuid('transaction');
+
+    //вернуть payment по transaction
+    Route::get('/{transaction:uuid}/payment', 'payment_index')->whereUuid('transaction');
 
 });
 
 //работа с Payment
-Route::prefix('payment')->group(function () {
+Route::prefix('payment')->controller(PaymentController::class)->group(function () {
 
-    Route::get('/{payment:uuid}', PaymentGetController::class);
-    Route::post('/{transaction:uuid}/create', PaymentCreateController::class);
+    //получение всех payment по transaction
+    Route::get('/{transaction:uuid}', 'index')->whereUuid('payment');
+
+    //Получение конкретного payment по uuid
+    Route::get('/{payment:uuid}', 'show')->whereUuid('payment');
+
+    //создание payment
+    Route::post('/', 'create')->whereUuid('transaction');
 
 })->whereUuid('payment');
 

@@ -15,6 +15,7 @@ class TransactionRequest extends FormRequest
     {
         return [
             'amount' => ['required', 'numeric'],
+            'terminal_uuid' => ['required', 'uuid'],
         ];
     }
 }

@@ -11,7 +11,7 @@ use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Transaction extends Model implements Payable
 {
@@ -38,6 +38,8 @@ class Transaction extends Model implements Payable
 
     ];
 
+
+
     public function terminal(): BelongsTo
     {
         return $this->belongsTo(Terminal::class);
@@ -57,9 +59,9 @@ class Transaction extends Model implements Payable
         });
     }
 
-    public function Payment(): MorphOne
+    public function payment(): MorphMany
     {
-        return $this->morphOne(Payment::class, 'payabel');
+        return $this->morphMany(Payment::class, 'payable');
     }
 
     public function getPayableCurrencyId(): string

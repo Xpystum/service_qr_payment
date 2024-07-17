@@ -12,11 +12,9 @@ use App\Modules\Organization\Enums\TypeOrganizationEnum;
 use App\Modules\Organization\Models\Organization;
 use App\Modules\Organization\Repositories\OrganizationRepositories;
 use App\Modules\Organization\Requests\CreteOrganizationRequest;
-use App\Modules\Organization\Requests\DeletedOrganizationRequest;
 use App\Modules\Organization\Requests\UpdateOrganizationRequest;
 use App\Modules\Organization\Resources\OrganizationResource;
 use App\Modules\User\Models\User;
-use App\Traits\TraitAuthService;
 
 use function App\Helpers\array_error;
 use function App\Helpers\array_success;
@@ -38,11 +36,6 @@ class OrganizationController extends Controller
 
     public function show(Organization $organization)
     {
-        /**
-        * @var User
-        */
-        $user = isAuthorized($this->authService);
-
 
         return response()->json(array_success( $organization, 'Return organization'), 200);
     }
@@ -93,12 +86,16 @@ class OrganizationController extends Controller
         $organizationResource = new OrganizationResource($model);
 
         return $model?
-        response()->json(array_success( $organizationResource, 'Successfully create organization'), 200)
+        response()->json(array_success( $organizationResource, 'Successfully create organization'), 201)
             :
         response()->json(array_error(null, 'Failed create organization'), 404);
     }
 
-    public function updated(UpdateOrganizationRequest $request, UpdateOrganizationAction $updateOrganizationAction)
+    public function updated(
+        Organization $organization,
+        UpdateOrganizationRequest $request,
+        UpdateOrganizationAction $updateOrganizationAction
+    )
     {
         $validated = $request->validated();
 
@@ -110,7 +107,7 @@ class OrganizationController extends Controller
         $status = $updateOrganizationAction->run(
             new UpdateOrganizationDTO(
 
-                uuid: $validated['uuid'],
+                uuid: $organization->uuid,
 
                 owner_id: $user->id,
 
@@ -148,16 +145,15 @@ class OrganizationController extends Controller
         response()->json(array_success(null, 'Failed update organization'), 404);
     }
 
-    public function deleted(DeletedOrganizationRequest $request , DeletedOrganizationAction $deletedOrganizationAction)
+    public function deleted(Organization $organization , DeletedOrganizationAction $deletedOrganizationAction)
     {
-        $validated = $request->validated();
 
         /**
         * @var User
         */
         $user = isAuthorized($this->authService);
 
-        $status = $deletedOrganizationAction::run($validated['uuid'], $user->id);
+        $status = $deletedOrganizationAction::run($organization->uuid, $user->id);
 
         return $status?
         response()->json(array_success(null , 'Successfully deleted organization'), 200)

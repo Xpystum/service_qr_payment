@@ -18,7 +18,7 @@ class TransactionResource extends JsonResource
             "driver_currency_id" => $this->driver_currency_id,
             "amount" => (string) $this->amount,
             "uuid" => $this->uuid,
-            "status" => $this->status->value,
+            "status" => $this->status,
             "created_at" => $this->created_at,
         ];
     }
