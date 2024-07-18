@@ -6,6 +6,7 @@ namespace App\Modules\User\Models;
 use App\Modules\Base\Enums\ActiveStatusEnum;
 use App\Modules\Notification\Models\Notification;
 use App\Modules\Notification\Traits\HasUuid;
+use App\Modules\Payment\Models\DriverInfo;
 use App\Modules\Terminal\Models\Terminal;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use App\Modules\User\Enums\RoleUserEnum;
@@ -16,7 +17,7 @@ use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[ObservedBy([UserObserver::class])] // наблюдатель
+#[ObservedBy([UserObserver::class])] // наблюдатель p.s не акутально можно убрать (оставил для примера)
 class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable, HasUuid;
@@ -46,21 +47,11 @@ class User extends Authenticatable implements JWTSubject
         'id',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'auth' => 'boolean',
         'active' => 'boolean',
@@ -91,6 +82,11 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    public function driverinfo(): HasMany
+    {
+        return $this->hasMany(DriverInfo::class);
+    }
+
     public function terminal(): HasMany
     {
         return $this->hasMany(Terminal::class);
@@ -101,23 +97,15 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Notification::class);
     }
 
-    // public function lastNotify() : HasOne
-    // {
-    //     return $this->hasOne(Notification::class)->latestOfMany();
-    // }
 
     public function lastNotify() : HasMany
     {
-        // return $this->hasOne(Notification::class)->latestOfMany();
-        // return $this->hasOne(Notification::class)->latestOfMany();
         return $this->hasMany(Notification::class);
     }
-
 
     //возвращает последнию нотификацию (по значению нотификации и статусу)
     public function lastNotifyAndPending()
     {
-        // return $this->hasOne(Notification::class)->latestOfMany()->where('status', ActiveStatusEnum::pending);
         return $this->lastNotify()
             ->where('value', $this->value)
             ->where('status', ActiveStatusEnum::pending);
@@ -125,7 +113,6 @@ class User extends Authenticatable implements JWTSubject
 
     public function lastNotifyAndCompleted()
     {
-        // return $this->hasOne(Notification::class)->latestOfMany()->where('status', ActiveStatusEnum::pending);
         return $this->lastNotify()
             ->where('value', $this->value)
             ->where('status', ActiveStatusEnum::completed);

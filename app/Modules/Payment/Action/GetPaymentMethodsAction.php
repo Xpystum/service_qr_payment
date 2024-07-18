@@ -71,9 +71,8 @@ class GetPaymentMethodsAction{
          */
 
         $query = $this->query();
-
+        
         return $query->first();
-
     }
 
     public function get(): Collection|null

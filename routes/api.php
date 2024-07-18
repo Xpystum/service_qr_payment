@@ -144,17 +144,18 @@ Route::prefix('payment')->controller(PaymentController::class)->group(function (
     Route::get('/{payment:uuid}', 'show')->whereUuid('payment');
 
 
-})->whereUuid('payment');
+});
 
 //Работа с DriverInfo
 Route::prefix('driver-info')->controller(DriverInfoController::class)->group(function () {
 
+    //Получение всех значений у метода оплаты
+    Route::get('/{paymentMethod:id}', 'show');
+
     //Получение всех активных методов оплаты
-    Route::post('/', 'create');
+    Route::put('/save', 'save');
 
-
-
-})->whereUuid('payment');
+});
 
 
 Route::prefix('password')->group(function () {

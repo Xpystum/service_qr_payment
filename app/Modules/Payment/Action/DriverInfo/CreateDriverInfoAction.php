@@ -13,20 +13,29 @@ class CreateDriverInfoAction{
      *
      * @return [type]
      */
-    public function run(CreateDriverInfoDTO $data)
+    public function run(CreateDriverInfoDTO $data) : bool
     {
+        //критерии по обновлении если есть такая запись
+        $attributes = [
+            'owner_id' => $data->user->id,
+            'type_id' => $data->payment_method->id,
+            'parametr' => $data->parametr,
+        ];
+
+        //что обновить или создать
+        $values = [
+            'name_type' => $data->payment_method->driver,
+            'type_id' => $data->payment_method->id,
+            'parametr' => $data->parametr,
+            'owner_id' => $data->user->id,
+            'value' => $data->value,
+        ];
+
 
         $model = DriverInfo::query()
-            ->create([
-                'name_type' => $data->payment_method->driver,
-                'type_id' => $data->payment_method->id,
-                'parametr' => $data->parametr,
-                'owner_id' => $data->user->id,
-                'value' => $data->value,
-            ]);
+            ->updateOrCreate($attributes, $values );
 
-
-        return $model;
+        return (bool) $model;
     }
 
 }

@@ -4,7 +4,7 @@ namespace App\Modules\Payment\Repositories;
 
 use App\Modules\Base\Repositories\CoreRepository;
 use App\Modules\Payment\Models\PaymentMethod as Model;
-use Illuminate\Support\Collection;
+
 
 class PaymentMethodRepository extends CoreRepository
 {
