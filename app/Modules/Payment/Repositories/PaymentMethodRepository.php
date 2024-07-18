@@ -14,10 +14,10 @@ class PaymentMethodRepository extends CoreRepository
         return Model::class;
     }
 
-    public function getPaymentMethods() : ?Collection
+    public function getPaymentMethodsId(?int $id) : ?Model
     {
         $model = $this->query()
-                    ->where("uuid", $payment->uuid)
+                    ->where("id", $id)
                     ->first();
 
         return $model;

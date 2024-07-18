@@ -12,7 +12,7 @@ class PaymentMethod extends Model
 
     protected $fillable = [
 
-        'name', 'active',
+        'name', 'active', 'id',
 
         'driver', 'driver_currency_id'
 
@@ -27,4 +27,4 @@ class PaymentMethod extends Model
     ];
 
 
-}   
+}

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\DriverInfo\DriverInfoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Entry\LoginController;
 use App\Http\Controllers\Api\Entry\RegistrationController;
@@ -145,7 +146,15 @@ Route::prefix('payment')->controller(PaymentController::class)->group(function (
 
 })->whereUuid('payment');
 
+//Работа с DriverInfo
+Route::prefix('driver-info')->controller(DriverInfoController::class)->group(function () {
 
+    //Получение всех активных методов оплаты
+    Route::post('/', 'create');
+
+
+
+})->whereUuid('payment');
 
 
 Route::prefix('password')->group(function () {

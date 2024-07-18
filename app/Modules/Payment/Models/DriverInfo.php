@@ -10,6 +10,8 @@ class DriverInfo extends Model
 {
     use HasFactory, HasUuid;
 
+    protected $connection = 'driver_info';
+
 
     protected $fillable = [
 
