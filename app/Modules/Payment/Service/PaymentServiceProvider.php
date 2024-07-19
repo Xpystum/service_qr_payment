@@ -1,6 +1,7 @@
 <?php
 namespace App\Modules\Payment\Service;
 
+use App\Modules\Payment\Commands\AddYkassaComand;
 use App\Modules\Payment\Commands\InstallPaymentsCommand;
 use Illuminate\Support\ServiceProvider;
 
@@ -18,6 +19,7 @@ class PaymentServiceProvider extends ServiceProvider
 
             $this->commands([
                 InstallPaymentsCommand::class,
+                AddYkassaComand::class,
             ]);
 
         }

@@ -27,6 +27,4 @@ enum PaymentDriverEnum: string
         return $this->is(PaymentDriverEnum::test);
     }
 
-
-
 }

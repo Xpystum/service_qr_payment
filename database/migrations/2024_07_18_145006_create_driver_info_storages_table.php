@@ -12,8 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('driver_info_storages', function (Blueprint $table) {
+
             $table->id();
-            $table->timestamps();
+
+            $table->string('type_name', 100); //К какому пользователю указаны заданные параметры
+            $table->foreignId('type_id')->constrained('payment_methods'); //Привязка к таблице payment_methods
+
+            $table->string('parametr_name')->comment('Название параметра'); //название параметра к примеру у ЮМАНИ -> apikey1, apikey2
         });
     }
 

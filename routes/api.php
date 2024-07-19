@@ -149,11 +149,14 @@ Route::prefix('payment')->controller(PaymentController::class)->group(function (
 //Работа с DriverInfo
 Route::prefix('driver-info')->controller(DriverInfoController::class)->group(function () {
 
-    //Получение всех значений у метода оплаты
+    //Получение всех значений у метода оплаты по [user] [payment_method]
     Route::get('/{paymentMethod:id}', 'show');
 
-    //Получение всех активных методов оплаты
+    //Сохранения данных
     Route::put('/save', 'save');
+
+    //
+    Route::get('/storage', 'storage');
 
 });
 

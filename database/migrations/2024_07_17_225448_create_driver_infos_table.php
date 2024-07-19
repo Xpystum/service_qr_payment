@@ -17,11 +17,11 @@ return new class extends Migration
             $table->uuid('uuid')->unique();
 
             $table->string('name_type')->comment('Сделано для удобного получение имени Type: "Метода Оплаты" ');//нарушение нормального состояние (сделано для удобности получение имени типа метода оплаты payment_methods)
-            $table->foreignId('type_id')->nullable()->constrained('payment_methods');//Привязка к таблице payment_methods
+            $table->foreignId('type_id')->constrained('payment_methods');//Привязка к таблице payment_methods
 
             $table->string('parametr')->comment('название параметра к примеру ApiKey, Parament, password'); //название параметра к примеру ApiKey, Parament, password и т.д (у каждых платежек свои параметры)
 
-            $table->foreignId('owner_id')->nullable()->constrained('users'); //К какому пользователю указаны заданные параметры
+            $table->foreignId('owner_id')->constrained('users'); //К какому пользователю указаны заданные параметры
 
             $table->string('value')->comment('Значение параметров'); //Значение параметров
 

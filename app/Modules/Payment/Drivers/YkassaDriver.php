@@ -1,12 +1,7 @@
 <?php
+namespace App\Modules\Payment\Drivers;
 
-namespace App\Services\Payments\Drivers;
-
-use Illuminate\Contracts\View\View;
-use App\Services\Ykassa\YkassaService;
-use App\Services\Payments\Database\Models\Payment;
-use App\Services\Payments\Interface\PaymentDriverInterface;
-use App\Services\Ykassa\App\Actions\DTO\CreatePaymentData;
+use App\Modules\Payment\Interface\PaymentDriverInterface;
 
 class YkassaDriver implements PaymentDriverInterface
 {
@@ -18,7 +13,7 @@ class YkassaDriver implements PaymentDriverInterface
 
     public function view(Payment $payment): View
     {
-        
+
         $ykassaPayment = $this->ykassaService->createPayment(
             new CreatePaymentData(
                 value: $payment->driver_amount->value(),
@@ -37,7 +32,7 @@ class YkassaDriver implements PaymentDriverInterface
 
         $ykassaPaymentUrl = $ykassaPayment->url;
 
- 
+
         return view('payments::ykassa', compact('ykassaPaymentUrl'));
     }
 }

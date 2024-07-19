@@ -2,7 +2,7 @@
   'app' => 
   array (
     'name' => 'qr_payment',
-    'env' => 'production',
+    'env' => 'test',
     'debug' => true,
     'url' => 'http://localhost',
     'frontend_url' => 'http://localhost:3000',

@@ -5,16 +5,22 @@ namespace App\Http\Controllers\Api\DriverInfo;
 use App\Http\Controllers\Controller;
 use App\Modules\Payment\Action\DriverInfo\CreateDriverInfoAction;
 use App\Modules\Payment\DTO\DriverInfo\CreateDriverInfoDTO;
+use App\Modules\Payment\Enums\DriverInfo\DriverInfoStorageEnum;
+use App\Modules\Payment\Enums\PaymentDriverEnum;
+use App\Modules\Payment\Models\DriverInfoStorage;
 use App\Modules\Payment\Models\PaymentMethod;
 use App\Modules\Payment\Repositories\DriverInfoRepository;
+use App\Modules\Payment\Repositories\DriverInfoStorageRepository;
 use App\Modules\Payment\Requests\DriverInfoCreateRequest;
 use App\Modules\Payment\Resources\DriverInfoResource;
+use App\Modules\Payment\Resources\DriverInfoStorageResource;
 use App\Modules\Payment\Service\PaymentService;
 use App\Modules\User\Models\User;
 
 use function App\Helpers\array_success;
 use function App\Helpers\isAuthorized;
 
+#TODO Вынести DriverInfo в сервес payment
 class DriverInfoController extends Controller
 {
     public function save(
@@ -23,8 +29,11 @@ class DriverInfoController extends Controller
         PaymentService $paymentService
     ) {
 
-        $validated = $request->validated();
+        $model = DriverInfoStorage::first();
 
+        dd($model->parametr_name);
+
+        $validated = $request->validated();
 
         /**
         * @var User
@@ -69,4 +78,14 @@ class DriverInfoController extends Controller
 
         return response()->json(array_success(  DriverInfoResource::collection($array), 'Return all info driver by type'), 200);
     }
+
+    public function storage(DriverInfoStorageRepository $driverInfoRepository)
+    {
+        //получаем все параметры по активным/неактивным платежкам
+        $models = $driverInfoRepository->getStorageDriverInfo(true);
+
+        return response()->json(array_success(  DriverInfoStorageResource::make($models), 'Return all info driver by type'), 200);
+    }
+
+
 }
