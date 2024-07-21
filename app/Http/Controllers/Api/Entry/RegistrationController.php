@@ -7,11 +7,7 @@ use App\Modules\Notification\Services\NotificationService;
 use App\Modules\User\Actions\User\CreateUserAndPersonalArea;
 use App\Modules\User\Requests\Entry\RegistrationRequest;
 
-
 use App\Modules\User\DTO\CreatUserDTO;
-use App\Modules\User\Rules\EmailRule;
-use App\Modules\User\Rules\PhoneRule;
-use App\Traits\TraitAuthService;
 
 //для преобразование массива с сообщением
 use function App\Helpers\array_success;
@@ -22,7 +18,6 @@ class RegistrationController extends Controller
 
     public function store(RegistrationRequest $request, NotificationService $serviceNotificaion)
     {
-
         $validated = $request->validated();
         //выкидываем ошибку - если у нас прислали email и phone вместе
         abort_if( !isset($validated['email']) && !isset($validated['phone']) , 400, 'Only Email or Phone');

@@ -81,6 +81,22 @@ class DriverInfoController extends Controller
 
     public function storage(DriverInfoStorageRepository $driverInfoRepository)
     {
+
+        $mo = [
+
+            new class {
+                public $name = 'John';
+                public $age = 30;
+
+                public function introduce() {
+                    return "Hi, I'm $this->name and I'm $this->age years old.";
+                }
+            },
+        ];
+        dd(
+
+        )
+
         //получаем все параметры по активным/неактивным платежкам
         $models = $driverInfoRepository->getStorageDriverInfo(true);
 

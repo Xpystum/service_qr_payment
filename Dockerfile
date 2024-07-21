@@ -15,14 +15,6 @@ ENV XDEBUG_CONFIG=$XDEBUG_CONFIG
 ARG XDEBUG_VERSION=3.3.1
 ENV XDEBUG_VERSION=$XDEBUG_VERSION
 
-# Определим переменные окружения DataBase
-ENV DB_CONNECTION=pgsql
-ENV DB_HOST=db
-ENV DB_PORT=3306
-ENV DB_DATABASE=laravel
-ENV DB_USERNAME=root
-ENV DB_PASSWORD=root
-
 # check environment
 RUN if [ "$BUILD_ARGUMENT_ENV" = "default" ]; then echo "Set BUILD_ARGUMENT_ENV in docker build-args like --build-arg BUILD_ARGUMENT_ENV=dev" && exit 2; \
     elif [ "$BUILD_ARGUMENT_ENV" = "dev" ]; then echo "Building development environment."; \
@@ -34,35 +26,42 @@ RUN if [ "$BUILD_ARGUMENT_ENV" = "default" ]; then echo "Set BUILD_ARGUMENT_ENV 
 
 # install all the dependencies and enable PHP modules
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
-      procps \
-      nano \
-      git \
-      unzip \
-      libicu-dev \
-      zlib1g-dev \
-      libxml2 \
-      libxml2-dev \
-      libreadline-dev \
-      supervisor \
-      cron \
-      sudo \
-      libzip-dev \
-    && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
+        supervisor \
+        procps \
+        git \
+        unzip \
+        libicu-dev \
+        zlib1g-dev \
+        libxml2 \
+        libxml2-dev \
+        libreadline-dev \
+        supervisor \
+        cron \
+        sudo \
+        libzip-dev \
+        libpq-dev \
+        libhiredis-dev \
+        postgresql-client \
+        iputils-ping \
     && docker-php-ext-configure intl \
+    && pecl install redis \
+    && docker-php-ext-enable redis \
     && docker-php-ext-install \
-      pdo_mysql \
-      sockets \
-      intl \
-      opcache \
-      zip \
+        pdo_pgsql \
+        sockets \
+        intl \
+        opcache \
+        zip \
     && rm -rf /tmp/* \
-    && rm -rf /var/list/apt/* \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
 # отключить сайт по умолчанию и удалить все файлы по умолчанию внутри APP_HOME
 RUN a2dissite 000-default.conf
 RUN rm -r $APP_HOME
+
+# Копирование скрипта wait-for-it.sh в контейнер - скрипт нужен для того что бы сначал запустилось БД и только после него подали миграции
+# COPY wait-for-it.sh /usr/local/bin/wait-for-it
 
 # создать корень документа, исправить разрешения для пользователя www-data и сменить владельца на www-data
 RUN mkdir -p $APP_HOME/public && \
@@ -91,11 +90,15 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN chmod +x /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
+
 # add supervisor
-RUN mkdir -p /var/log/supervisor
-COPY --chown=root:root ./docker/general/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY --chown=root:crontab ./docker/general/cron /var/spool/cron/crontabs/root
-RUN chmod 0600 /var/spool/cron/crontabs/root
+# RUN mkdir -p /var/log/supervisor
+# COPY --chown=root:root ./docker/general/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# COPY --chown=root:crontab ./docker/general/cron /var/spool/cron/crontabs/root
+# RUN chmod 0600 /var/spool/cron/crontabs/root
+
+# Скопируйте конфиг Supervisor
+COPY ./docker/prod/laravel-worker.conf /etc/supervisor/conf.d/supervisor.conf
 
 # generate certificates
 # TODO: change it and make additional logic for production environment
@@ -111,26 +114,24 @@ COPY --chown=${USERNAME}:${USERNAME} . $APP_HOME/
 # COPY --chown=${USERNAME}:${USERNAME} .env.$ENV $APP_HOME/.env # поменял для теста тут
 COPY --chown=${USERNAME}:${USERNAME} .env.$ENV $APP_HOME/.env
 
-# устанавливаем все зависимости PHP
-# RUN if [ "$BUILD_ARGUMENT_ENV" = "dev" ] || [ "$BUILD_ARGUMENT_ENV" = "test" ]; then \
-#     COMPOSER_MEMORY_LIMIT=-1 composer install --optimize-autoloader --no-interaction --no-progress; \
-#     else \
-#     COMPOSER_MEMORY_LIMIT=-1 composer install --optimize-autoloader --no-interaction --no-progress --no-dev; \
-#     fi
-
 # Установите Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Обновите Composer до последней снимка версии
 RUN composer self-update
 
-# Копируем скрипт инициализации (проверки подключение к бд и запуск миграции)
-COPY docker/init.sh /usr/local/bin/init.sh
-RUN chmod +x /usr/local/bin/init.sh
-
 USER root
 
-EXPOSE 5000
+
+#копируем скрипты
+    #скрипт точки входа программы (запуск миграции, настройка приложения и т.д)
+COPY docker/prod/script/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY docker/prod/script/wait-for-it.sh /usr/local/bin/wait-for-it.sh
+
+# Задайте скрипт точки входа
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+EXPOSE 80
 
 #на таком порте работает
-#docker run -p 5000:80 my-php-app
+# docker run -p 5000:80 my-php-app
