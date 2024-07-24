@@ -51,6 +51,17 @@ services:
     networks:
       - default
 
+  supervisor:  # Добавление сервиса Supervisor
+    build:
+      context: .
+      dockerfile: Dockerfile  # Используем тот же Dockerfile, который уже настроен
+    volumes:
+      - ./app:/app
+    command: supervisord -c /etc/supervisor/conf.d/supervisord.conf  # Команда для запуска Supervisor
+    restart: unless-stopped
+    networks:
+      - default
+
 networks:
     default:
         driver: bridge

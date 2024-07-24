@@ -98,7 +98,7 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 # RUN chmod 0600 /var/spool/cron/crontabs/root
 
 # Скопируйте конфиг Supervisor
-COPY ./docker/prod/laravel-worker.conf /etc/supervisor/conf.d/supervisor.conf
+COPY docker/prod/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 
 # generate certificates
 # TODO: change it and make additional logic for production environment
@@ -111,7 +111,6 @@ USER ${USERNAME}
 
 # копируем исходные файлы и файл конфигурации
 COPY --chown=${USERNAME}:${USERNAME} . $APP_HOME/
-# COPY --chown=${USERNAME}:${USERNAME} .env.$ENV $APP_HOME/.env # поменял для теста тут
 COPY --chown=${USERNAME}:${USERNAME} .env.$ENV $APP_HOME/.env
 
 # Установите Composer
@@ -127,6 +126,9 @@ USER root
     #скрипт точки входа программы (запуск миграции, настройка приложения и т.д)
 COPY docker/prod/script/entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY docker/prod/script/wait-for-it.sh /usr/local/bin/wait-for-it.sh
+    #подготовка к запуску супервайзера
+COPY docker/prod/script/start_worker.sh /usr/local/bin/start_worker.sh
+
 
 # Задайте скрипт точки входа
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

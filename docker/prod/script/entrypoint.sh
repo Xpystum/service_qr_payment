@@ -9,12 +9,21 @@
 # Ожидание подключения к базе данных
 /usr/local/bin/wait-for-it.sh db:5432 --timeout=30
 
+# Запуск скрипта для подготовки супервайзера
+bash /usr/local/bin/start_worker.sh
+
+# Очистка кеша
 php artisan config:cache
 
 # Запуск миграций
 php artisan migrate --force
 
+# Установка приложения
 php artisan install:application
 
-# Запуск Apache
-exec apache2-foreground
+# Запуск Apache в фоновом режиме
+apache2-foreground &
+# Запуск supervisord
+exec /usr/bin/supervisord -n
+
+

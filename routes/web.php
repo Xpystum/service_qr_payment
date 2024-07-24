@@ -11,6 +11,5 @@ Route::get('/', function () {
 });
 
 
-// Route::get('/test', [TestController::class, 'index']);
 
 
