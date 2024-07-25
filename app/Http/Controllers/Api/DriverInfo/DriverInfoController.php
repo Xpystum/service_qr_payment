@@ -16,6 +16,7 @@ use App\Modules\Payment\Resources\DriverInfoResource;
 use App\Modules\Payment\Resources\DriverInfoStorageResource;
 use App\Modules\Payment\Service\PaymentService;
 use App\Modules\User\Models\User;
+use Illuminate\Http\Client\Request;
 
 use function App\Helpers\array_success;
 use function App\Helpers\isAuthorized;
@@ -81,22 +82,6 @@ class DriverInfoController extends Controller
 
     public function storage(DriverInfoStorageRepository $driverInfoRepository)
     {
-
-        $mo = [
-
-            new class {
-                public $name = 'John';
-                public $age = 30;
-
-                public function introduce() {
-                    return "Hi, I'm $this->name and I'm $this->age years old.";
-                }
-            },
-        ];
-        dd(
-
-        )
-
         //получаем все параметры по активным/неактивным платежкам
         $models = $driverInfoRepository->getStorageDriverInfo(true);
 

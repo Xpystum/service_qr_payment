@@ -36,6 +36,8 @@ class RegistrationController extends Controller
 
         );
 
+
+
         abort_unless( (bool) $user, 500, "Error server");
 
         $token = $this->authService->loginUser($user);
@@ -47,6 +49,7 @@ class RegistrationController extends Controller
             new PhoneOrEmailDTO($validated['email'] ?? null, $validated['phone'] ?? null),
             $user,
         );
+
 
         return response()->json(array_success($token , 'Successfully registration'), 200);
 

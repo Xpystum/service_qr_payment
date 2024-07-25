@@ -95,28 +95,42 @@ class GetMethodAction
 
     private function useCache()
     {
-        $key = 'notificationMethod';
 
-        if(!Cache::has($key))
-        {
-            Cache::remember($key, 3600, function ()  {
-                return $this->repository->getMethodsAll();
-            });
-        }
+        try {
 
-        if (Cache::has($key) && !Cache::get($key)->isEmpty()) {
-            return Cache::get($key);
-        } else {
+            $key = 'notificationMethod';
 
-            Cache::forget($key);
-            Cache::remember($key, 3600, function ()  {
-                return $this->repository->getMethodsAll();
-            });
+            if(!Cache::has($key))
+            {
 
-            Mylog('Ошибка при котором у нас не записываются данные в кеш и возвращается null');
+                Cache::remember($key, 3600, function ()  {
+                    return $this->repository->getMethodsAll();
+                });
+
+            }
+
+            if (Cache::has($key) && !Cache::get($key)->isEmpty()) {
+
+                return Cache::get($key);
+
+            } else {
+
+                Cache::forget($key);
+                Cache::remember($key, 3600, function ()  {
+                    return $this->repository->getMethodsAll();
+                });
+
+                Mylog('Ошибка при котором у нас не записываются данные в кеш и возвращается null');
+                throw new \Exception('Ошибка в записи в кеш и получения данных из кеша.', 500);
+
+            }
+
+        } catch (\Throwable $th) {
+
             throw new \Exception('Ошибка в записи в кеш и получения данных из кеша.', 500);
 
         }
+
 
     }
 

@@ -84,6 +84,7 @@ class SendNotificationAction
         */
 
 
+
         if($this->notifyService->driverNotNull())
         {
             $driver = $this->notifyService->getDriver();
@@ -93,6 +94,7 @@ class SendNotificationAction
 
 
         $context = new DriverContextStrategy($driver);
+
         $context->send($this->dto);
 
         return true;

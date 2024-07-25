@@ -22,6 +22,7 @@ class SelectSendNotificationAction
     public function run(PhoneOrEmailDTO $dto, User $user)
     {
 
+
         if($dto->type){
 
             $stringData = $dto->type->value;
@@ -59,12 +60,15 @@ class SelectSendNotificationAction
 
             case 'email':
             {
+
                 $dtoFriver = new SmtpDTO($user);
+
                 $this->notifyService
                     ->sendNotification()
                     ->typeDriver('smtp')
                     ->dto($dtoFriver)
                     ->run();
+
                 break;
             }
 
