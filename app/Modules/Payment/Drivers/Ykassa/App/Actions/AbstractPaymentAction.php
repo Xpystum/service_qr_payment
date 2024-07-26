@@ -18,7 +18,7 @@ abstract class AbstractPaymentAction
         $this->ykassa = $ykassa;
         $this->clientSDK = $ykassa->getClientSdk();
     }
-
+    
     public static function make(YkassaService $ykassa): static
     {
         return new static($ykassa);

@@ -29,7 +29,7 @@ class YkassaService
 
     public function createPayment(CreatePaymentData $data): PaymentEntity
     {
-
+        //make используется что бы не создавать тут через new
         return CreatePaymentAction::make($this)->run($data);
     }
 
