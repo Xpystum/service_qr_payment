@@ -1,32 +1,25 @@
 <?php
 namespace App\Modules\Payment\Drivers\Ykassa;
 
-
+use App\Modules\Payment\Drivers\Ykassa\App\Actions\CancelPaymentAction;
+use App\Modules\Payment\Drivers\Ykassa\App\Actions\CheckCallbackAction;
+use App\Modules\Payment\Drivers\Ykassa\App\Actions\CreatePaymentAction;
+use App\Modules\Payment\Drivers\Ykassa\App\Actions\DTO\CreatePaymentData;
+use App\Modules\Payment\Drivers\Ykassa\App\Actions\DTO\Entity\PaymentEntity;
+use App\Modules\Payment\Drivers\Ykassa\App\Actions\GetPaymentAction;
+use App\Modules\User\Models\User;
 use YooKassa\Client;
-use App\Services\Ykassa\App\Actions\GetPaymentAction;
-use App\Services\Ykassa\App\Actions\CancelPaymentAction;
-use App\Services\Ykassa\App\Actions\CheckCallbackAction;
-use App\Services\Ykassa\App\Actions\CreatePaymentAction;
-use App\Services\Ykassa\App\Actions\DTO\CreatePaymentData;
-use App\Services\Ykassa\App\Actions\DTO\Entity\PaymentEntity;
+
 
 class YkassaService
 {
+    private Client|null $clientSDK = null; //Делать ли это singleton?
+    private YkassaConfig $config;
 
-    private Client|null $clientSDK = null;
-
-    public function __construct(
-
-        public YkassaConfig $config
-
-    ) {
-
+    public function __construct(User $user) {
         //создаём экземпляр класса SKD Ykassa
-        $this->clientSDK = new Client();
-
-        //Устанавливаем нашу авторизацию по config
-        $this->clientSDK->setAuth($this->config->shopId, $this->config->key);
-
+        $this->clientSDK = app(Client::class);
+        $this->config = new YkassaConfig($user);
     }
 
     public function getClientSdk() : Client

@@ -1,10 +1,9 @@
 <?php
 namespace App\Modules\Payment\Drivers\Ykassa\App\Actions;
 
-
+use App\Modules\Payment\Drivers\Ykassa\App\Exceptions\YkassaExceptions;
+use App\Modules\Payment\Drivers\Ykassa\YkassaService;
 use YooKassa\Client;
-use App\Services\Ykassa\YkassaService;
-use App\Services\Ykassa\App\Exceptions\YkassaExceptions;
 
 abstract class AbstractPaymentAction
 {

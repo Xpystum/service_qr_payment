@@ -127,7 +127,7 @@ class GetMethodAction
 
         } catch (\Throwable $th) {
 
-            throw new \Exception('Ошибка в записи в кеш и получения данных из кеша.', 500);
+            throw new \Exception('Ошибка в записи в кеш и получения данных из кеша. p.s - пользователь создался (без отправки кода)', 500);
 
         }
 

@@ -69,8 +69,8 @@ class TransactionController extends Controller
 
 
     public function payment(
-        Transaction $transaction,
         PaymentMethodRequest $request,
+        Transaction $transaction,
         PaymentService $paymentService
     ) {
 

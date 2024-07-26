@@ -38,7 +38,7 @@ class InstallAplicationCommand extends Command
             $this->call('payments:install');
 
             // установка конфигурационных данных юкассы (добавление в бд)
-            $this->call('payments:install');
+            $this->call('add:ykassa');
         }
 
         $this->info('Приложения успешно установлено!');

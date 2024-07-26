@@ -3,6 +3,7 @@
 namespace App\Modules\Payment\Repositories;
 
 use App\Modules\Base\Repositories\CoreRepository;
+use App\Modules\Payment\Enums\PaymentDriverEnum;
 use App\Modules\Payment\Models\DriverInfo as Model;
 use Illuminate\Support\Collection;
 
@@ -25,6 +26,17 @@ class DriverInfoRepository extends CoreRepository
         $model = $this->query()
                     ->where("type_id", $type_id)
                     ->where('owner_id', $user_id)
+                    ->get();
+
+        return $model;
+    }
+
+    public function getAllDriverInfoByType(PaymentDriverEnum $type, int $user_id) : ?Collection
+    {
+        $model = $this->query()
+                    ->where("name_type", $type)
+                    ->where('owner_id', $user_id)
+                    // ->select('parametr', 'value')
                     ->get();
 
         return $model;

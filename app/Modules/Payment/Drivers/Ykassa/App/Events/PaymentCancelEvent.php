@@ -2,8 +2,7 @@
 
 namespace App\Modules\Payment\Drivers\Ykassa\App\Events;
 
-
-use App\Services\Ykassa\App\Events\DTO\PaymentCancelData;
+use App\Modules\Payment\Drivers\Ykassa\App\Events\DTO\PaymentCancelData;
 
 class PaymentCancelEvent
 {

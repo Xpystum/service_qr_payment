@@ -22,6 +22,8 @@ class CreateDriverInfoAction{
             'parametr' => $data->parametr,
         ];
 
+        #TODO Здесь нужна проверка относительно driver_info_storage - есть ли такой параметр для такого типа
+
         //что обновить или создать
         $values = [
             'name_type' => $data->payment_method->driver,

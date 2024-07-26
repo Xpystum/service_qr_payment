@@ -1,11 +1,8 @@
 <?php
 namespace App\Modules\Payment\Drivers\Ykassa\App\Actions;
 
-
-use App\Services\Ykassa\Database\Enums\PaymentStatusEnum;
-use App\Services\Ykassa\App\Actions\AbstractPaymentAction;
-use App\Services\Ykassa\App\Actions\DTO\Entity\PaymentEntity;
-
+use App\Modules\Payment\Drivers\Ykassa\App\Actions\DTO\Entity\PaymentEntity;
+use App\Modules\Payment\Drivers\Ykassa\Database\Enums\PaymentStatusEnum;
 use YooKassa\Model\Notification\NotificationEventType;
 use YooKassa\Model\Notification\NotificationFactory;
 

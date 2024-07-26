@@ -1,15 +1,12 @@
 <?php
 namespace App\Modules\Payment\Drivers\Ykassa\App\Actions;
 
-
-use App\Services\Ykassa\Database\Enums\PaymentStatusEnum;
-use App\Services\Ykassa\App\Actions\AbstractPaymentAction;
-use App\Services\Ykassa\App\Actions\DTO\CreatePaymentData;
-use App\Services\Ykassa\App\Actions\DTO\Entity\PaymentEntity;
+use App\Modules\Payment\Drivers\Ykassa\App\Actions\DTO\CreatePaymentData;
+use App\Modules\Payment\Drivers\Ykassa\App\Actions\DTO\Entity\PaymentEntity;
+use App\Modules\Payment\Drivers\Ykassa\Database\Enums\PaymentStatusEnum;
 
 class CreatePaymentAction extends AbstractPaymentAction
 {
-
 
     public function run(CreatePaymentData $data): PaymentEntity
     {

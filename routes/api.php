@@ -143,20 +143,24 @@ Route::prefix('payment')->controller(PaymentController::class)->group(function (
     //Получение конкретного payment по uuid
     Route::get('/{payment:uuid}', 'show')->whereUuid('payment');
 
+    //Получение конкретного payment по uuid
+    Route::get('/{payment:uuid}/process', 'process')->whereUuid('payment');
 
 });
 
 //Работа с DriverInfo
 Route::prefix('driver-info')->controller(DriverInfoController::class)->group(function () {
 
-    //получение списков параметров всех платежек
+    //получение списков параметров всех платежек (этот роут должен находиться выше роута с paymentMethod)
     Route::get('/storage', 'storage');
-
-    //Получение всех значений у метода оплаты по [user] [payment_method]
-    Route::get('/{paymentMethod:id}', 'show');
 
     //Сохранения данных
     Route::put('/save', 'save');
+
+    // Получение всех значений у метода оплаты по [user] [payment_method]
+    Route::get('/{paymentMethod:id}/show', 'show');
+
+
 
 });
 

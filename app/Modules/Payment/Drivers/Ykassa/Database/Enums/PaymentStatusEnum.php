@@ -1,6 +1,6 @@
 <?php
-namespace App\Modules\Payment\Drivers\Ykassa\Database\Enums;
 
+namespace App\Modules\Payment\Drivers\Ykassa\Database\Enums;
 
 enum PaymentStatusEnum: string
 {

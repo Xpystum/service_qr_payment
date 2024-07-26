@@ -14,8 +14,7 @@ use function App\Helpers\array_success;
 
 class AuthController extends Controller
 {
-
-
+    use TraitAuthService;
     /**
      * Возвращать jwt токен если мы нашли юзера.
      *

@@ -2,7 +2,6 @@
 
 namespace App\Modules\Payment\Drivers\Ykassa\App\Actions\DTO;
 
-
 class CreatePaymentData
 {
 

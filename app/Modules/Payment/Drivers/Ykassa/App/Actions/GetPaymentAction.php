@@ -2,6 +2,9 @@
 
 namespace App\Modules\Payment\Drivers\Ykassa\App\Actions;
 
+use App\Modules\Payment\Drivers\Ykassa\App\Actions\DTO\Entity\PaymentEntity;
+use App\Modules\Payment\Drivers\Ykassa\Database\Enums\PaymentStatusEnum;
+
 class GetPaymentAction extends AbstractPaymentAction
 {
 

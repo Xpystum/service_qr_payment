@@ -1,11 +1,10 @@
 <?php
 namespace App\Modules\Payment\Drivers\Ykassa\App\Listeners;
 
-
+use App\Modules\Payment\Drivers\Ykassa\App\Events\PaymentCancelEvent;
+use App\Modules\Payment\Drivers\Ykassa\YkassaService;
 use Exception;
-use App\Services\Ykassa\YkassaService;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Services\Ykassa\App\Events\PaymentCancelEvent;
 
 class CancelPaymentListener implements ShouldQueue
 {

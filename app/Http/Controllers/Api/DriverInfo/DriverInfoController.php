@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Api\DriverInfo;
 use App\Http\Controllers\Controller;
 use App\Modules\Payment\Action\DriverInfo\CreateDriverInfoAction;
 use App\Modules\Payment\DTO\DriverInfo\CreateDriverInfoDTO;
-use App\Modules\Payment\Enums\DriverInfo\DriverInfoStorageEnum;
-use App\Modules\Payment\Enums\PaymentDriverEnum;
 use App\Modules\Payment\Models\DriverInfoStorage;
 use App\Modules\Payment\Models\PaymentMethod;
 use App\Modules\Payment\Repositories\DriverInfoRepository;
@@ -16,7 +14,6 @@ use App\Modules\Payment\Resources\DriverInfoResource;
 use App\Modules\Payment\Resources\DriverInfoStorageResource;
 use App\Modules\Payment\Service\PaymentService;
 use App\Modules\User\Models\User;
-use Illuminate\Http\Client\Request;
 
 use function App\Helpers\array_success;
 use function App\Helpers\isAuthorized;
@@ -24,16 +21,13 @@ use function App\Helpers\isAuthorized;
 #TODO Вынести DriverInfo в сервес payment
 class DriverInfoController extends Controller
 {
+    #TODO Логика добавление параметров платежки к user сделано через добавение только 1 параметра, нужно продумать массивом
     public function save(
         DriverInfoCreateRequest $request,
         CreateDriverInfoAction $actionDriverInfo,
         PaymentService $paymentService
     ) {
-
-        $model = DriverInfoStorage::first();
-
-        dd($model->parametr_name);
-
+        
         $validated = $request->validated();
 
         /**

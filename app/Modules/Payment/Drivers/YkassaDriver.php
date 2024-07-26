@@ -1,6 +1,7 @@
 <?php
 namespace App\Modules\Payment\Drivers;
 
+use App\Modules\Payment\Drivers\Ykassa\YkassaService;
 use App\Modules\Payment\Interface\PaymentDriverInterface;
 
 class YkassaDriver implements PaymentDriverInterface
