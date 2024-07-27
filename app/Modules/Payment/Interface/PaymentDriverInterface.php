@@ -8,6 +8,6 @@ use Illuminate\Contracts\View\View;
 interface PaymentDriverInterface
 {
 
-    public function view(Payment $payment): View;
+    public function view(Payment $payment);
 
 }
