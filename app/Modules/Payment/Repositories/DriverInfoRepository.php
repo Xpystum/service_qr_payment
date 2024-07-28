@@ -36,7 +36,6 @@ class DriverInfoRepository extends CoreRepository
         $model = $this->query()
                     ->where("name_type", $type)
                     ->where('owner_id', $user_id)
-                    // ->select('parametr', 'value')
                     ->get();
 
         return $model;

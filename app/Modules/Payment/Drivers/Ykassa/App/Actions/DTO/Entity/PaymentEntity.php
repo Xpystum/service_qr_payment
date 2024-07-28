@@ -19,21 +19,8 @@ class PaymentEntity
 
         public ?string $url,
 
-        public string $order_uuid,
+        public string $payable_uuid,
 
-        // public string $confirmation_url,
-
-        // public string $currency,
-
-        // public string $acount_id,
-
-        // public string $gateway_id,
-
-        // public string $created_at,
-
-        // public bool $paid,
-
-        // public bool $refundable,
 
     ) { }
 }

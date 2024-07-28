@@ -2,13 +2,15 @@
 namespace App\Modules\Payment\Drivers\Ykassa\App\Actions;
 
 use App\Modules\Payment\Drivers\Ykassa\App\Actions\DTO\CreatePaymentData;
+use App\Modules\Payment\Drivers\Ykassa\App\Actions\DTO\CreatePaymentSpbData;
 use App\Modules\Payment\Drivers\Ykassa\App\Actions\DTO\Entity\PaymentEntity;
 use App\Modules\Payment\Drivers\Ykassa\Database\Enums\PaymentStatusEnum;
+use App\Modules\Payment\Interface\Payable;
 
-class CreatePaymentAction extends AbstractPaymentAction
+class CreatePaymentSpbAction extends AbstractPaymentAction
 {
 
-    public function run(CreatePaymentData $data): PaymentEntity
+    public function run(CreatePaymentSpbData $data): PaymentEntity
     {
 
         try {
@@ -22,17 +24,20 @@ class CreatePaymentAction extends AbstractPaymentAction
                         'currency' => $data->currency,
                     ),
 
-
+                    'payment_method_data' => array(
+                        'type' => 'sbp',
+                    ),
                     'confirmation' => array(
-                        'type' => 'redirect',
-                        'return_url' => $data->returnUrl,
+                        'type' => 'qr',
                     ),
 
                     'metadata' => array(
-                        'order_id' => $data->idempotenceKey
+                        'payable_uuid' => $data->idempotenceKey,
+                        'payable_type' => $data->payable_name,
                     ),
 
-                    'capture' => $data->capture,
+                    'capture' => true, // по документации при получении spb
+
                     'description' => $data->description,
 
                 ),
@@ -40,11 +45,13 @@ class CreatePaymentAction extends AbstractPaymentAction
                 $data->idempotenceKey
             );
 
+
         } catch (\Throwable $error) {
 
             $this->error($error);
 
         }
+
 
         return new PaymentEntity(
 
@@ -58,7 +65,7 @@ class CreatePaymentAction extends AbstractPaymentAction
 
             url: $response->getConfirmation()->getConfirmationUrl(),
 
-            payable_uuid: $response->getMetadata()->order_id
+            payable_uuid: $response->getMetadata()->payable_uuid
 
         );
 

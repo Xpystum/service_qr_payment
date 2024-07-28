@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Middleware;
-
+namespace App\Http\Middleware\User;
 use App\Modules\User\Models\User;
 use App\Traits\TraitAuthService;
-use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Gate;
 
+use Closure;
 use function App\Helpers\isAuthorized;
 
-class TerminalMiddleware
+class AdminMiddleware
 {
 
     use TraitAuthService;
+
 
     public function handle(Request $request, Closure $next): Response
     {

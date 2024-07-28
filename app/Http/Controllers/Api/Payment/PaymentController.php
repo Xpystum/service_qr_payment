@@ -3,24 +3,24 @@
 namespace App\Http\Controllers\Api\Payment;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Payment\Drivers\Ykassa\YkassaConfig;
 use App\Modules\Payment\Models\Payment;
 use App\Modules\Payment\Resources\PaymentResource;
 use App\Modules\Payment\Service\PaymentService;
 use App\Modules\User\Models\User;
 use App\Services\Auth\AuthService;
 
-use function App\Helpers\array_error;
 use function App\Helpers\array_success;
 use function App\Helpers\isAuthorized;
 
 class PaymentController extends Controller
 {
-    private PaymentService $paymentService;
-
-    public function boot() {
-        $this->paymentService = app(PaymentService::class); // Получаем экземпляр сервиса
+    public PaymentService $paymentService;
+    public function __construct(AuthService $authService, PaymentService $paymentService)
+    {
+        $this->authService = $authService;
+        $this->paymentService = $paymentService;
     }
+
 
     public function checkout()
     {
@@ -41,14 +41,21 @@ class PaymentController extends Controller
 
     public function process(Payment $payment)
     {
-        // $driver = $this->paymentService->getDriver($payment->driver);
 
         /**
         * @var User
         */
         $user = isAuthorized($this->authService);
 
-        new YkassaConfig($user);
+
+        //если вдруг у пользователя не выбрал метод оплаты и он попал на эту страницу
+        abort_unless($payment->method_id, 404);
+
+        //получаем наш драйвер из сервеса
+        $driver = $this->paymentService->getDriver($payment->driver);
+
+        // //возваращем страничку нашего драйвера
+        $driver->view($payment);
 
     }
 

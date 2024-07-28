@@ -55,10 +55,4 @@ class PaymentService
         return app(CancelPaymentAction::class);
     }
 
-
-
-
-
-
-
 }

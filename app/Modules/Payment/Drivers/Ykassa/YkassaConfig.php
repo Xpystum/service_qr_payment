@@ -6,6 +6,7 @@ use App\Modules\Payment\Enums\DriverInfo\DriverInfoParametrEnum;
 use App\Modules\Payment\Enums\PaymentDriverEnum;
 use App\Modules\Payment\Repositories\DriverInfoRepository;
 use App\Modules\User\Models\User;
+use App\Services\Auth\AuthService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
@@ -15,19 +16,38 @@ class YkassaConfig
 {
     private ?string $key = null;
     private ?string $shopId = null;
+    private ?User $user;
     public function __construct(
 
-        private User $user,
+        private AuthService $authService, //получаем сервес auth что бы получить user (либо нам придётся его большой цепочкой перекидывать)
 
     ) {
 
+        $this->user = $authService->getUserAuth();
+
         //делаем уникальный ключ кеша для каждого user
-        $key = 'parametrPaymentYkassa_' . $user->id;
+        $key = 'parametrPaymentYkassa_' . $this->user->id;
 
         //используем кеш, в последующих запросов
         $this->cache($key);
 
-        dd(Cache::get($key));
+    }
+
+    public function getKey() : string
+    {
+        return $this->key;
+    }
+
+    public function getShopId() : string
+    {
+        if(is_numeric($this->shopId))
+        {
+            return $this->shopId;
+        } else {
+
+            Mylog('Ошибка в YkassaConfig, связанная с ShopId - не может перобрезоваться из строки в число.');
+            throw new YkassaConfigExceptions('Не правильный параметр, ShopId должен состоять из цифр.', 500);
+        }
     }
 
     private function cache(string $key)
@@ -39,7 +59,7 @@ class YkassaConfig
                 Cache::remember($key, 3600, function () {
                     return $this->getArrayParametr();
                 });
-                
+
             }
 
             if (Cache::has($key) && !Cache::get($key)->isEmpty()) {
@@ -54,15 +74,19 @@ class YkassaConfig
         } catch (\Throwable $th) {
 
             Mylog('Ошибка в YkassaConfig, связанная с кешем.');
-            throw new \Exception('Ошибка в записи в кеш и получения данных из кеша.', 500);
+            throw new YkassaConfigExceptions('Ошибка в записи в кеш и получения данных из кеша.', 500);
 
         }
+
+
+
     }
 
     private function getArrayParametr() : Collection
     {
         //получаемм значения из бд устанавливаем свойствам класса значения параметров платежной системы
         $this->setParamByDbCollection();
+
         //собираем массив из значений у нашего config
         $array = [
             'key' => $this->key ?? throw new YkassaConfigExceptions('Ошибка параметров платежной системы, у пользователя не задан {Key} - Ykassa', 500),
@@ -74,8 +98,10 @@ class YkassaConfig
 
     private function setParamByDbCollection()
     {
+
         $driverInfoRepository = app(DriverInfoRepository::class);
         $modelArray = $driverInfoRepository->getAllDriverInfoByType(PaymentDriverEnum::ykassa, $this->user->id);
+
 
         foreach ($modelArray as $model) {
 
@@ -98,5 +124,7 @@ class YkassaConfig
         }
 
     }
+
+
 
 }

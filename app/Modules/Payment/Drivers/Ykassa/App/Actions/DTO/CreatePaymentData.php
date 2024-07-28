@@ -15,12 +15,9 @@ class CreatePaymentData
 
         public string $idempotenceKey, // orderUuid?
 
-        public string $returnUrl,
-
-        // public string $faileUrl,
+        public string $returnUrl = null,
 
         public string $description = '',
-
 
     ) { }
 

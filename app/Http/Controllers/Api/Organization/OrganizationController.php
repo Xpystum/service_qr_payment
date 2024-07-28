@@ -22,6 +22,12 @@ use function App\Helpers\isAuthorized;
 class OrganizationController extends Controller
 {
 
+    /**
+     * Вернуть все организации которые принадлежат user:admin
+     * @param OrganizationRepositories $organizationRepositories
+     *
+     * @return [type]
+     */
     public function index(OrganizationRepositories $organizationRepositories)
     {
         /**

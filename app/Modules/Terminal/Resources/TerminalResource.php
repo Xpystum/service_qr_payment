@@ -18,7 +18,7 @@ class TerminalResource extends JsonResource
         return [
             'name' => $this->name,
             "uuid" => $this->uuid,
-            'organization' => OrganizationResource::make($this->organization),
+            'organization_uuid' => $this->organization->uuid,
         ];
     }
 }

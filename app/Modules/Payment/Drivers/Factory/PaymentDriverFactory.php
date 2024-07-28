@@ -3,9 +3,9 @@
 namespace App\Modules\Payment\Drivers\Factory;
 
 use App\Modules\Payment\Drivers\TestPaymentDriver;
+use App\Modules\Payment\Drivers\YkassaDriver;
 use App\Modules\Payment\Enums\PaymentDriverEnum;
 use App\Modules\Payment\Interface\PaymentDriverInterface;
-use App\Services\Payments\Drivers\YkassaDriver;
 
 class PaymentDriverFactory
 {
@@ -19,7 +19,7 @@ class PaymentDriverFactory
 
             default => throw new \InvalidArgumentException(
 
-                "Драйвер [{$driver}] не поддерживается"
+                "Драйвер [{$driver->value}] не поддерживается"
 
             )
 

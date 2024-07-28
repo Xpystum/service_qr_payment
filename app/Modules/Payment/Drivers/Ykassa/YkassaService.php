@@ -4,23 +4,30 @@ namespace App\Modules\Payment\Drivers\Ykassa;
 use App\Modules\Payment\Drivers\Ykassa\App\Actions\CancelPaymentAction;
 use App\Modules\Payment\Drivers\Ykassa\App\Actions\CheckCallbackAction;
 use App\Modules\Payment\Drivers\Ykassa\App\Actions\CreatePaymentAction;
+use App\Modules\Payment\Drivers\Ykassa\App\Actions\CreatePaymentSpbAction;
 use App\Modules\Payment\Drivers\Ykassa\App\Actions\DTO\CreatePaymentData;
+use App\Modules\Payment\Drivers\Ykassa\App\Actions\DTO\CreatePaymentSpbData;
 use App\Modules\Payment\Drivers\Ykassa\App\Actions\DTO\Entity\PaymentEntity;
 use App\Modules\Payment\Drivers\Ykassa\App\Actions\GetPaymentAction;
 use App\Modules\User\Models\User;
 use YooKassa\Client;
-
 
 class YkassaService
 {
     private Client|null $clientSDK = null; //Делать ли это singleton?
     private YkassaConfig $config;
 
-    public function __construct(User $user) {
+    public function __construct(Client $clientSDK, YkassaConfig $config) {
         //создаём экземпляр класса SKD Ykassa
-        $this->clientSDK = app(Client::class);
-        $this->config = new YkassaConfig($user);
+        $this->clientSDK = $clientSDK;
+
+        $this->config = $config;
+
+
+        //Устанавливаем нашу авторизацию по config
+        $this->clientSDK->setAuth($this->config->getShopId(), $this->config->getKey());
     }
+
 
     public function getClientSdk() : Client
     {
@@ -31,6 +38,12 @@ class YkassaService
     {
         //make используется что бы не создавать тут через new
         return CreatePaymentAction::make($this)->run($data);
+    }
+
+    public function createPaymentSpb(CreatePaymentSpbData $data): PaymentEntity
+    {
+        //make используется что бы не создавать тут через new
+        return CreatePaymentSpbAction::make($this)->run($data);
     }
 
     public function FindPayment(string $paymentId) : PaymentEntity

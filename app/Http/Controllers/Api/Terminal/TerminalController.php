@@ -14,6 +14,7 @@ use App\Modules\Terminal\Requests\TerminalRequest;
 use App\Modules\Terminal\Requests\TerminalUpdateRequest;
 use App\Modules\Terminal\Resources\TerminalResource;
 use App\Modules\User\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 use function App\Helpers\array_error;
 use function App\Helpers\array_success;
@@ -21,6 +22,7 @@ use function App\Helpers\isAuthorized;
 
 class TerminalController extends Controller
 {
+    use AuthorizesRequests;
 
     /**
     *  Вернуть все терминалы относящиеся к organization
