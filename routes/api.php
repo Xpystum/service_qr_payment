@@ -10,10 +10,6 @@ use App\Http\Controllers\Api\Organization\OrganizationController;
 use App\Http\Controllers\Api\Payment\PaymentController;
 use App\Http\Controllers\Api\Terminal\TerminalController;
 use App\Http\Controllers\Api\Transaction\TransactionController;
-use App\Http\Controllers\Api\User\Create\UserCreateController;
-use App\Http\Controllers\Api\User\Deleted\DeletedUserController;
-use App\Http\Controllers\Api\User\Edit\EditUserController;
-use App\Http\Controllers\Api\User\Get\UserGetController;
 use App\Http\Controllers\Api\User\Password\PassworController;
 use App\Http\Controllers\Api\User\UserController;
 
@@ -36,9 +32,6 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
     });
 
 });
-
-
-
 
 
 Route::group( ['middleware' => ['auth:api']], function (){
@@ -67,10 +60,10 @@ Route::group( ['middleware' => ['auth:api']], function (){
     });
 
     //работа с organization
-    Route::prefix('organization')->controller(OrganizationController::class)->group(function () {
+    Route::prefix('organization')->controller(OrganizationController::class)->middleware(['admin_user'])->group(function () {
 
         //вернуть все организации User
-        Route::get('/', 'index')->middleware(['admin_user']);
+        Route::get('/', 'index');
 
         //вернуть организацию по uuid
         Route::get('/{organization:uuid}', 'show')->whereUuid('organization');
@@ -107,7 +100,7 @@ Route::group( ['middleware' => ['auth:api']], function (){
     });
 
     //работа с Transaction
-    Route::prefix('transaction')->controller(TransactionController::class)->group(function () {
+    Route::prefix('transaction')->controller(TransactionController::class)->middleware(['admin/manager_user'])->group(function () {
 
         //вернуть транзакции пагинацией по терминалу
         Route::get('/{terminal:uuid}/pagination', 'index')->whereUuid('terminal');
@@ -144,18 +137,16 @@ Route::group( ['middleware' => ['auth:api']], function (){
     });
 
     //Работа с DriverInfo
-    Route::prefix('driver-info')->controller(DriverInfoController::class)->group(function () {
+    Route::prefix('driver-info')->middleware(['admin_user'])->controller(DriverInfoController::class)->group(function () {
 
         //получение списков параметров всех платежек (этот роут должен находиться выше роута с paymentMethod)
         Route::get('/storage', 'storage');
 
         //Сохранения данных
-        Route::put('/save', 'save');
+        Route::put('/save', 'save')->middleware();
 
         // Получение всех значений у метода оплаты по [user] [payment_method]
         Route::get('/{paymentMethod:id}/show', 'show');
-
-
 
     });
 
