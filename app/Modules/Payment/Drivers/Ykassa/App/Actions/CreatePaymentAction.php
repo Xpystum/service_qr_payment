@@ -46,7 +46,8 @@ class CreatePaymentAction extends AbstractPaymentAction
 
         }
 
-        return new PaymentEntity(
+
+        $entity =  new PaymentEntity(
 
             id: $response->getId(),
 
@@ -62,6 +63,8 @@ class CreatePaymentAction extends AbstractPaymentAction
 
         );
 
+        dd($entity);
+        return $entity;
     }
 
 }

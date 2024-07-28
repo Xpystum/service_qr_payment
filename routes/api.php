@@ -126,7 +126,7 @@ Route::group( ['middleware' => ['auth:api']], function (){
     Route::prefix('payment')->controller(PaymentController::class)->group(function () {
 
         //Получение всех активных методов оплаты
-        Route::get('/', 'checkout')->whereUuid('payment');
+        Route::get('/', 'checkout')->whereUuid('payment')->name('payment.checkout');
 
         //Получение конкретного payment по uuid
         Route::get('/{payment:uuid}', 'show')->whereUuid('payment');

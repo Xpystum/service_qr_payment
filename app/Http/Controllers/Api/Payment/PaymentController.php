@@ -54,7 +54,7 @@ class PaymentController extends Controller
         //получаем наш драйвер из сервеса
         $driver = $this->paymentService->getDriver($payment->driver);
 
-        // //возваращем страничку нашего драйвера
+        //запускаем работу нашего драйвера
         $driver->view($payment);
 
     }
