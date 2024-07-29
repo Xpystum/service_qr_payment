@@ -19,7 +19,6 @@ class CompletePaymentAction{
         //$update -> если обновился то бросаем событие
         $update && event(new PaymentCompletedEvent(
             PaymentCompletedData::fromPayment($payment),
-
         ));
 
         return $update;

@@ -40,6 +40,12 @@ class YkassaService
         return CreatePaymentAction::make($this)->run($data);
     }
 
+    /**
+     * Создание платежки, с помощью spb
+     * @param CreatePaymentSpbData $data
+     *
+     * @return PaymentEntity
+     */
     public function createPaymentSpb(CreatePaymentSpbData $data): PaymentEntity
     {
         //make используется что бы не создавать тут через new

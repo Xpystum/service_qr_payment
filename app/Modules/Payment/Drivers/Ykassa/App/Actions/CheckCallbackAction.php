@@ -111,7 +111,7 @@ class CheckCallbackAction extends AbstractPaymentAction
 
             url: $paymentStatus?->getConfirmation()?->getConfirmationUrl(),
 
-            order_uuid: $paymentStatus->getMetadata()->order_id
+            payable_uuid: $paymentStatus->getMetadata()->order_id
 
         );
 

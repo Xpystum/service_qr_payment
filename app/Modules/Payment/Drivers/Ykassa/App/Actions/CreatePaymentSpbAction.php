@@ -1,11 +1,14 @@
 <?php
 namespace App\Modules\Payment\Drivers\Ykassa\App\Actions;
 
-use App\Modules\Payment\Drivers\Ykassa\App\Actions\DTO\CreatePaymentData;
+
 use App\Modules\Payment\Drivers\Ykassa\App\Actions\DTO\CreatePaymentSpbData;
 use App\Modules\Payment\Drivers\Ykassa\App\Actions\DTO\Entity\PaymentEntity;
+use App\Modules\Payment\Drivers\Ykassa\App\Exceptions\YkassaExceptions;
 use App\Modules\Payment\Drivers\Ykassa\Database\Enums\PaymentStatusEnum;
-use App\Modules\Payment\Interface\Payable;
+
+
+use function App\Helpers\Mylog;
 
 class CreatePaymentSpbAction extends AbstractPaymentAction
 {
@@ -48,7 +51,8 @@ class CreatePaymentSpbAction extends AbstractPaymentAction
 
         } catch (\Throwable $error) {
 
-            $this->error($error);
+            Mylog('Ошибка при создании {Payment} в Ykassa: ' . $error);
+            throw new YkassaExceptions('Ошибка на стороне сервера при попытке создания платежа', 500);
 
         }
 
