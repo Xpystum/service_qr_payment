@@ -59,11 +59,11 @@ class CreatePaymentSpbAction extends AbstractPaymentAction
 
         return new PaymentEntity(
 
-            id: $response->getId(),
+            id: $response->getId(), //индеикат
 
-            status: PaymentStatusEnum::from($response->getStatus()),
+            status: PaymentStatusEnum::from($response->getStatus()), //состояние платежа
 
-            paid: $response->getPaid(),
+            paid: $response->getPaid(), // был ли уже оплачен заказ
 
             value: $response->getAmount()->getValue(),
 

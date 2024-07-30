@@ -29,6 +29,5 @@ class YkassaDriver implements PaymentDriverInterface
         );
 
         return $ykassaPaymentSPB;
-
     }
 }
