@@ -67,7 +67,7 @@ class CreatePaymentSpbAction extends AbstractPaymentAction
 
             value: $response->getAmount()->getValue(),
 
-            url: $response->getConfirmation()->getConfirmationUrl(),
+            url: $response->getConfirmation()->getConfirmationData(),
 
             payable_uuid: $response->getMetadata()->payable_uuid
 

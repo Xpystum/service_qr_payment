@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\Callback\YkassaCallbackController;
 use App\Http\Controllers\Api\DriverInfo\DriverInfoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Entry\LoginController;
@@ -149,6 +150,13 @@ Route::group( ['middleware' => ['auth:api']], function (){
         Route::get('/{paymentMethod:id}/show', 'show');
 
     });
+
+});
+
+//callback с платежных агрегаторов
+Route::prefix('callbacks')->group(function () {
+
+    Route::post('/ykassa', [YkassaCallbackController::class, 'callback']);
 
 });
 

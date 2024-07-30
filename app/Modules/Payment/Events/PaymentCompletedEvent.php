@@ -2,15 +2,6 @@
 
 namespace App\Modules\Payment\Events;
 
-use App\Modules\Payment\Events\DTO\PaymentCompletedData;
 
-class PaymentCompletedEvent
-{
+class PaymentCompletedEvent extends BasePaymentStatusEvent { }
 
-    public function __construct(
-
-        public PaymentCompletedData $data,
-
-    ) {}
-
-}

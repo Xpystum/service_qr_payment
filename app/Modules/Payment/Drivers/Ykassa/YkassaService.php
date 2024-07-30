@@ -24,8 +24,12 @@ class YkassaService
         $this->config = $config;
 
 
-        //Устанавливаем нашу авторизацию по config
-        $this->clientSDK->setAuth($this->config->getShopId(), $this->config->getKey());
+        //config требует user - и если его нет (ситуации бывают) -> то проверяем есть ли значения параметров
+        if($this->config->getShopId() && $this->config->getKey()) {
+            //Устанавливаем нашу авторизацию по config
+            $this->clientSDK->setAuth($this->config->getShopId(), $this->config->getKey());
+        }
+
     }
 
 
@@ -52,13 +56,14 @@ class YkassaService
         return CreatePaymentSpbAction::make($this)->run($data);
     }
 
+
+
     public function FindPayment(string $paymentId) : PaymentEntity
     {
 
         return GetPaymentAction::make($this)->run($paymentId);
 
     }
-
 
     //отмена платежа только в состоянии waiting_for_capture
     public function CancelPayment(PaymentEntity $PaymentEntity) : ?PaymentEntity

@@ -12,6 +12,19 @@ enum PaymentStatusEnum: string
 
     case canceled = 'canceled';
 
+    public static function stringToObject(string $name) : static
+    {
+        return match($name){
+
+            'succeeded' => PaymentStatusEnum::succeeded,
+
+            'waiting_for_capture' => PaymentStatusEnum::waiting_for_capture,
+
+            'canceled' => PaymentStatusEnum::canceled,
+
+        };
+    }
+
     // public function name(): string
     // {
     //     return match($this){
@@ -38,28 +51,28 @@ enum PaymentStatusEnum: string
     //     };
     // }
 
-    // private function is(PaymentStatusEnum $status): bool
-    // {
+    private function is(PaymentStatusEnum $status): bool
+    {
 
-    //     return $this === $status;
-    // }
+        return $this === $status;
+    }
 
-    // public function isPending(): bool
-    // {
+    public function isPending(): bool
+    {
 
-    //     return $this->is(PaymentStatusEnum::pending);
-    // }
+        return $this->is(PaymentStatusEnum::pending);
+    }
 
-    // public function isCompleted(): bool
-    // {
+    public function isCompleted(): bool
+    {
 
-    //     return $this->is(PaymentStatusEnum::completed);
-    // }
+        return $this->is(PaymentStatusEnum::succeeded);
+    }
 
-    // public function isCancelled(): bool
-    // {
+    public function isCancelled(): bool
+    {
 
-    //     return $this->is(PaymentStatusEnum::cancelled);
-    // }
+        return $this->is(PaymentStatusEnum::canceled);
+    }
 
 }

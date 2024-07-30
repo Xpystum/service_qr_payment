@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Http\Controllers\Api\Payments\Callbacks;
+namespace App\Http\Controllers\Api\Callback;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,13 +15,11 @@ class YkassaCallbackController extends Controller
         PaymentService $paymentService,
         YkassaService $ykassaService,
 
-        )
-    {
+    ) {
+
         try {
 
-            /**
-            * @var PaymentEntity
-            */
+
             $entity = $ykassaService->checkCallback($request->all());
             $payment = $paymentService
                 ->getPayments()

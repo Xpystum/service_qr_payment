@@ -25,28 +25,33 @@ enum TransactionStatusEnum: string
         };
     }
 
-    // public function isPending(): bool
-    // {
+    private function is(TransactionStatusEnum $status): bool
+    {
+        return $this === $status;
+    }
 
-    //     return $this->is(PaymentStatusEnum::pending);
-    // }
+    public function isPending(): bool
+    {
 
-    // public function isWaiting(): bool
-    // {
+        return $this->is(TransactionStatusEnum::pending);
+    }
 
-    //     return $this->is(PaymentStatusEnum::waiting_for_capture);
-    // }
+    public function isWaiting(): bool
+    {
 
-    // public function isCompleted(): bool
-    // {
+        return $this->is(TransactionStatusEnum::waiting_for_capture);
+    }
 
-    //     return $this->is(PaymentStatusEnum::completed);
-    // }
+    public function isCompleted(): bool
+    {
 
-    // public function isCancelled(): bool
-    // {
+        return $this->is(TransactionStatusEnum::completed);
+    }
 
-    //     return $this->is(PaymentStatusEnum::cancelled);
-    // }
+    public function isCancelled(): bool
+    {
+
+        return $this->is(TransactionStatusEnum::cancelled);
+    }
 
 }

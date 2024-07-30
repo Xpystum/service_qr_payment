@@ -32,9 +32,9 @@ class GetPaymentAction extends AbstractPaymentAction
 
             value: $response->getAmount()->getValue(),
 
-            url: $response?->getConfirmation()?->getConfirmationUrl(),
+            url: $response?->getConfirmation()?->getConfirmationData(),
 
-            order_uuid: $response->getMetadata()->order_id
+            payable_uuid: $response->getMetadata()->order_id
 
         );
 

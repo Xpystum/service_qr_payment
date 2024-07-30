@@ -25,21 +25,26 @@ class YkassaConfig
 
         $this->user = $authService->getUserAuth();
 
-        //делаем уникальный ключ кеша для каждого user
-        $key = 'parametrPaymentYkassa_' . $this->user->id;
+        if($this->user)
+        {
+            //делаем уникальный ключ кеша для каждого user
+            $key = 'parametrPaymentYkassa_' . $this->user->id;
 
-        //используем кеш, в последующих запросов
-        $this->cache($key);
+            //используем кеш, в последующих запросов
+            $this->cache($key);
+        }
 
     }
 
-    public function getKey() : string
+    public function getKey() : ?string
     {
         return $this->key;
     }
 
-    public function getShopId() : string
+    public function getShopId() : ?string
     {
+        if(is_null($this->shopId)) { return null; }
+
         if(is_numeric($this->shopId))
         {
             return $this->shopId;

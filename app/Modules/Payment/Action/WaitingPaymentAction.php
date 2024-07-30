@@ -3,6 +3,7 @@
 namespace App\Modules\Payment\Action;
 
 use App\Modules\Payment\Enums\PaymentStatusEnum;
+use App\Modules\Payment\Events\DTO\PaymentStatusData;
 use App\Modules\Payment\Events\DTO\PaymentWaitingData;
 use App\Modules\Payment\Events\PaymentWaitingEvent;
 use App\Modules\Payment\Models\Payment;
@@ -18,9 +19,7 @@ class WaitingPaymentAction{
         #TODO Поменять в проекте
         // $update -> если обновился то бросаем событие
         $update && event(new PaymentWaitingEvent(
-
-            PaymentWaitingData::fromPayment($payment),
-
+            PaymentStatusData::fromPayment($payment),
         ));
         return $update;
     }

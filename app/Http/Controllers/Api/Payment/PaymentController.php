@@ -8,12 +8,10 @@ use App\Modules\Payment\Drivers\Ykassa\Database\Resources\YkassaSpbResoure;
 use App\Modules\Payment\Models\Payment;
 use App\Modules\Payment\Resources\PaymentResource;
 use App\Modules\Payment\Service\PaymentService;
-use App\Modules\User\Models\User;
 use App\Services\Auth\AuthService;
 
 use function App\Helpers\array_error;
 use function App\Helpers\array_success;
-use function App\Helpers\isAuthorized;
 
 class PaymentController extends Controller
 {

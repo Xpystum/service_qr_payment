@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Modules\Payment\Events\DTO;
-readonly class PaymentWaitingData
+readonly class PaymentStatusData
 {
     public function __construct(
 

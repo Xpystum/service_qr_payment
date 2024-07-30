@@ -1,16 +1,6 @@
 <?php
 namespace App\Modules\Payment\Events;
 
-use App\Modules\Payment\Events\DTO\PaymentCancelData;
 
-class PaymentCancelEvent
-{
+class PaymentCancelEvent extends BasePaymentStatusEvent { }
 
-    public function __construct(
-
-        public PaymentCancelData $data,
-
-
-    ) { }
-
-}

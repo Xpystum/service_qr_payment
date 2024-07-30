@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use App\Modules\Currencies\Commands\InstallCurrenciesCommand;
+use App\Modules\Payment\Events\PaymentCompletedEvent;
+use App\Modules\Payment\Events\PaymentWaitingEvent;
+use App\Modules\Payment\Listeners\PaymentChangeStatusListener;
 use App\Modules\User\Events\PasswordCreatedEvent;
 use App\Modules\User\Listeners\PasswordChangeListener;
 use App\Modules\User\Models\User;
@@ -34,10 +37,32 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->setPasswordDefault();
 
+        //событие на изменение пароля
         Event::listen(
             PasswordCreatedEvent::class,
             PasswordChangeListener::class,
         );
+
+        //событие на изменение статуса оплаты у payable
+       {
+            Event::listen(
+                \App\Modules\Payment\Events\PaymentCancelEvent::class,
+                PaymentChangeStatusListener::class,
+            );
+
+            Event::listen(
+                PaymentCompletedEvent::class,
+                PaymentChangeStatusListener::class,
+            );
+
+            Event::listen(
+                PaymentWaitingEvent::class,
+                PaymentChangeStatusListener::class,
+            );
+
+       }
+
+
 
 
         //Регистрация политик
@@ -47,6 +72,7 @@ class AppServiceProvider extends ServiceProvider
             InstallCurrenciesCommand::class,
         ]);
 
+        //получение логики запросов в log
         if (!app()->environment('production')) {
             DB::listen(function ($query) {
                 Log::info('-----------------Начало Запрос--------------------');

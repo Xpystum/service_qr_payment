@@ -20,25 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
 
-        // $exceptions->render(function (NotFoundHttpException $e, Request $request) {
-
-        //     if ($request->is('api/*')) {
-
-        //         if ($e instanceof ModelNotFoundException) {
-        //             return response()->json([
-        //                 'message' => 'Resource not found'
-        //             ], 404);
-        //     }
-
-        //     if ($e instanceof NotFoundHttpException) {
-        //         return response()->json([
-        //             'message' => 'Page not found'
-        //         ], 404);
-        //     }
-
-        //     }
-
-        // });
+        
 
     })->create();
 

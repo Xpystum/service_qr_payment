@@ -78,15 +78,11 @@ class CheckCallbackAction extends AbstractPaymentAction
 
 
             // Получим актуальную информацию о платеже
-            if ($paymentStatus = $client->getPaymentInfo($someData['paymentId'])) {
-
-
-
-            } else {
+            if (!$paymentStatus = $client->getPaymentInfo($someData['paymentId'])) {
 
                 return response('Something went wrong', 400);
 
-            }
+            } 
 
         } catch (\Throwable $error) {
 
@@ -109,7 +105,7 @@ class CheckCallbackAction extends AbstractPaymentAction
 
             value: $paymentStatus->getAmount()->getValue(),
 
-            url: $paymentStatus?->getConfirmation()?->getConfirmationUrl(),
+            url: $paymentStatus?->getConfirmation()?->getConfirmationData(),
 
             payable_uuid: $paymentStatus->getMetadata()->order_id
 

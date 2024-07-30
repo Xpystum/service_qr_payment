@@ -17,7 +17,7 @@ class CancelPaymentAction extends AbstractPaymentAction
 
                 $response = $this->clientSDK->cancelPayment(
                     $PaymentEntity->id,
-                    $PaymentEntity->order_uuid,
+                    $PaymentEntity->payable_uuid,
                 );
 
             }else{
@@ -41,9 +41,9 @@ class CancelPaymentAction extends AbstractPaymentAction
 
             value: $response->getAmount()->getValue(),
 
-            url: $response?->getConfirmation()?->getConfirmationUrl(),
+            url: $response?->getConfirmation()?->getConfirmationData(),
 
-            order_uuid: $response->getMetadata()->order_id
+            payable_uuid: $response->getMetadata()->order_id
 
         );
 

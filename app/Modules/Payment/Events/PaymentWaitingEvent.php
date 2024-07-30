@@ -2,15 +2,6 @@
 
 namespace App\Modules\Payment\Events;
 
-use App\Modules\Payment\Events\DTO\PaymentWaitingData;
 
-class PaymentWaitingEvent
-{
+class PaymentWaitingEvent extends BasePaymentStatusEvent { }
 
-    public function __construct(
-
-        public PaymentWaitingData $data,
-
-    ) {}
-
-}
