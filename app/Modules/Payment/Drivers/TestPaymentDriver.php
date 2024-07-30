@@ -9,7 +9,7 @@ use Illuminate\Contracts\View\View;
 class TestPaymentDriver implements PaymentDriverInterface
 {
 
-   public function view(Payment $payment): View
+   public function process(Payment $payment): View
    {
         return view('payments::test', compact('payment'));
    }
