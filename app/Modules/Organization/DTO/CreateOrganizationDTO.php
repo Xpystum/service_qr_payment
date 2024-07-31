@@ -10,7 +10,7 @@ class CreateOrganizationDTO extends BaseDTO implements Arrayable
 {
     public function __construct(
 
-    
+
         public readonly string $name,
         public readonly string $address,
         public readonly int $owner_id,
@@ -27,6 +27,41 @@ class CreateOrganizationDTO extends BaseDTO implements Arrayable
         public readonly ?string $registration_number_individual,
 
     ) { }
+
+    public static function make(array $data, int $user_id)
+    {
+        return new self(
+
+            name: $data['name'],
+
+            owner_id: $user_id,
+
+            address: $data['address'],
+
+            phone_number: $data['phone_number'] ?? null,
+
+            email: $data['email'] ?? null,
+
+            website: $data['website'] ?? null,
+
+            type: TypeOrganizationEnum::returnObjectByString($data['type']),
+
+            description: $data['description'] ?? null,
+
+            industry: $data['industry'] ?? null,
+
+            founded_date: $data['founded_date'] ?? null,
+
+            inn: $data['inn'],
+
+            kpp: $data['kpp'] ?? null,
+
+            registration_number: $data['registration_number'] ?? null,
+
+            registration_number_individual: $data['registration_number_individual'] ?? null,
+
+        );
+    }
 
     public function filterNull() : array
     {

@@ -6,153 +6,6 @@
     },
     "paths": {
         "/api/": {},
-        "/api/user/edit": {
-            "post": {
-                "tags": [
-                    "Edit\\User"
-                ],
-                "summary": "Изменить данные у user",
-                "operationId": "de267fc3df661f8422a9d326efe05a71",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "allOf": [
-                                    {
-                                        "properties": {
-                                            "id": {
-                                                "description": "Id у User",
-                                                "type": "integer",
-                                                "example": "1"
-                                            },
-                                            "email": {
-                                                "description": "User's email address",
-                                                "type": "string",
-                                                "format": "email",
-                                                "example": "test@gmail.com"
-                                            },
-                                            "phone": {
-                                                "description": "User's phone number",
-                                                "type": "string",
-                                                "pattern": "^\\+?[0-9]{1,3}[0-9]{9}$",
-                                                "example": "+79200264425"
-                                            },
-                                            "first_name": {
-                                                "description": "Имя",
-                                                "type": "string",
-                                                "example": "Ваня"
-                                            },
-                                            "last_name": {
-                                                "description": "Фамилие",
-                                                "type": "string",
-                                                "example": "Лучший"
-                                            },
-                                            "father_name": {
-                                                "description": "Отчество",
-                                                "type": "string",
-                                                "example": "СеньёрВерстальщик"
-                                            }
-                                        },
-                                        "type": "object"
-                                    }
-                                ]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Ok",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/components/schemas/UserResource"
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Successfully update information user"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Может быть множество ошибок валдиации по 422 (Например при указании только id  в параметры выпадет ошибка)",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "The id field is required. (and 1 more error)"
-                                        },
-                                        "errors": {
-                                            "properties": {
-                                                "id": {
-                                                    "description": "An array of error messages related to the id field.",
-                                                    "type": "array",
-                                                    "items": {
-                                                        "type": "string",
-                                                        "example": "The id field is required."
-                                                    }
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Общая ошибка сервера.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message_error": {
-                                            "type": "string",
-                                            "example": "Общая ошибка сервера."
-                                        },
-                                        "code": {
-                                            "type": "integer",
-                                            "example": "500"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Пользователь не подтвердил email/phone",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Пользователь не до конца прошёл регистрацию."
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
         "/api/login": {
             "post": {
                 "tags": [
@@ -483,6 +336,631 @@
                 ]
             }
         },
+        "/api/organization": {
+            "get": {
+                "tags": [
+                    "Organization"
+                ],
+                "summary": "Вернуть все организации у user",
+                "operationId": "c90531c400a529c87b495edff01d7169",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {},
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/OrganizationResource"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Get all child organizations of the user"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Общая ошибка сервера.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message_error": {
+                                            "type": "string",
+                                            "example": "Error server"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": "500"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Ошибка получения токена.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message_error": {
+                                            "type": "string",
+                                            "example": "Ошибка получения токена."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Organization"
+                ],
+                "summary": "Создать организацию",
+                "operationId": "62b63a5f7bac3df8aece9a8efc010a55",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "name": {
+                                                "description": "Название организации",
+                                                "type": "string",
+                                                "maxLength": 101,
+                                                "minLength": 2
+                                            },
+                                            "address": {
+                                                "description": "Адрес организации",
+                                                "type": "string",
+                                                "maxLength": 255,
+                                                "minLength": 12
+                                            },
+                                            "phone_number": {
+                                                "description": "Номер телефона",
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "description": "Электронная почта",
+                                                "type": "string",
+                                                "format": "email",
+                                                "maxLength": 100
+                                            },
+                                            "website": {
+                                                "description": "Веб-сайт",
+                                                "type": "string"
+                                            },
+                                            "type": {
+                                                "description": "Тип организации",
+                                                "type": "string",
+                                                "enum": [
+                                                    "ooo",
+                                                    "ip"
+                                                ]
+                                            },
+                                            "description": {
+                                                "description": "Описание",
+                                                "type": "string",
+                                                "nullable": true
+                                            },
+                                            "industry": {
+                                                "description": "Отрасль",
+                                                "type": "string",
+                                                "nullable": true
+                                            },
+                                            "founded_date": {
+                                                "description": "Дата основания",
+                                                "type": "string",
+                                                "format": "date",
+                                                "nullable": true
+                                            },
+                                            "inn": {
+                                                "description": "ИНН организации",
+                                                "type": "string"
+                                            },
+                                            "kpp": {
+                                                "description": "КПП (только для ООО)",
+                                                "type": "string",
+                                                "example": "123456789",
+                                                "nullable": true
+                                            },
+                                            "registration_number": {
+                                                "description": "Регистрационный номер (только для ООО)",
+                                                "type": "string",
+                                                "example": "1234567890123",
+                                                "nullable": true
+                                            },
+                                            "registration_number_individual": {
+                                                "description": "Регистрационный номер (только для ИП)",
+                                                "type": "string",
+                                                "example": "123456789012345",
+                                                "nullable": true
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/OrganizationResource"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Return organization"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Ошибка получения токена.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message_error": {
+                                            "type": "string",
+                                            "example": "Ошибка получения токена."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Общая ошибка сервера.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message_error": {
+                                            "type": "string",
+                                            "example": "Error server"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": "500"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ошибка создание организации",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "nullable": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Failed create organization"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/organization/{organization:uuid}": {
+            "get": {
+                "tags": [
+                    "Organization"
+                ],
+                "summary": "Вернуть все организации у user",
+                "operationId": "1e029e6289f44391f25af13a0130c233",
+                "parameters": [
+                    {
+                        "name": "organization:uuid",
+                        "in": "path",
+                        "description": "UUID организации",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {},
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/OrganizationResource"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Return organization"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Ошибка получения токена.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message_error": {
+                                            "type": "string",
+                                            "example": "Ошибка получения токена."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Общая ошибка сервера.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message_error": {
+                                            "type": "string",
+                                            "example": "Error server"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": "500"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Organization"
+                ],
+                "summary": "Создать организацию",
+                "operationId": "7905ae626850f27c7f228d1f28a4d31f",
+                "parameters": [
+                    {
+                        "name": "organization:uuid",
+                        "in": "path",
+                        "description": "UUID организации",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string",
+                                                "maxLength": 101,
+                                                "minLength": 2,
+                                                "example": "Название организации"
+                                            },
+                                            "address": {
+                                                "type": "string",
+                                                "maxLength": 255,
+                                                "minLength": 12,
+                                                "example": "Адрес организации"
+                                            },
+                                            "phone_number": {
+                                                "type": "string",
+                                                "example": "+79991234567"
+                                            },
+                                            "website": {
+                                                "type": "string",
+                                                "example": "https://example.com"
+                                            },
+                                            "type": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "ooo",
+                                                    "ip"
+                                                ],
+                                                "example": "ooo"
+                                            },
+                                            "description": {
+                                                "type": "string",
+                                                "example": "Описание организации"
+                                            },
+                                            "industry": {
+                                                "type": "string",
+                                                "example": "Отрасль"
+                                            },
+                                            "founded_date": {
+                                                "type": "string",
+                                                "format": "date",
+                                                "example": "2000-01-01"
+                                            },
+                                            "inn": {
+                                                "type": "string",
+                                                "pattern": "^(([0-9]{12})|([0-9]{10}))?$",
+                                                "example": "1234567890"
+                                            },
+                                            "kpp": {
+                                                "type": "string",
+                                                "pattern": "^(([0-9]{12})|([0-9]{10}))?$",
+                                                "example": "123456789"
+                                            },
+                                            "registration_number": {
+                                                "type": "string",
+                                                "pattern": "^([0-9]{13})?$",
+                                                "example": "1234567890123"
+                                            },
+                                            "registration_number_individual": {
+                                                "type": "string",
+                                                "pattern": "^\\d{15}$",
+                                                "example": "123456789012345"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "nullable": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully update organization"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Ошибка получения токена.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message_error": {
+                                            "type": "string",
+                                            "example": "Ошибка получения токена."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Общая ошибка сервера.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message_error": {
+                                            "type": "string",
+                                            "example": "Error server"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": "500"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ошибка обновление данных организации",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "nullable": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Failed update organization"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Organization"
+                ],
+                "summary": "Вернуть все организации у user",
+                "operationId": "7e8a52f66ff02fb94aa8d4be0f56cbcb",
+                "parameters": [
+                    {
+                        "name": "organization:uuid",
+                        "in": "path",
+                        "description": "UUID организации",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "nullable": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully deleted organization"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Ошибка получения токена.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message_error": {
+                                            "type": "string",
+                                            "example": "Ошибка получения токена."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Общая ошибка сервера.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message_error": {
+                                            "type": "string",
+                                            "example": "Error server"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": "500"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ошибка удаление данных организации, возможно например когда user, не вляется owner",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "nullable": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Failed deleted organization"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/registration": {
             "post": {
                 "tags": [
@@ -592,6 +1070,153 @@
                         }
                     }
                 }
+            }
+        },
+        "/api/user/edit": {
+            "post": {
+                "tags": [
+                    "Edit\\User"
+                ],
+                "summary": "Изменить данные у user",
+                "operationId": "9d5d7115d1e563304b417dcfe47ed5d7",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "id": {
+                                                "description": "Id у User",
+                                                "type": "integer",
+                                                "example": "1"
+                                            },
+                                            "email": {
+                                                "description": "User's email address",
+                                                "type": "string",
+                                                "format": "email",
+                                                "example": "test@gmail.com"
+                                            },
+                                            "phone": {
+                                                "description": "User's phone number",
+                                                "type": "string",
+                                                "pattern": "^\\+?[0-9]{1,3}[0-9]{9}$",
+                                                "example": "+79200264425"
+                                            },
+                                            "first_name": {
+                                                "description": "Имя",
+                                                "type": "string",
+                                                "example": "Ваня"
+                                            },
+                                            "last_name": {
+                                                "description": "Фамилие",
+                                                "type": "string",
+                                                "example": "Лучший"
+                                            },
+                                            "father_name": {
+                                                "description": "Отчество",
+                                                "type": "string",
+                                                "example": "СеньёрВерстальщик"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserResource"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully update information user"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Может быть множество ошибок валдиации по 422 (Например при указании только id  в параметры выпадет ошибка)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The id field is required. (and 1 more error)"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "id": {
+                                                    "description": "An array of error messages related to the id field.",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The id field is required."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Общая ошибка сервера.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message_error": {
+                                            "type": "string",
+                                            "example": "Общая ошибка сервера."
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": "500"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Пользователь не подтвердил email/phone",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Пользователь не до конца прошёл регистрацию."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/auth/login": {
@@ -969,6 +1594,79 @@
     },
     "components": {
         "schemas": {
+            "OrganizationResource": {
+                "title": "Organization Resiurce",
+                "properties": {
+                    "uuid": {
+                        "description": "Уникальный идентификатор организации",
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "description": "Название организации",
+                        "type": "string"
+                    },
+                    "owner_id": {
+                        "description": "Идентификатор владельца",
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "address": {
+                        "description": "Адрес организации",
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "description": "Номер телефона",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "Электронная почта",
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "website": {
+                        "description": "Веб-сайт",
+                        "type": "string"
+                    },
+                    "type": {
+                        "description": "Тип организации",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "Описание организации",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "industry": {
+                        "description": "Отрасль",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "founded_date": {
+                        "description": "Дата основания",
+                        "type": "string",
+                        "format": "date",
+                        "nullable": true
+                    },
+                    "inn": {
+                        "description": "ИНН",
+                        "type": "string"
+                    },
+                    "kpp": {
+                        "description": "КПП - Если тип ооо, добавляем к правилам валидации kpp и ogrn",
+                        "type": "string"
+                    },
+                    "ogrn": {
+                        "description": "ОГРН - Если тип ооо, добавляем к правилам валидации kpp и ogrn",
+                        "type": "string"
+                    },
+                    "registration_number_individual": {
+                        "description": "Регистрационный номер для ИП - Если тип ИП, добавляем к правилам валидации огрнип (registration_number_individual)",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
             "BearerToken": {
                 "title": "Bearer Token Object",
                 "properties": {

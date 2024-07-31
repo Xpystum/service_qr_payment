@@ -44,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
         );
 
         //событие на изменение статуса оплаты у payable
-       {
+        {
             Event::listen(
                 \App\Modules\Payment\Events\PaymentCancelEvent::class,
                 PaymentChangeStatusListener::class,
@@ -60,7 +60,7 @@ class AppServiceProvider extends ServiceProvider
                 PaymentChangeStatusListener::class,
             );
 
-       }
+        }
 
 
 

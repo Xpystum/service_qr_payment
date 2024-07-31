@@ -43,7 +43,7 @@ class OrganizationController extends Controller
     public function show(Organization $organization)
     {
 
-        return response()->json(array_success( $organization, 'Return organization'), 200);
+        return response()->json(array_success( OrganizationResource::make($organization), 'Return organization'), 200);
     }
 
     public function create(CreteOrganizationRequest $request, CreateOrganizationAction $createOrganizationAction)
@@ -55,37 +55,10 @@ class OrganizationController extends Controller
         */
         $user = isAuthorized($this->authService);
 
+
+        #TODO - лучше перенести создание внутрь DTO (Сделать метод make)
         $model = $createOrganizationAction->run(
-            new CreateOrganizationDTO(
-
-                name: $validated['name'],
-
-                owner_id: $user->id,
-
-                address: $validated['address'],
-
-                phone_number: $validated['phone_number'] ?? null,
-
-                email: $validated['email'] ?? null,
-
-                website: $validated['website'] ?? null,
-
-                type: TypeOrganizationEnum::returnObjectByString($validated['type']),
-
-                description: $validated['description'] ?? null,
-
-                industry: $validated['industry'] ?? null,
-
-                founded_date: $validated['founded_date'] ?? null,
-
-                inn: $validated['inn'],
-
-                kpp: $validated['kpp'] ?? null,
-
-                registration_number: $validated['registration_number'] ?? null,
-
-                registration_number_individual: $validated['registration_number_individual'] ?? null,
-            )
+            CreateOrganizationDTO::make($validated, $user->id)
         );
 
         #TODO сделать конструкцию if снизу
@@ -111,38 +84,7 @@ class OrganizationController extends Controller
         $user = isAuthorized($this->authService);
 
         $status = $updateOrganizationAction->run(
-            new UpdateOrganizationDTO(
-
-                uuid: $organization->uuid,
-
-                owner_id: $user->id,
-
-                name: $validated['name'] ?? null,
-
-                address: $validated['address'] ?? null,
-
-                phone_number: $validated['phone_number'] ?? null,
-
-                email: $validated['email'] ?? null,
-
-                website: $validated['website'] ?? null,
-
-                type: TypeOrganizationEnum::returnObjectByString($validated['type'] ?? null) ?? null,
-
-                description: $validated['description'] ?? null,
-
-                industry: $validated['industry'] ?? null,
-
-                founded_date: $validated['founded_date'] ?? null,
-
-                inn: $validated['inn'] ?? null,
-
-                kpp: $validated['kpp'] ?? null,
-
-                registration_number: $validated['registration_number'] ?? null,
-
-                registration_number_individual: $validated['registration_number_individual'] ?? null,
-            )
+            UpdateOrganizationDTO::make($validated, $user->id, $organization->uuid)
         );
 
         return $status?

@@ -27,6 +27,43 @@ class UpdateOrganizationDTO extends BaseDTO implements Arrayable
 
     ) { }
 
+    //создание экземпляра класса внутри DTO, сделано для того что бы в конструкторе полотно кода не указывать
+    public static function make(array $data, int $user_id, string $uuid)
+    {
+        return new self(
+
+                uuid: $uuid,
+
+                owner_id: $user_id,
+
+                name: $data['name'] ?? null,
+
+                address: $data['address'] ?? null,
+
+                phone_number: $data['phone_number'] ?? null,
+
+                email: $data['email'] ?? null,
+
+                website: $data['website'] ?? null,
+
+                type: TypeOrganizationEnum::returnObjectByString($data['type'] ?? null) ?? null,
+
+                description: $data['description'] ?? null,
+
+                industry: $data['industry'] ?? null,
+
+                founded_date: $data['founded_date'] ?? null,
+
+                inn: $data['inn'] ?? null,
+
+                kpp: $data['kpp'] ?? null,
+
+                registration_number: $data['registration_number'] ?? null,
+
+                registration_number_individual: $data['registration_number_individual'] ?? null,
+        );
+    }
+
     public function filterNull() : array
     {
         $collection = collect($this->toArray());
