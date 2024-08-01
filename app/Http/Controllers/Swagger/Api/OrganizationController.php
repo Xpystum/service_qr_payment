@@ -318,7 +318,7 @@ use App\Http\Controllers\Controller;
  *
  * @OA\Schema(
  *      schema="OrganizationResource",
- *      title="Organization Resiurce",
+ *      title="Organization Resource",
  *      type="object",
  *      properties={
  *          @OA\Property(property="uuid", type="string", format="uuid", description="Уникальный идентификатор организации"),

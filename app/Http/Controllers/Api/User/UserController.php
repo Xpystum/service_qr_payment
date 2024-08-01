@@ -94,7 +94,7 @@ class UserController extends Controller
         */
         $user = $this->authService->getUserAuthRegister();
 
-        abort_unless((bool) $user, 401, "Пользователь не до конца прошёл регистрацию.");
+        abort_unless((bool) $user, 400, "Пользователь не до конца прошёл регистрацию.");
 
 
         $user = UpdateUserAction::run(

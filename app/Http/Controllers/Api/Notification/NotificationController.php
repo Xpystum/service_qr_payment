@@ -8,7 +8,7 @@ use App\Modules\Notification\Enums\MethodNotificationEnum;
 use App\Modules\Notification\Requests\ConfirmCodeRequest;
 use App\Modules\Notification\Requests\SendNotificationRequest;
 use App\Modules\Notification\Services\NotificationService;
-use App\Modules\User\Actions\IsNotificationConfirmAction;
+use App\Modules\User\Actions\User\IsNotificationConfirmAction;
 use App\Modules\User\Models\User;
 use App\Modules\User\Resources\UserResource;
 use App\Services\Auth\AuthService;
@@ -16,6 +16,7 @@ use App\Services\Auth\AuthService;
 //для преобразование массива с сообщением
 use function App\Helpers\array_success;
 use function App\Helpers\array_error;
+use function App\Helpers\isAuthorized;
 
 class NotificationController extends Controller
 {
@@ -30,12 +31,9 @@ class NotificationController extends Controller
         $validated = $request->validated();
 
         /**
-        * получаем авторизированного user
         * @var User
         */
-        $user = $this->authService->getUserAuth();
-
-        abort_unless( (bool) $user, 401, "Не авторизован");
+        $user = isAuthorized($this->authService);
 
         //проверяем подлинность полученного кода
         $status = $this->serviceNotify
@@ -61,12 +59,9 @@ class NotificationController extends Controller
         $validated = $request->validated();
 
         /**
-        * получаем авторизированного User
         * @var User
         */
-        $user = $this->authService->getUserAuth();
-
-        abort_unless( (bool) $user, 401, "Не авторизован");
+        $user = isAuthorized($this->authService);
 
         $type = $validated['type'];
 

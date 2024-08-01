@@ -14,6 +14,14 @@ class PaymentResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'uuid' => $this->uuid,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'status' => $this->status,
+            'amount' => $this->amount,
+            'driver' => $this->driver,
+            'pyable_name' => $this->pyable->getPayableName(),
+        ];
     }
 }

@@ -21,13 +21,13 @@ use function App\Helpers\isAuthorized;
 #TODO Вынести DriverInfo в сервес payment
 class DriverInfoController extends Controller
 {
-    #TODO Логика добавление параметров платежки к user сделано через добавение только 1 параметра, нужно продумать массивом
+    #TODO Логика добавление параметров платежки к user сделано через добавение только 1 параметра, нужно продумать массивом + надо ограничить параметры enum
     public function save(
         DriverInfoCreateRequest $request,
         CreateDriverInfoAction $actionDriverInfo,
         PaymentService $paymentService
     ) {
-        
+
         $validated = $request->validated();
 
         /**
@@ -56,7 +56,7 @@ class DriverInfoController extends Controller
 
 
         return $status?
-        response()->json(array_success(null , 'Successfully save driver info'), 201)
+        response()->json(array_success(null , 'Successfully save driver info'), 204)
             :
         response()->json(array_success(null, 'Failed save driver info'), 404);
     }
@@ -67,7 +67,6 @@ class DriverInfoController extends Controller
         * @var User
         */
         $user = isAuthorized($this->authService);
-
 
         $array = $driverInfoRepository->getDriverInfoTypeId($paymentMethod->id, $user->id);
 

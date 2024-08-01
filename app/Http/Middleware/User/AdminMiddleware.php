@@ -24,7 +24,7 @@ class AdminMiddleware
         $user = isAuthorized($this->authService);
 
         //проверяем есть ли полномочия у пользователя на создание
-        $response = Gate::authorize('terminal', $user);
+        $response = Gate::authorize('only_admin', $user);
 
         abort_unless($response->allowed(), 403, $response->message());
 

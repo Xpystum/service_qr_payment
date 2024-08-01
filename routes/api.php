@@ -50,13 +50,13 @@ Route::group( ['middleware' => ['auth:api']], function (){
         Route::get('/',  'index')->middleware(['admin_user']);
 
         //создание user который относится к админу: casier, manager (создавать может только admin)
-        Route::post('/create', 'create')->middleware(['admin_user']);
+        Route::post('/', 'create')->middleware(['admin_user']);
 
         //обновление данных у user
-        Route::put('/update', 'update');
+        Route::put('/', 'update');
 
         //удаление user от user:admin
-        Route::delete('/deleted', 'delete')->middleware(['admin_user']);
+        Route::delete('/', 'delete')->middleware(['admin_user']);
 
     });
 
@@ -84,7 +84,7 @@ Route::group( ['middleware' => ['auth:api']], function (){
     Route::prefix('terminal')->controller(TerminalController::class)->middleware(['admin/manager_user'])->group(function () {
 
         //вернуть все терминалы по организации
-        Route::get('/', 'index');
+        Route::get('/{organization:uuid}', 'index')->whereUuid('organization');
 
         //Создать терминал по организации
         Route::post('/', 'create');

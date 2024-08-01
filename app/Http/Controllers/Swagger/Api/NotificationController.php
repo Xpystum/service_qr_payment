@@ -72,7 +72,7 @@ use App\Http\Controllers\Controller;
  * @OA\Post(
  *
  *      path="/api/confirmation/code/send",
- *      summary="Активировать email или phone по коду",
+ *      summary="Отрпавить код email или phone",
  *      tags={"Notification"},
  *
  *      @OA\RequestBody(

@@ -119,6 +119,12 @@ class UserRepository extends CoreRepository
         return $status;
     }
 
+    /**
+     * Проверяет на админа и на подтвреждение почты
+     * @param User $user
+     *
+     * @return [type]
+     */
     public function isAdmim(User $user) {
 
         $status = in_array($user->role, [RoleUserEnum::admin]);

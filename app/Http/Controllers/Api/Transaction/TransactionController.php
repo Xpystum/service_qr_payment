@@ -76,11 +76,6 @@ class TransactionController extends Controller
 
         $validated = $request->validated();
 
-        {
-            //Проверяем есть ли такая транзакция по полученнмоу uuid
-            abort_unless((bool) $transaction, 404,  'Ресурс по uuid не был найден.');
-        }
-
 
         //создаём платежку и привязываем к (payble) (Транзакция, заказ и т.д)
         $payment = $paymentService->createPayment()->payable($transaction)

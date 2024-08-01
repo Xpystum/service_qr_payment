@@ -4,7 +4,7 @@ namespace App\Modules\Notification\Action;
 
 use App\Modules\Notification\Models\Notification;
 use App\Modules\Notification\Traits\ConstructNotifyRepository;
-use App\Modules\User\Actions\UpdateEmailConfirmUserAction;
+use App\Modules\User\Actions\User\UpdateEmailConfirmUserAction;
 use App\Modules\User\Models\User;
 
 class CheckNotificationAction

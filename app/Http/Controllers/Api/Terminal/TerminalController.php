@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Terminal;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Organization\Models\Organization;
 use App\Modules\Organization\Repositories\OrganizationRepositories;
 use App\Modules\Terminal\Action\Terminal\CreateTerminalAction;
 use App\Modules\Terminal\Action\Terminal\DeletedTerminalAction;
@@ -32,20 +33,8 @@ class TerminalController extends Controller
     *
     * @return [type]
     */
-    public function index(TerminalGetRequest $request, TerminalRepository $terminalRepository, OrganizationRepositories $organizationRepositories)
+    public function index(Organization $organization, TerminalRepository $terminalRepository)
     {
-
-        $validated = $request->validated();
-
-        /**
-        * @var User
-        */
-        $user = isAuthorized($this->authService);
-
-        {
-            $organization = $organizationRepositories->uuidOrganization($validated['organization_uuid']);
-            abort_unless((bool) $organization, 404,  'Ресурс по uuid не был найден на сервере.');
-        }
 
         $collection = $terminalRepository->getTerminal($organization->id);
 
@@ -68,11 +57,6 @@ class TerminalController extends Controller
     {
         $validated = $request->validated();
 
-        /**
-        * @var User
-        */
-        $user = isAuthorized($this->authService);
-
         {
             $organization = $organizationRepositories->uuidOrganization($validated['organization_uuid']);
             abort_unless((bool) $organization, 404,  'Ресурс по uuid не был найден.');
@@ -91,6 +75,7 @@ class TerminalController extends Controller
     {
         return response()->json(array_success( TerminalResource::make($terminal), 'Show terminal by uuid'), 200);
     }
+
 
     public function update(Terminal $terminal, TerminalUpdateRequest $request, UpdateTerminalAction $action)
     {
