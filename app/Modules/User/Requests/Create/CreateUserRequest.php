@@ -5,11 +5,11 @@ namespace App\Modules\User\Requests\Create;
 use App\Modules\User\Enums\RoleUserEnum;
 use App\Modules\User\Rules\EmailRule;
 use App\Modules\User\Rules\PhoneRule;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\Rule;
 
-class CreateUserRequest extends FormRequest
+class CreateUserRequest extends ApiRequest
 {
 
     public function authorize(): bool

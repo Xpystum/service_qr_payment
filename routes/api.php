@@ -52,8 +52,8 @@ Route::group( ['middleware' => ['auth:api']], function (){
         //создание user который относится к админу: casier, manager (создавать может только admin)
         Route::post('/', 'create')->middleware(['admin_user']);
 
-        //обновление данных у user
-        Route::put('/', 'update');
+        //обновление данных у usersd
+        Route::put('/', 'update'); #TODO Может быть проблема т.к указываем id - нужно менять всё по цепочки на uuid
 
         //удаление user от user:admin
         Route::delete('/', 'delete')->middleware(['admin_user']);
@@ -73,7 +73,7 @@ Route::group( ['middleware' => ['auth:api']], function (){
         Route::post('/', 'create');
 
         //Изменить данные организации User
-        Route::put('/{organization:uuid}', 'updated')->whereUuid('organization');
+        Route::patch('/{organization:uuid}', 'updated')->whereUuid('organization');
 
         //Удалить организацию User
         Route::delete('/{organization:uuid}', 'deleted')->whereUuid('organization');
@@ -93,7 +93,7 @@ Route::group( ['middleware' => ['auth:api']], function (){
         Route::get('/{terminal:uuid}', 'show')->whereUuid('terminal');
 
         //Изменить название терминала
-        Route::put('/{terminal:uuid}', 'update')->whereUuid('terminal');
+        Route::patch('/{terminal:uuid}', 'update')->whereUuid('terminal');
 
         //Удалить организацию User
         Route::delete('/{terminal:uuid}', 'deleted')->whereUuid('terminal');

@@ -2,9 +2,9 @@
 
 namespace App\Modules\User\Requests\Edit;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
-class EditUserRequest extends FormRequest
+class EditUserRequest extends ApiRequest
 {
 
     public function authorize(): bool

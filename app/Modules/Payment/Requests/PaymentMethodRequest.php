@@ -2,9 +2,9 @@
 namespace App\Modules\Payment\Requests;
 
 use App\Modules\Payment\Rules\ValidateStatusPayment;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
-class PaymentMethodRequest extends FormRequest
+class PaymentMethodRequest extends ApiRequest
 {
 
     public function authorize(): bool

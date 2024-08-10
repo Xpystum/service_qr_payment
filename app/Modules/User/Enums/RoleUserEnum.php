@@ -11,6 +11,17 @@ enum RoleUserEnum : string
     case cashier = 'cashier';
 
 
+
+    public function isAdmin(): bool
+    {
+        return (bool) $this->is(RoleUserEnum::admin);
+    }
+
+    private function is(RoleUserEnum $status): bool
+    {
+        return (bool) $this === $status;
+    }
+
     public static function returnObjectByString(string $value) : self
     {
         return match ($value) {

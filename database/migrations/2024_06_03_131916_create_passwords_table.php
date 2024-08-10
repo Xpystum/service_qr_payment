@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('notification_id')->constrained('notifications')->nullable();
             $table->timestamps();
 
-            $table->foreignId('user_id')->nullable()->constrained('users');
+            $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
             $table->string('status')->default(PasswordStatusEnum::pending->value);
             $table->ipAddress('ip');
 

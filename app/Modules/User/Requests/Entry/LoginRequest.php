@@ -2,12 +2,12 @@
 
 namespace App\Modules\User\Requests\Entry;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 use App\Modules\User\Rules\EmailRule;
 use App\Modules\User\Rules\PhoneRule;
 use Illuminate\Validation\Rules\Password;
 
-class LoginRequest extends FormRequest
+class LoginRequest extends ApiRequest
 {
     protected $stopOnFirstFailure = true;
 

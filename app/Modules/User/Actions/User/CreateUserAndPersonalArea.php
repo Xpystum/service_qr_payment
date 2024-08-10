@@ -12,19 +12,33 @@ use function App\Helpers\Mylog;
 
 class CreateUserAndPersonalArea
 {
-    public static function run(CreatUserDTO $data) : User
+    private ?CreatUserDTO $userDTO = null;
+
+    public function run(CreatUserDTO $data) : User
     {
+        $this->userDTO = $data;
         $user = CreatUserAction::run($data);
-        $personalArea = CreatePersonalArea::run(
-            new CreatePersonalAreaDTO($user),
-        );
-        if($user && $personalArea)
-        {
-            return $user;
-        } else {
-            Mylog("CreateUserAndPersonalArea");
-            throw new ModelNotFoundException('Ошибка в action CreateUserAndPersonalArea', 500);
-        }
+        dd($user);
+        // /**
+        // * @var User
+        // */
+        // $user = CreatUserAction::run($data);
+
+        // /**
+        // * @var PersonalArea
+        // */
+        // $personalArea = CreatePersonalArea::run(
+        //     new CreatePersonalAreaDTO($user),
+        // );
+
+
+        // if($user && $personalArea)
+        // {
+        //     return $user;
+        // } else {
+        //     Mylog("Ошибка в action CreateUserAndPersonalArea");
+        //     throw new ModelNotFoundException('Ошибка сервера.', 500);
+        // }
 
     }
 

@@ -27,7 +27,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('transactions', function (Blueprint $table) {
-           $table->dropForeign(['driver_currency_id']);
+           $table->dropForeign('transactions_driver_currency_id_foreign');
             $table->dropColumn('driver_currency_id');
         });
     }

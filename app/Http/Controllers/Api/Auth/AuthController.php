@@ -46,11 +46,9 @@ class AuthController extends Controller
     {
         $user = $this->authService->getUserAuth();
         $this->abort_unless($user, 401);
-        // abort_unless($user, 401, "Unauthorized" );
-        $userResource = new UserResource($user);
 
         #TODO Добавить ресурс возврата user (не полностью)
-        return response()->json(array_success( $userResource, 'Successfully return user'), 200);
+        return response()->json(array_success( UserResource::make($user), 'Successfully return user'), 200);
     }
 
     /**

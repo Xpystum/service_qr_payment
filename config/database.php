@@ -29,7 +29,22 @@ return [
     |
     */
 
+    //база данных для теста
+
+
     'connections' => [
+
+        'testing' => [
+            'driver'   => 'pgsql',
+            'host'     => env('DB_HOST', '127.0.0.1'),
+            'port'     => env('DB_PORT', '5432'),
+            'database' => env('TEST_DB_DATABASE', 'forge'),
+            'username' => env('TEST_DB_USERNAME', 'forge'),
+            'password' => env('TEST_DB_PASSWORD', ''),
+            'charset'  => env('DB_CHARSET', 'utf8'),
+            'prefix'   => '',
+            'schema'   => 'public',
+        ],
 
         'sqlite' => [
             'driver' => 'sqlite',

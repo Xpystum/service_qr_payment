@@ -2,9 +2,9 @@
 
 namespace App\Modules\Terminal\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
-class TerminalUpdateRequest extends FormRequest
+class TerminalUpdateRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.

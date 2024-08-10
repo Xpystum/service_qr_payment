@@ -2,9 +2,9 @@
 
 namespace App\Modules\User\Requests\Delete;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
-class DeleteUserRequest extends FormRequest
+class DeleteUserRequest extends ApiRequest
 {
 
     public function authorize(): bool

@@ -1,38 +1,41 @@
 <?php
 
 namespace App\Modules\User\DTO;
+
+use App\Modules\User\DTO\ValueObject\PersonalAreaVO;
+use App\Modules\User\DTO\ValueObject\User\UserVO;
+use App\Patterns\DataTransferObject\BaseDTO;
 use Illuminate\Contracts\Support\Arrayable;
 
-class CreatUserDTO implements Arrayable
+class CreatUserDTO extends BaseDTO implements Arrayable
 {
 
     public function __construct(
 
-        public readonly ?string $email,
+        public readonly UserVO $user,
 
-        public readonly ?string $phone,
+        public readonly ?PersonalAreaVO $area,
 
-        public readonly ?string $password,
+    ) { }
 
-        public readonly ?string $personal_area_id = null,
-
-        public readonly ?string $role = null,
-
-    ) {
-
-    }
-
-    public function inMailOrPhone()
+    public static function make(UserVO $data) : self
     {
+        return new self(
+            user: $data,
+            area: null,
+        );
 
     }
+
 
     public function toArray(): array {
 
         return [
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'password' => $this->password,
+            'email' => $this->user->email,
+            'phone' => $this->user->phone,
+            'password' => $this->user->password,
+            'personal_area_id' => $this->area->personal_area_id,
+            'role' => $this->area->role,
         ];
     }
 

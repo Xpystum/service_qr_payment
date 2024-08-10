@@ -2,14 +2,14 @@
 
 namespace App\Modules\Organization\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
 use App\Modules\Organization\Enums\TypeOrganizationEnum;
 use App\Modules\Organization\Rules\OgrnepRule;
 use App\Modules\Organization\Rules\OgrnRule;
 use Illuminate\Validation\Rule;
 
-class UpdateOrganizationRequest extends FormRequest
+class UpdateOrganizationRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.

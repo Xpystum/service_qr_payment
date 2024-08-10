@@ -2,11 +2,11 @@
 
 namespace App\Modules\Notification\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
-class ConfirmCodeRequest extends FormRequest
+class ConfirmCodeRequest extends ApiRequest
 {
-   
+
     public function authorize(): bool
     {
         return true;

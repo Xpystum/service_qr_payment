@@ -9,13 +9,27 @@ use function App\Helpers\Mylog;
 
 class CreatePersonalArea
 {
-    public static function run(CreatePersonalAreaDTO $data) : PersonalArea
+    public static function run(CreatePersonalAreaDTO $data) : ?PersonalArea
     {
-        $personalArea = PersonalArea::create(
-            [
-                'owner_id' => $data->user->id,
-            ]
-        );
+        /**
+        * @var RoleUserEnum
+        */
+        $enum = $data->user->role;
+
+        if($enum->isAdmin())
+        {
+            $personalArea = PersonalArea::create(
+                [
+                    'owner_id' => $data->user->id,
+                ]
+            );
+
+        } else {
+
+            return null;
+
+        }
+
 
 
         if(!$personalArea->save()){

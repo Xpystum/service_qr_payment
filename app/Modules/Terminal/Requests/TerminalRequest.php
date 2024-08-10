@@ -2,9 +2,9 @@
 
 namespace App\Modules\Terminal\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
-class TerminalRequest extends FormRequest
+class TerminalRequest extends ApiRequest
 {
 
     public function authorize(): bool

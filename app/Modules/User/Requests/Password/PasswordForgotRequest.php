@@ -4,9 +4,9 @@ namespace App\Modules\User\Requests\Password;
 
 use App\Modules\User\Rules\EmailRule;
 use App\Modules\User\Rules\PhoneRule;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
-class PasswordForgotRequest extends FormRequest
+class PasswordForgotRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.

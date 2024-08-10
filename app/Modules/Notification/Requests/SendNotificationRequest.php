@@ -3,9 +3,9 @@
 namespace App\Modules\Notification\Requests;
 use Illuminate\Validation\Rule;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
-class SendNotificationRequest extends FormRequest
+class SendNotificationRequest extends ApiRequest
 {
 
     public function authorize(): bool
@@ -24,5 +24,5 @@ class SendNotificationRequest extends FormRequest
     }
 
 
-    
+
 }

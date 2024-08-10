@@ -4,10 +4,10 @@ namespace App\Modules\User\Requests\Password;
 
 use App\Modules\User\Rules\EmailRule;
 use App\Modules\User\Rules\PhoneRule;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 use Illuminate\Validation\Rules\Password;
 
-class PasswordChangeRequest extends FormRequest
+class PasswordChangeRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.

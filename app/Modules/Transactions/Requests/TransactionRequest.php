@@ -2,9 +2,9 @@
 
 namespace App\Modules\Transactions\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
-class TransactionRequest extends FormRequest
+class TransactionRequest extends ApiRequest
 {
     public function authorize(): bool
     {

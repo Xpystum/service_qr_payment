@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Modules\User\Enums\RoleUserEnum;
+use App\Modules\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -11,24 +13,31 @@ use Illuminate\Support\Str;
  */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
     protected static ?string $password;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = User::class;
+
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+
+            'phone' => fake()->phoneNumber(),
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
+
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+
+            'role' => RoleUserEnum::admin,
+            'auth' => true,
+
+            'first_name' => fake()->name(),
+            'last_name' => fake()->firstName(),
+            'father_name' => fake()->firstNameMale(),
+
+            'email_confirmed_at' => now(),
+            'phone_confirmed_at' => now(),
+
+            'personal_area_id' => null,
         ];
     }
 

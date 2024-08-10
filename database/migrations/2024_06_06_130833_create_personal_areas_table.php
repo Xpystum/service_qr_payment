@@ -16,7 +16,9 @@ return new class extends Migration
 
             $table->uuid('uuid')->unique();
             $table->foreignId('owner_id');
-            $table->foreign('owner_id')->references('id')->on('users')
+
+            #TODO ->unique() - может быть проблема - потом затестить O
+            $table->foreign('owner_id')->unique()->references('id')->on('users')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 

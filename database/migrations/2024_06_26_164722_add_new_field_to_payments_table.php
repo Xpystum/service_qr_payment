@@ -26,12 +26,15 @@ return new class extends Migration
      */
     public function down(): void
     {
+
         Schema::table('payments', function (Blueprint $table) {
-            $table->dropMorphs('payple');
 
             // Отключение внешнего ключа и удаление поля 'method_id'
             $table->dropForeign(['method_id']);
             $table->dropColumn('method_id');
+
+            $table->dropMorphs('payable');
+
         });
     }
 };

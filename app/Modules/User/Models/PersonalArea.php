@@ -27,4 +27,10 @@ class PersonalArea extends Model
     protected $casts = [
 
     ];
+
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'personal_area_id')->whereNotNull('personal_area_id');
+    }
 }

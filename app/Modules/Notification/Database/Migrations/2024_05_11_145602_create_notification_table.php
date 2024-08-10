@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('uuid')->unique();
             $table->timestamps();
 
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 
             $table->foreignId('method_id');
             $table->foreign('method_id')->references('id')->on('notification_methods');
@@ -31,6 +31,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('notification');
+        Schema::dropIfExists('notifications');
     }
 };
