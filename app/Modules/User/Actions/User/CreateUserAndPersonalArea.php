@@ -16,8 +16,7 @@ class CreateUserAndPersonalArea
 
     public function run(CreatUserDTO $data) : User
     {
-        $this->userDTO = $data;
-        $user = CreatUserAction::run($data);
+        $user = CreatUserAction::make();
         dd($user);
         // /**
         // * @var User

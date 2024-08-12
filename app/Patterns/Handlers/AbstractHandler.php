@@ -7,27 +7,32 @@ use App\Patterns\Handlers\Interface\HandlerInterface;
 
 abstract class AbstractHandler implements HandlerInterface
 {
-    private HandlerInterface $nextHandler;
+    private ?HandlerInterface $nextHandler;
 
     public function setNext($handler)
     {
-        $this->nextHandler = $handler;
-        return $handler;
+        if($handler) {
+            $this->nextHandler = $handler;
+            return $handler;
+        }
+
+        return null;
+
     }
 
     public function handle($request)
     {
-        $this->process($request);
+        //получаем значение из запроса и прокидываем его дальше
+        $data = $this->process($request);
 
-        if ($this->nextHandler) {
-            return $this->nextHandler->handle($request);
+        if (!is_null($data) && $this->nextHandler) {
+            return $this->nextHandler?->handle($data);
         }
 
-        return;
-    }
 
-    /**
-    * @param BaseDTO $request
-    */
-    protected abstract function process(BaseDTO $data);
+        return $data;
+    }
+    public static abstract function make() : self;
+
+    protected abstract function process($data);
 }

@@ -35,7 +35,8 @@ class RegistrationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => (new EmailRule)->addRule('unique:App\Modules\User\Models\User')->toArray(),
+            // 'email' => (new EmailRule)->addRule('unique:App\Modules\User\Models\User')->toArray(),
+            'email' => (new EmailRule)->toArray(),
             'phone' => (new PhoneRule)->addRule('unique:App\Modules\User\Models\User')->toArray(),
             // 'email' => ['required_without_all:phone', 'exclude_with:phone', 'string', 'email:filter', 'max:100', 'unique:App\Modules\User\Models\User'],
             // 'phone' => ['required_without_all:email', 'exclude_with:email', 'numeric', 'regex:/^(\+7|8)(\d{10})$/', 'unique:App\Modules\User\Models\User'],

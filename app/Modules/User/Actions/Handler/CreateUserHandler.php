@@ -2,31 +2,30 @@
 
 namespace App\Modules\User\Actions\Handler;
 
+use App\Modules\User\Actions\PersonalAreas\CreatePersonalArea;
+use App\Modules\User\Actions\User\CreatUserAction;
+use App\Modules\User\DTO\CreatUserDTO;
 use App\Modules\User\Models\User;
 
 class CreateUserHandler
 {
-    public function handle() : User
+    public function handle(CreatUserDTO $userDTO) : User
     {
-        /**
-        * @var User
-        */
-        $user = CreatUserAction::run($data);
 
-        /**
-        * @var PersonalArea
-        */
-        $personalArea = CreatePersonalArea::run(
-            new CreatePersonalAreaDTO($user),
-        );
+        $userHandler = CreatUserAction::make();
+        $areaHandler = CreatePersonalArea::make();
 
+        $userHandler->setNext($areaHandler);
+        $userHandler->handle($userDTO);
 
-        if($user && $personalArea)
-        {
-            return $user;
-        } else {
-            Mylog("Ошибка в action CreateUserAndPersonalArea");
-            throw new ModelNotFoundException('Ошибка сервера.', 500);
-        }
+        dd(1);
+
+        // if($user && $personalArea)
+        // {
+        //     return $user;
+        // } else {
+        //     Mylog("Ошибка в action CreateUserAndPersonalArea");
+        //     throw new ModelNotFoundException('Ошибка сервера.', 500);
+        // }
     }
 }

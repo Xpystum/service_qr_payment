@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Entry;
 use App\Http\Controllers\Controller;
 use App\Modules\Notification\DTO\PhoneOrEmailDTO;
 use App\Modules\Notification\Services\NotificationService;
+use App\Modules\User\Actions\Handler\CreateUserHandler;
 use App\Modules\User\Actions\User\CreateUserAndPersonalArea;
 use App\Modules\User\Requests\Entry\RegistrationRequest;
 
@@ -16,16 +17,16 @@ use function App\Helpers\array_success;
 class RegistrationController extends Controller
 {
 
-    public function store(RegistrationRequest $request, NotificationService $serviceNotificaion, CreateUserAndPersonalArea $area)
+    public function store(RegistrationRequest $request, NotificationService $serviceNotificaion, CreateUserHandler $handle)
     {
         /**
         * @var UserVO
         */
         $UserVO = $request->getValueObject();
 
+        $user = $handle->handle(CreatUserDTO::make($UserVO));
 
-        $user = $area->run(CreatUserDTO::make($UserVO));
-
+        dd('controller');
 
         abort_unless( (bool) $user, 500, "Error server");
 
@@ -35,7 +36,10 @@ class RegistrationController extends Controller
 
         $serviceNotificaion->selectSendNotification()
         ->run(
-            new PhoneOrEmailDTO($validated['email'] ?? null, $validated['phone'] ?? null),
+            new PhoneOrEmailDTO(
+                email: ($UserVO->email ?? null),
+                phone: ($UserVO->phone ?? null),
+            ),
             $user,
         );
 

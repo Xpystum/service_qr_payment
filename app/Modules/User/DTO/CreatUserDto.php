@@ -14,15 +14,15 @@ class CreatUserDTO extends BaseDTO implements Arrayable
 
         public readonly UserVO $user,
 
-        public readonly ?PersonalAreaVO $area,
+        public readonly ?int $personal_area_id = null,
 
     ) { }
 
-    public static function make(UserVO $data) : self
+    public static function make(UserVO $data, ?int $personal_area_id = null) : self
     {
         return new self(
             user: $data,
-            area: null,
+            personal_area_id: $personal_area_id,
         );
 
     }
@@ -34,8 +34,7 @@ class CreatUserDTO extends BaseDTO implements Arrayable
             'email' => $this->user->email,
             'phone' => $this->user->phone,
             'password' => $this->user->password,
-            'personal_area_id' => $this->area->personal_area_id,
-            'role' => $this->area->role,
+            'personal_area_id' => $this->personal_area_id,
         ];
     }
 

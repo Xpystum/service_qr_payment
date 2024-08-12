@@ -1,21 +1,17 @@
 <?php
-
 namespace App\Modules\User\Actions\PersonalAreas;
-use App\Modules\User\DTO\PersonalArea\CreatePersonalAreaDTO;
+
 use App\Modules\User\Models\PersonalArea;
 use App\Modules\User\Models\User;
 use App\Patterns\Handlers\AbstractHandler;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 
-use function App\Helpers\Mylog;
 
-class CreatePersonalArea extends AbstractHandler
+class CreatePersonalAreaAction extends AbstractHandler
 {
-
     /**
+     * Summary of process
      * @param User $data
-     *
      * @return ?PersonalArea
      */
     protected function process($data)
@@ -27,16 +23,21 @@ class CreatePersonalArea extends AbstractHandler
     {
         return new self();
     }
-    public static function run(User $user) : ?PersonalArea
+    public static function run(User $data) : ?PersonalArea
     {
+        /**
+        * @var \App\Modules\User\Enums\RoleUserEnum
+        */
+        $enum = $data->role;
 
-        if($user->role->isAdmin())
+        if($enum->isAdmin())
         {
-            return DB::transaction(function () use ($user) {
 
-                return PersonalArea::firstOrCreate(['owner_id' => $user->id]);
-
+            $personalArea = DB::transaction(function () use ($data) {
+                return PersonalArea::firstOrCreate(['owner_id' => $data->id]);
             });
+
+            return $personalArea;
 
         } else {
 
