@@ -29,6 +29,7 @@ class CreatePersonalArea extends AbstractHandler
     }
     public static function run(User $user) : ?PersonalArea
     {
+        dd($user->email);
 
         if($user->role->isAdmin())
         {

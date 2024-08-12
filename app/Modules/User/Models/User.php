@@ -36,6 +36,8 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
 
+        'role',
+
         'first_name',
         'last_name',
         'father_name',
@@ -49,7 +51,6 @@ class User extends Authenticatable implements JWTSubject
 
     protected $guarded = [
         'uuid',
-        'role',
         'active',
         'auth',
         'id',
@@ -68,6 +69,7 @@ class User extends Authenticatable implements JWTSubject
         'email_confirmed_at' => 'datetime',
         'phone_confirmed_at' => 'datetime',
     ];
+
 
     /**
     * привязка модели к фактори
