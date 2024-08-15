@@ -25,7 +25,6 @@ class AdminMiddleware
 
         //проверяем есть ли полномочия у пользователя на создание
         $response = Gate::authorize('only_admin', $user);
-
         abort_unless($response->allowed(), 403, $response->message());
 
         return $next($request);

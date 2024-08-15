@@ -71,7 +71,7 @@ use App\Http\Controllers\Controller;
  *                          @OA\Property(property="email", type="string", description="Уникальный адрес электронной почты"),
  *                          @OA\Property(property="phone", type="string", description="Уникальный номер телефона"),
  *                          @OA\Property(
- *                              property="type",
+ *                              property="role",
  *                              type="string",
  *                              enum={"manager", "cashier"},
  *                              description="Тип пользователя, может быть 'manager' или 'cashier'"

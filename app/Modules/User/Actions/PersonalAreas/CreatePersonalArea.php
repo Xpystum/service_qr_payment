@@ -1,14 +1,11 @@
 <?php
 
 namespace App\Modules\User\Actions\PersonalAreas;
-use App\Modules\User\DTO\PersonalArea\CreatePersonalAreaDTO;
 use App\Modules\User\Models\PersonalArea;
 use App\Modules\User\Models\User;
 use App\Patterns\Handlers\AbstractHandler;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 
-use function App\Helpers\Mylog;
 
 class CreatePersonalArea extends AbstractHandler
 {
@@ -29,7 +26,7 @@ class CreatePersonalArea extends AbstractHandler
     }
     public static function run(User $user) : ?PersonalArea
     {
-        dd($user->email);
+
 
         if($user->role->isAdmin())
         {

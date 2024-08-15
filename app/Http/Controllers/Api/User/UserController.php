@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
+use App\Modules\User\Actions\Handler\CreateUserHandler;
 use App\Modules\User\Actions\User\CreatUserAction;
 use App\Modules\User\Actions\User\DeleteUserAction;
 use App\Modules\User\Actions\User\UpdateUserAction;
 use App\Modules\User\DTO\CreatUserDTO;
 use App\Modules\User\DTO\UpdateUserDTO;
+use App\Modules\User\DTO\ValueObject\User\UserVO;
 use App\Modules\User\Models\User;
 use App\Modules\User\Repositories\PersonalAreaRepository;
 use App\Modules\User\Repositories\UserRepository;
@@ -15,6 +17,7 @@ use App\Modules\User\Requests\Create\CreateUserRequest;
 use App\Modules\User\Requests\Delete\DeleteUserRequest;
 use App\Modules\User\Requests\Edit\EditUserRequest;
 use App\Modules\User\Resources\UserResource;
+use Illuminate\Support\Facades\Auth;
 
 use function App\Helpers\array_error;
 use function App\Helpers\array_success;
@@ -47,10 +50,18 @@ class UserController extends Controller
      *
      * @return \Response
      */
-    public function create(CreateUserRequest $request, PersonalAreaRepository $personalAreaRepository)
-    {
-        $validated = $request->validated();
+    public function create(
+        CreateUserRequest $request,
+        PersonalAreaRepository $personalAreaRepository,
+        CreateUserHandler $handler
+    ) {
+        /**
+        * @var UserVO
+        */
+        $userVO = $request->getValueObject();
 
+        // Вариант второй, получение авторизированного user
+        //Auth::guard('api')->user();
         /**
         * @var User
         */
@@ -59,59 +70,34 @@ class UserController extends Controller
         $personalArea = $personalAreaRepository->getPersonalArea($user);
         abort_unless( (bool) $personalArea , 'Ошибка сервера'  , '500');
 
-        $userCreate = CreatUserAction::run(
 
-            new CreatUserDTO(
-
-                email: $validated['email'] ?? null,
-
-                phone: $validated['phone'] ?? null,
-
-                password: $validated['password'],
-
-                personal_area_id: $personalArea->id,
-
-                role: $validated['type'] ?? throw new \Exception('Не указан тип user', 422),
-
-            )
-
-        );
+        $userCreate = $handler->handle(CreatUserDTO::make($userVO, $personalArea->id));
 
         abort_unless( (bool) $userCreate , 'Ошибка сервера'  , '500');
 
         $userResource = new UserResource($userCreate);
 
-        return response()->json(array_success( $userResource, 'Successfully create user'), 200);
+
+
+        return response()->json(array_success( UserResource::make($userResource), 'Successfully create user'), 201);
 
     }
     public function update(EditUserRequest $request)
     {
         $validated = $request->validated();
 
-        /**
-        * получаем авторизированного user у которого прошла авторизация
-        * @var User
-        */
-        $user = $this->authService->getUserAuthRegister();
+        {
+            /**
+            * получаем авторизированного user у которого прошла авторизация (дополнительно проверяем на авторизацию)
+            * @var User
+            */
+            $user = $this->authService->getUserAuthRegister();
+            abort_unless((bool) $user, 400, "Пользователь не до конца прошёл регистрацию.");
+        }
 
-        abort_unless((bool) $user, 400, "Пользователь не до конца прошёл регистрацию.");
+        $user = UpdateUserAction::run(UpdateUserDTO::make($validated));
 
-
-        $user = UpdateUserAction::run(
-            new UpdateUserDTO(
-
-                id: $validated['id'] ?? null,
-
-                email: $validated['email'] ?? null,
-                phone: $validated['phone'] ?? null,
-
-                first_name: $validated['first_name'] ?? null,
-                last_name: $validated['last_name'] ?? null,
-                father_name: $validated['father_name'] ?? null,
-            )
-        );
-
-        return response()->json(array_success(new UserResource($user) , 'Successfully update information user'), 200);
+        return response()->json(array_success(UserResource::make($user) , 'Successfully update information user'), 200);
 
     }
     public function delete(DeleteUserRequest $request, DeleteUserAction $deleteUserAction)

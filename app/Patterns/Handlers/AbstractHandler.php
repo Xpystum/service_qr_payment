@@ -2,12 +2,13 @@
 
 namespace App\Patterns\Handlers;
 
-use App\Patterns\DataTransferObject\BaseDTO;
 use App\Patterns\Handlers\Interface\HandlerInterface;
+
+use function App\Helpers\Mylog;
 
 abstract class AbstractHandler implements HandlerInterface
 {
-    private ?HandlerInterface $nextHandler;
+    private ?HandlerInterface $nextHandler = null;
 
     public function setNext($handler)
     {
@@ -25,8 +26,15 @@ abstract class AbstractHandler implements HandlerInterface
         //получаем значение из запроса и прокидываем его дальше
         $data = $this->process($request);
 
-        if (!is_null($data) && $this->nextHandler) {
-            return $this->nextHandler?->handle($data);
+
+        try {
+
+            if (!is_null($data) && $this?->nextHandler) {
+                return $this->nextHandler?->handle($data);
+            }
+
+        } catch (\Throwable $th) {
+            Mylog('Ошибка при hanlde в AbstractHandler - пытается обратиться к {$this->nextHandler} до инициализации.' . $th);
         }
 
 

@@ -21,7 +21,7 @@ enum RoleUserEnum : string
         return $this === $status;
     }
 
-    public static function returnObjectByString(string $value) : self
+    public static function returnObjectByString(?string $value) : ?self
     {
         return match ($value) {
 
@@ -30,6 +30,8 @@ enum RoleUserEnum : string
             'manager' => self::manager,
 
             'cashier' => self::cashier,
+
+            null => null,
 
             default => throw new InvalidArgumentException (
                 "Не правильный аргумент в функции: [{$value}] не поддерживается" , 500

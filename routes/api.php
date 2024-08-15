@@ -35,7 +35,7 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
 });
 
 
-Route::group( ['middleware' => ['auth:api']], function (){
+Route::group(['middleware' => ['auth:api']], function (){
 
     //верификация email и отправка повторного сообщение
     Route::prefix('confirmation')->group(function () {
@@ -52,7 +52,7 @@ Route::group( ['middleware' => ['auth:api']], function (){
         //создание user который относится к админу: casier, manager (создавать может только admin)
         Route::post('/', 'create')->middleware(['admin_user']);
 
-        //обновление данных у usersd
+        //обновление данных у users
         Route::put('/', 'update'); #TODO Может быть проблема т.к указываем id - нужно менять всё по цепочки на uuid
 
         //удаление user от user:admin

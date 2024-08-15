@@ -26,8 +26,6 @@ class RegistrationController extends Controller
 
         $user = $handle->handle(CreatUserDTO::make($UserVO));
 
-        dd('controller');
-
         abort_unless( (bool) $user, 500, "Error server");
 
         $token = $this->authService->loginUser($user);

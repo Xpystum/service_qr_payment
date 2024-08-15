@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class CreatUserAction extends AbstractHandler
 {
-
+    private ?User $user = null;
     /**
      *
      * @param CreatUserDTO $data
@@ -18,12 +18,22 @@ class CreatUserAction extends AbstractHandler
      */
     protected function process($data)
     {
-       return $this->run($data);
+        return $this->user = $this->run($data);
     }
 
     public static function make() : self
     {
         return new self();
+    }
+
+    public function getUser() : User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user) : void
+    {
+       $this->user = $user;
     }
 
     public static function run(CreatUserDTO $data) : User
@@ -36,6 +46,9 @@ class CreatUserAction extends AbstractHandler
             );
 
         });
+
+        //p.s если мы это не сделаем, мы не будем получать поля которые ставятся default в бд при создании модели
+        $user->refresh();
 
         return $user;
     }

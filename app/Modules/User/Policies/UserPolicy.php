@@ -23,6 +23,16 @@ class UserPolicy
     }
 
     /**
+     * Проверяем админа на законченную регистрацию
+     * @return [type]
+     */
+    public function admin_is_ready_register(User $user)
+    {
+        $status = app(UserRepository::class)->isAdmim($user);
+        return $status ? $this->allow('Данному пользователю разрешено действие.') : $this->deny('У этого пользователя нету полномочий.');
+    }
+
+    /**
      * Проверяем относится ли роль User, только к админу
      * @param User $user
      *

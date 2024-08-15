@@ -16,7 +16,7 @@ class EditUserRequest extends ApiRequest
     {
         return [
 
-            'id' => ['required', 'integer','exists:App\Modules\User\Models\User'],
+            'uuid' => ['required', 'uuid', 'exists:App\Modules\User\Models\User'],
 
             'phone' => ['nullable' ,'numeric', 'regex:/^(\+7|8)(\d{10})$/' , 'unique:App\Modules\User\Models\User'],
             'email' => ['nullable' ,'string', 'email:filter', 'max:100' , 'unique:App\Modules\User\Models\User'],

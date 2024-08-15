@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\DB;
@@ -21,8 +20,7 @@ abstract class TestCase extends BaseTestCase
 
     private function createDataBase()
     {
-        $databaseName = env('TEST_DB_DATABASE', 'test_db');
-
+        $databaseName = env('TEST_DB_DATABASE');
         //проверяем существует ли БД
         $exists = DB::connection('pgsql')->select("SELECT 1 FROM pg_database WHERE datname = ?", [$databaseName]);
 

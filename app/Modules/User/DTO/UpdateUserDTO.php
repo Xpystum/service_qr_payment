@@ -8,7 +8,7 @@ class UpdateUserDTO implements Arrayable
 {
     public function __construct(
 
-        public readonly int $id,
+        public readonly string $uuid,
 
         public readonly ?string $email = null,
 
@@ -22,6 +22,21 @@ class UpdateUserDTO implements Arrayable
 
 
     ) { }
+
+    public static function make(array $validated) : self
+    {
+        return new self(
+            uuid: $validated['uuid'] ?? null,
+
+            email: $validated['email'] ?? null,
+            phone: $validated['phone'] ?? null,
+
+            first_name: $validated['first_name'] ?? null,
+            last_name: $validated['last_name'] ?? null,
+            father_name: $validated['father_name'] ?? null,
+        );
+
+    }
 
     public function filterIsNotNull() : array
     {
@@ -41,7 +56,7 @@ class UpdateUserDTO implements Arrayable
 
     public function toArray(): array {
         return [
-            'id' => $this->id,
+            'id' => $this->uuid,
             'email' => $this->email,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,

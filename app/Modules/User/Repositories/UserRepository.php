@@ -128,7 +128,6 @@ class UserRepository extends CoreRepository
     public function isAdmim(User $user) {
 
         $status = in_array($user->role, [RoleUserEnum::admin]);
-
         $status = $status && $user->auth;
 
         return  $status;

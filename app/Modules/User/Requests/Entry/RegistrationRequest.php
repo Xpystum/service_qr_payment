@@ -10,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
 
-class RegistrationRequest extends FormRequest
+class   RegistrationRequest extends FormRequest
 {
     protected $stopOnFirstFailure = true;
 

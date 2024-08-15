@@ -17,8 +17,7 @@ class UpdateUserAction
 {
     public static function run(UpdateUserDTO $data) : User
     {
-        $user = User::find($data->id);
-        // $attributesToUpdate = $data->filterIsNotNull();
+        $user = User::where('uuid', $data->uuid)->first();
 
         try {
 
