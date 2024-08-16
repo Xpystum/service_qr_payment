@@ -6,7 +6,7 @@ use App\Modules\Organization\DTO\ValueObject\OrganizationVO;
 use App\Modules\User\Models\User;
 use Illuminate\Contracts\Support\Arrayable;
 
-class CreateOrganizationDTO
+class CreateOrganizationDTO implements Arrayable
 {
      public function __construct(
 
@@ -21,6 +21,14 @@ class CreateOrganizationDTO
             organization: $organization,
             user: $user,
         );
+    }
+
+    public function toArray() : array
+    {
+        $array = $this->organization->toArray();
+        $array['owner_id'] = $this->user->id;
+
+        return $array;
     }
 
 }

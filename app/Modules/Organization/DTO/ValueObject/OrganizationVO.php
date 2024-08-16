@@ -48,7 +48,6 @@ class OrganizationVO implements Arrayable
 
         return [
             'name' => $this->name,
-            'owner_id' => $this->owner_id,
             'address' => $this->address,
             'phone_number' => $this->phone_number,
             'email' => $this->email,

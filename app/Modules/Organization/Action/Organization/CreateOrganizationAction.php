@@ -14,7 +14,7 @@ class CreateOrganizationAction
     public static function run(CreateOrganizationDTO $data) : Organization
     {
         try {
-            $model = Organization::create($data->organization->toArray());
+            $model = Organization::create($data->toArray());
             dd($model);
             //TODO возможно задержка (продумать как избавиться от save т.к может просто возвратить из бд, а мы сохрянем теже данные)
             if(!$model->save()){
