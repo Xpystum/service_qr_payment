@@ -29,7 +29,7 @@ class OrganizationResource extends JsonResource
             'industry' => $this->industry,
             'founded_date' => $this->founded_date,
             'inn' => $this->inn,
-            'kpp' => $this->when(TypeOrganizationEnum::ooo === $this->type, $this->kpp),
+            'kpp' => $this->when(TypeOrganizationEnum::ooo === $this->type, $this->kpp, null),
             'registration_number' => $this->when(TypeOrganizationEnum::ooo === $this->type, $this->registration_number) ,
             'registration_number_individual' => $this->when(TypeOrganizationEnum::ip === $this->type, $this->registration_number_individual),
 

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Modules\Base\Enums\ActiveStatusEnum;
 use App\Modules\Notification\Models\Notification;
 use App\Modules\Notification\Traits\HasUuid;
+use App\Modules\Organization\Models\Organization;
 use App\Modules\Payment\Models\DriverInfo;
 use App\Modules\Terminal\Models\Terminal;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
@@ -144,6 +145,11 @@ class User extends Authenticatable implements JWTSubject
     public function personalArea() : BelongsTo
     {
         return $this->belongsTo(PersonalArea::class, 'personal_area_id');
+    }
+
+    public function organizations(): HasMany
+    {
+        return $this->hasMany(Organization::class, 'owner_id');
     }
 
     /**

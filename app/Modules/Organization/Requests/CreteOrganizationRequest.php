@@ -3,6 +3,7 @@
 namespace App\Modules\Organization\Requests;
 
 use App\Http\Requests\ApiRequest;
+use App\Modules\Organization\DTO\ValueObject\OrganizationVO;
 use App\Modules\Organization\Enums\TypeOrganizationEnum;
 use App\Modules\Organization\Rules\OgrnepRule;
 use App\Modules\Organization\Rules\OgrnRule;
@@ -26,7 +27,6 @@ class CreteOrganizationRequest extends ApiRequest
     public function rules(): array
     {
 
-
         $rules = [
 
             'name' => ['required' , 'string' , 'max:101' , 'min:2'],
@@ -35,9 +35,9 @@ class CreteOrganizationRequest extends ApiRequest
             'email' => ['required', "string", "email:filter", "max:100"],
             'website' => ['required', "string"],
             'type' =>  ['required', 'string' , Rule::enum(TypeOrganizationEnum::class)->only([TypeOrganizationEnum::ooo, TypeOrganizationEnum::ip])],
-            'description' => ['nullable'],
-            'industry' => ['nullable'],
-            'founded_date' => ['nullable'],
+            'description' => ['nullable', 'string'],
+            'industry' => ['nullable', 'string'],
+            'founded_date' => ['nullable', 'date'],
             'inn' => ['required' , 'numeric', 'regex:/^(([0-9]{12})|([0-9]{10}))?$/'],
         ];
 
@@ -56,6 +56,9 @@ class CreteOrganizationRequest extends ApiRequest
         return $rules;
     }
 
-
+    public function getValueObject(): OrganizationVO
+    {
+        return  OrganizationVO::fromArray($this->validated());
+    }
 
 }

@@ -20,6 +20,7 @@ class Organization extends Model
         'website',
         'type',
         'description',
+        'industry',
         'founded_date',
         'inn',
         'kpp',

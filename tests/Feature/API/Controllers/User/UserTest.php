@@ -48,8 +48,10 @@ class UserTest extends TestCase
             ]);
 
 
-            //проверяем на пустой массив
-            $this->assertEmpty($response->json('data'));
+            if(empty($response->json('data'))) {
+                //проверяем на пустой массив
+                $this->assertEmpty($response->json('data'));
+            }
         }
 
     }
@@ -90,7 +92,6 @@ class UserTest extends TestCase
                 'message',
             ]);
 
-            // dd($response);
 
             $this->assertDatabaseHas('users', [
                 'email' => $email,

@@ -8,6 +8,7 @@ use App\Modules\Organization\Action\Organization\DeletedOrganizationAction;
 use App\Modules\Organization\Action\Organization\UpdateOrganizationAction;
 use App\Modules\Organization\DTO\CreateOrganizationDTO;
 use App\Modules\Organization\DTO\UpdateOrganizationDTO;
+use App\Modules\Organization\DTO\ValueObject\OrganizationVO;
 use App\Modules\Organization\Enums\TypeOrganizationEnum;
 use App\Modules\Organization\Models\Organization;
 use App\Modules\Organization\Repositories\OrganizationRepositories;
@@ -35,7 +36,9 @@ class OrganizationController extends Controller
         */
         $user = isAuthorized($this->authService);
 
+
         $arrayOrganization = $organizationRepositories->getOrganization($user);
+
 
         return response()->json(array_success(OrganizationResource::collection($arrayOrganization), 'Get all child organizations of the user'), 200);
     }
@@ -48,24 +51,20 @@ class OrganizationController extends Controller
 
     public function create(CreteOrganizationRequest $request, CreateOrganizationAction $createOrganizationAction)
     {
-        $validated = $request->validated();
+        /**
+        * @var OrganizationVO
+        */
+        $organization = $request->getValueObject();
 
         /**
         * @var User
         */
         $user = isAuthorized($this->authService);
 
-
-        #TODO - лучше перенести создание внутрь DTO (Сделать метод make)
-        $model = $createOrganizationAction->run(
-            CreateOrganizationDTO::make($validated, $user->id)
-        );
-
-        #TODO сделать конструкцию if снизу
-        $organizationResource = new OrganizationResource($model);
-
+        $model = $createOrganizationAction->run(CreateOrganizationDTO::make($organization, $user));
+        
         return $model?
-        response()->json(array_success( $organizationResource, 'Successfully create organization'), 201)
+        response()->json(array_success( OrganizationResource::make($model), 'Successfully create organization'), 201)
             :
         response()->json(array_error(null, 'Failed create organization'), 404);
     }
@@ -76,16 +75,18 @@ class OrganizationController extends Controller
         UpdateOrganizationAction $updateOrganizationAction
     )
     {
-        $validated = $request->validated();
+
+        /**
+         * @var OrganizationVO
+         */
+        $organization = $request::getValueObject();
 
         /**
         * @var User
         */
         $user = isAuthorized($this->authService);
 
-        $status = $updateOrganizationAction->run(
-            UpdateOrganizationDTO::make($validated, $user->id, $organization->uuid)
-        );
+        $status = $updateOrganizationAction->run($organization);
 
         return $status?
         response()->json(array_success(null , 'Successfully update organization'), 200)

@@ -13,12 +13,13 @@ class UpdateOrganizationAction
 {
     public static function run(UpdateOrganizationDTO $data) : bool
     {
-        $data = $data->filterNull();
-        
+
         try {
+
             $status = self::FindByUuidAndUser($data['uuid'], $data['owner_id'])?->updateOrFail(
                 $data
             );
+
         } catch (\Throwable $th) {
             MyLog('Обновление в записе таблице {Organization} уже существовала');
             throw new Exception('Ошибка обновления данных', 500);
