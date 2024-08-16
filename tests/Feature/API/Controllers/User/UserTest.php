@@ -150,27 +150,6 @@ class UserTest extends TestCase
 
         $email = fake()->unique()->safeEmail();
 
-        // $personalArea = $this->user->personalArea()->create([
-        //     'owner_id' => $this->user->id
-        // ]);
-
-        // /**
-        // * @var CreateUserHandler
-        // */
-        // $handlers = app(CreateUserHandler::class);
-
-        // /**
-        // * @var UserVO
-        // */
-        // $userVO = UserVO::fromArray([
-        //     'email' => fake()->unique()->safeEmail(),
-        //     'phone' => null,
-        //     'password' => 'Pas123!',
-        //     'role' => 'manager',
-        // ]);
-
-        // $userCreate = $handlers->handle(CreatUserDTO::make($userVO, $personalArea->id));
-
         $response = $this
             ->withToken($this->userToken)
             ->putJson('/api/user', [

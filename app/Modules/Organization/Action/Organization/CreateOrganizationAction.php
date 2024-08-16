@@ -15,7 +15,6 @@ class CreateOrganizationAction
     {
         try {
             $model = Organization::create($data->toArray());
-            dd($model);
             //TODO возможно задержка (продумать как избавиться от save т.к может просто возвратить из бд, а мы сохрянем теже данные)
             if(!$model->save()){
                 Mylog('Не удалось создать запись для модели Organization.');

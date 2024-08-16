@@ -9,16 +9,16 @@ class OrganizationVO implements Arrayable
 {
     public function __construct(
 
-        public readonly string $name,
-        public readonly string $address,
+        public readonly ?string $name,
+        public readonly ?string $address,
         public readonly ?string $phone_number,
         public readonly ?string $email,
         public readonly ?string $website,
-        public readonly TypeOrganizationEnum $type,
+        public readonly ?TypeOrganizationEnum $type,
         public readonly ?string $description,
         public readonly ?string $industry,
         public readonly ?string $founded_date,
-        public readonly string $inn,
+        public readonly ?string $inn,
         public readonly ?string $kpp,
         public readonly ?string $registration_number,
         public readonly ?string $registration_number_individual,

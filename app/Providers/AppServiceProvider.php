@@ -37,8 +37,6 @@ class AppServiceProvider extends ServiceProvider
     {
 
 
-        
-
         $this->setPasswordDefault();
 
         //событие на изменение пароля
@@ -77,17 +75,17 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         //получение логики запросов в log
-        if (!app()->environment('production')) {
-            DB::listen(function ($query) {
-                Log::info('-----------------Начало Запрос--------------------');
-                Log::info('SQL: ' . $query->sql);
-                Log::info('Bindings: ' . json_encode($query->bindings));
-                Log::info('Time: ' . $query->time . ' ms');
-                Log::info('Connection Name: ' . $query->connectionName);
-                Log::info('Выполнено в: ' . now());
-                Log::info('-----------------Конец Запрос--------------------');
-            });
-        }
+        // if (!app()->environment('production')) {
+        //     DB::listen(function ($query) {
+        //         Log::info('-----------------Начало Запрос--------------------');
+        //         Log::info('SQL: ' . $query->sql);
+        //         Log::info('Bindings: ' . json_encode($query->bindings));
+        //         Log::info('Time: ' . $query->time . ' ms');
+        //         Log::info('Connection Name: ' . $query->connectionName);
+        //         Log::info('Выполнено в: ' . now());
+        //         Log::info('-----------------Конец Запрос--------------------');
+        //     });
+        // }
 
     }
 

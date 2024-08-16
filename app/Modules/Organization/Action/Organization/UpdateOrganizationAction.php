@@ -16,9 +16,7 @@ class UpdateOrganizationAction
 
         try {
 
-            $status = self::FindByUuidAndUser($data['uuid'], $data['owner_id'])?->updateOrFail(
-                $data
-            );
+            $status = Organization::findByUuid($data->uuid)?->updateOrFail($data->toArray());
 
         } catch (\Throwable $th) {
             MyLog('Обновление в записе таблице {Organization} уже существовала');
@@ -26,12 +24,6 @@ class UpdateOrganizationAction
         }
 
         return ($status > 0) ? true : false;
-    }
-
-    private static function FindByUuidAndUser(string $uuid, int $id) : ?Organization
-    {
-        return Organization::findByUuid($uuid)
-                ->where('owner_id', '=', $id)->first();
     }
 
 }

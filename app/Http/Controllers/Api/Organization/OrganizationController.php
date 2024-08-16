@@ -45,7 +45,6 @@ class OrganizationController extends Controller
 
     public function show(Organization $organization)
     {
-
         return response()->json(array_success( OrganizationResource::make($organization), 'Return organization'), 200);
     }
 
@@ -54,15 +53,16 @@ class OrganizationController extends Controller
         /**
         * @var OrganizationVO
         */
-        $organization = $request->getValueObject();
+        $organizationVO = $request->getValueObject();
 
         /**
         * @var User
         */
         $user = isAuthorized($this->authService);
 
-        $model = $createOrganizationAction->run(CreateOrganizationDTO::make($organization, $user));
-        
+        $model = $createOrganizationAction->run(CreateOrganizationDTO::make($organizationVO, $user));
+
+
         return $model?
         response()->json(array_success( OrganizationResource::make($model), 'Successfully create organization'), 201)
             :
@@ -73,20 +73,20 @@ class OrganizationController extends Controller
         Organization $organization,
         UpdateOrganizationRequest $request,
         UpdateOrganizationAction $updateOrganizationAction
-    )
-    {
-
+    ) {
         /**
          * @var OrganizationVO
          */
-        $organization = $request::getValueObject();
+        $organizationVO = $request->getValueObject();
 
         /**
         * @var User
         */
         $user = isAuthorized($this->authService);
 
-        $status = $updateOrganizationAction->run($organization);
+        $status = $updateOrganizationAction->run(UpdateOrganizationDTO::make($organizationVO, $user, $organization->uuid));
+
+        dd($status);
 
         return $status?
         response()->json(array_success(null , 'Successfully update organization'), 200)

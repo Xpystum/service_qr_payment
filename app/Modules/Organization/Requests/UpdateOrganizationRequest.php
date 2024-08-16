@@ -3,7 +3,7 @@
 namespace App\Modules\Organization\Requests;
 
 use App\Http\Requests\ApiRequest;
-
+use App\Modules\Organization\DTO\ValueObject\OrganizationVO;
 use App\Modules\Organization\Enums\TypeOrganizationEnum;
 use App\Modules\Organization\Rules\OgrnepRule;
 use App\Modules\Organization\Rules\OgrnRule;
@@ -11,19 +11,11 @@ use Illuminate\Validation\Rule;
 
 class UpdateOrganizationRequest extends ApiRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         $rules = [
@@ -79,5 +71,11 @@ class UpdateOrganizationRequest extends ApiRequest
                 }
 
             });
+    }
+
+    public function getValueObject() : OrganizationVO
+    {
+        dd($this->validate());
+        return OrganizationVO::fromArray($this->validate());
     }
 }

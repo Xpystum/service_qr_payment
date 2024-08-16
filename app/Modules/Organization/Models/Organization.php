@@ -43,7 +43,7 @@ class Organization extends Model
         'type' => TypeOrganizationEnum::class
     ];
 
-    public static function findByUuid(string $uuid)
+    public static function findByUuid(string $uuid) : ?Organization
     {
         return self::where('uuid', '=' , $uuid);
     }
