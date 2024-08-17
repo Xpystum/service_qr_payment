@@ -58,7 +58,7 @@ class CreteOrganizationRequest extends ApiRequest
 
     public function getValueObject(): OrganizationVO
     {
-        return  OrganizationVO::fromArray($this->validated());
+        return OrganizationVO::fromArray($this->validated());
     }
 
 }

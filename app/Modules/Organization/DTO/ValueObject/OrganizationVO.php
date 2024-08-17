@@ -44,7 +44,8 @@ class OrganizationVO implements Arrayable
         );
     }
 
-    public function toArray(): array {
+    public function toArray(): array
+    {
 
         return [
             'name' => $this->name,
@@ -61,6 +62,15 @@ class OrganizationVO implements Arrayable
             'registration_number' => $this->registration_number,
             'registration_number_individual' => $this->registration_number_individual,
         ];
+    }
+
+    public function toArrayNotNull() : array
+    {
+        $arrayFilter = array_filter($this->toArray(), function($value) {
+            return !is_null($value);
+        });
+        
+        return $arrayFilter;
     }
 
 

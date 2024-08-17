@@ -28,7 +28,7 @@ class UpdateOrganizationRequest extends ApiRequest
             'description' => ['nullable'],
             'industry' => ['nullable'],
             'founded_date' => ['nullable'],
-            'inn' => ['nullable' , 'numeric', 'regex:/^(([0-9]{12})|([0-9]{10}))?$/'],
+            'inn' => ['nullable' , 'numeric', 'regex:/^(([0-9]{12})|([0-9]{10}))?$/', 'unique:App\Modules\Organization\Models\Organization'],
             'kpp' => ['nullable' , 'numeric', 'regex:/^(([0-9]{12})|([0-9]{10}))?$/'],
             'registration_number' => ['nullable' , 'numeric' , 'regex:/^([0-9]{13})?$/' , (new OgrnRule)],
             'registration_number_individual' => ['nullable' , 'numeric' , 'regex:/^\d{15}$/', (new OgrnepRule)],
@@ -57,7 +57,6 @@ class UpdateOrganizationRequest extends ApiRequest
 
                 $hasAny = false;
 
-
                 //проверяем сущесвует хотя бы 1 не пустое поле
                 foreach ($fieldsToCheck as $field) {
                     if (!empty($data[$field])) {
@@ -75,7 +74,6 @@ class UpdateOrganizationRequest extends ApiRequest
 
     public function getValueObject() : OrganizationVO
     {
-        dd($this->validate());
-        return OrganizationVO::fromArray($this->validate());
+        return OrganizationVO::fromArray($this->validated());
     }
 }

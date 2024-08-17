@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Modules\Organization\DTO;
-use App\Modules\Organization\DTO\Base\BaseDTO;
 use App\Modules\Organization\DTO\ValueObject\OrganizationVO;
-use App\Modules\Organization\Enums\TypeOrganizationEnum;
 use App\Modules\User\Models\User;
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -28,7 +26,13 @@ class UpdateOrganizationDTO implements Arrayable
 
     public function toArray() : array
     {
-        return $this->organization->toArray();
+        return [];
+        // return $this->organization->toArray();
+    }
+
+    public function toArrayOrganization()
+    {
+        return $this->organization->toArrayNotNull();
     }
 
 }

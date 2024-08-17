@@ -126,64 +126,6 @@ class OrganizationTest extends TestCase
 
     }
 
-    public function test_update_organization() : void
-    {
-
-        $organization = $this->create_organization();
-
-        $response = $this
-            ->withToken($this->userToken)
-            ->patchJson('/api/organization/' . $organization->uuid, [
-                "name" => fake()->name(),
-                "address" => fake()->address(),
-                "phone_number" => fake()->phoneNumber(),
-                "email" => fake()->safeEmail(),
-                "website" => fake()->domainName(),
-                "founded_date" => fake()->date('Y-m-d', 'now'),
-                "industry" => fake()->word(),
-                "description" => fake()->sentence(),
-                "inn" => fake()->numerify('##########'),
-                "registration_number_individual" => "316861700133226"
-            ]
-        );
-
-
-        $response->assertStatus(200)->assertJsonStructure([
-            'data' => null,
-            'message',
-        ]);
-
-        // $this->assertEmpty($response->json('data'));
-
-
-        // $this->assertDatabaseHas('organizations', [
-        //     'uuid' => Arr::get($response->json('data'), 'uuid'),
-        // ]);
-    }
-
-    // public function test_delete_organization() : void
-    // {
-    //     /**
-    //     * @var Organization
-    //     */
-    //     $organization = $this->create_organization();
-
-    //     $response = $this
-    //         ->withToken($this->userToken)
-    //         ->delete('/api/user' . $organization->uuid);
-
-
-    //     $response->assertStatus(200)->assertJsonStructure([
-    //         'data' => [],
-    //         'message',
-    //     ]);
-
-
-    //     $this->assertDatabaseMissing('organizations', [
-    //         'uuid' => $organization->uuid,
-    //     ]);
-    // }
-
     public function create_organization() : Organization
     {
         /**
@@ -204,5 +146,63 @@ class OrganizationTest extends TestCase
         ]);
     }
 
+
+    public function test_update_organization() : void
+    {
+
+        $organization = $this->create_organization();
+
+        $response = $this
+            ->withToken($this->userToken)
+            ->patchJson('/api/organization/' . $organization->uuid, [
+                "name" => fake()->name(),
+                "address" => fake()->address(),
+                "phone_number" => fake()->phoneNumber(),
+                "email" => fake()->safeEmail(),
+                "website" => fake()->domainName(),
+                "type" => "Индивидуальный Предприниматель",
+                "founded_date" => fake()->date('Y-m-d', 'now'),
+                "industry" => fake()->word(),
+                "inn" => fake()->numerify('##########'),
+                "registration_number_individual" => "316861700133226"
+            ]
+        );
+
+
+        $response->assertStatus(200)->assertJsonStructure([
+            'data' => [],
+            'message',
+        ]);
+
+        $this->assertEmpty($response->json('data'));
+
+        $this->assertDatabaseHas('organizations', [
+            'uuid' => $organization->uuid,
+        ]);
+    }
+
+    public function test_delete_organization() : void
+    {
+        /**
+        * @var Organization
+        */
+        $organization = $this->create_organization();
+
+        $response = $this
+            ->withToken($this->userToken)
+            ->delete('/api/organization/' . $organization->uuid);
+
+
+        $response->assertStatus(200)->assertJsonStructure([
+            'data' => [],
+            'message',
+        ]);
+
+        $this->assertEmpty($response->json('data'));
+
+        $this->assertDatabaseMissing('organizations', [
+            'uuid' => $organization->uuid,
+        ]);
+    }
 
 }

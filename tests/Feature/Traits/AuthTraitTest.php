@@ -27,4 +27,26 @@ trait AuthTraitTest
 
         $this->userToken = Arr::get($this->auth->loginUser($user), 'access_token', null);
     }
+
+    //проверяем в каждых test, на авторизацию user
+    public function test_authorize_user()
+    {
+        $response = $this
+            ->withToken($this->userToken)
+            ->get('/api/auth/me');
+
+        $response->assertStatus(200)->assertJsonStructure([
+            'data' => [
+                'uuid',
+                'email',
+                'phone',
+                'first_name',
+                'last_name',
+                'father_name',
+                'auth',
+                'role',
+            ],
+            'message',
+        ]);
+    }
 }

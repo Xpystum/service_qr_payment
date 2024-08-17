@@ -45,6 +45,6 @@ class Organization extends Model
 
     public static function findByUuid(string $uuid) : ?Organization
     {
-        return self::where('uuid', '=' , $uuid);
+        return self::where('uuid', '=' , $uuid)->first();
     }
 }

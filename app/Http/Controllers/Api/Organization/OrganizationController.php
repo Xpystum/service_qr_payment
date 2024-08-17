@@ -74,6 +74,7 @@ class OrganizationController extends Controller
         UpdateOrganizationRequest $request,
         UpdateOrganizationAction $updateOrganizationAction
     ) {
+
         /**
          * @var OrganizationVO
          */
@@ -86,7 +87,6 @@ class OrganizationController extends Controller
 
         $status = $updateOrganizationAction->run(UpdateOrganizationDTO::make($organizationVO, $user, $organization->uuid));
 
-        dd($status);
 
         return $status?
         response()->json(array_success(null , 'Successfully update organization'), 200)
