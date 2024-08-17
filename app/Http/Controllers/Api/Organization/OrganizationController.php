@@ -109,4 +109,5 @@ class OrganizationController extends Controller
             :
         response()->json(array_success(null, 'Failed deleted organization'), 404);
     }
+    
 }

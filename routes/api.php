@@ -78,16 +78,16 @@ Route::group(['middleware' => ['auth:api']], function (){
         //Удалить организацию User
         Route::delete('/{organization:uuid}', 'deleted')->whereUuid('organization');
 
+
+
     });
+
 
     //работа с Terminal
     Route::prefix('terminal')->controller(TerminalController::class)->middleware(['admin/manager_user'])->group(function () {
 
         //вернуть все терминалы по организации
-        Route::get('/{organization:uuid}', 'index')->whereUuid('organization');
-
-        //Создать терминал по организации
-        Route::post('/', 'create');
+        Route::get('/{organization:uuid}/terminals', 'index')->whereUuid('organization');
 
         //вернуть терминал по uuid
         Route::get('/{terminal:uuid}', 'show')->whereUuid('terminal');
@@ -97,6 +97,9 @@ Route::group(['middleware' => ['auth:api']], function (){
 
         //Удалить организацию User
         Route::delete('/{terminal:uuid}', 'deleted')->whereUuid('terminal');
+
+        //Создать терминал по организации
+        Route::post('/', 'create');
 
     });
 

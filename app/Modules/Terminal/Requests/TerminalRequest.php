@@ -3,6 +3,7 @@
 namespace App\Modules\Terminal\Requests;
 
 use App\Http\Requests\ApiRequest;
+use App\Modules\Terminal\DTO\ValueObject\TerminalVO;
 
 class TerminalRequest extends ApiRequest
 {
@@ -19,4 +20,10 @@ class TerminalRequest extends ApiRequest
             'organization_uuid' => ['required', 'uuid'],
         ];
     }
+
+    public function getValueObject(): TerminalVO
+    {
+        return TerminalVO::fromArray($this->validated());
+    }
+
 }

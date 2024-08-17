@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Api\Terminal;
 use App\Http\Controllers\Controller;
 use App\Modules\Organization\Models\Organization;
 use App\Modules\Organization\Repositories\OrganizationRepositories;
+use App\Modules\Terminal\Action\Handlers\CreateTerminalHandler;
 use App\Modules\Terminal\Action\Terminal\CreateTerminalAction;
 use App\Modules\Terminal\Action\Terminal\DeletedTerminalAction;
 use App\Modules\Terminal\Action\Terminal\UpdateTerminalAction;
+use App\Modules\Terminal\DTO\ValueObject\TerminalVO;
 use App\Modules\Terminal\Models\Terminal;
 use App\Modules\Terminal\Repositories\TerminalRepository;
 use App\Modules\Terminal\Requests\TerminalGetRequest;
@@ -35,7 +37,6 @@ class TerminalController extends Controller
     */
     public function index(Organization $organization, TerminalRepository $terminalRepository)
     {
-
         $collection = $terminalRepository->getTerminal($organization->id);
 
         return response()->json(array_success( TerminalResource::collection($collection), 'Get all child terminal of the user'), 200);
@@ -53,16 +54,15 @@ class TerminalController extends Controller
      *
      * @return [type]
      */
-    public function create(TerminalRequest $request, CreateTerminalAction $createTerminalAction, OrganizationRepositories $organizationRepositories)
+    public function create(TerminalRequest $request, CreateTerminalHandler $handler)
     {
-        $validated = $request->validated();
+        /**
+        * @var TerminalVO
+        */
+        $terminalVO = $request->getValueObject();
 
-        {
-            $organization = $organizationRepositories->uuidOrganization($validated['organization_uuid']);
-            abort_unless((bool) $organization, 404,  'Ресурс по uuid не был найден.');
-        }
+        $modelTerminal = $handler->handle($terminalVO);
 
-        $modelTerminal = $createTerminalAction::run( $organization, $validated['name']);
 
         return $modelTerminal?
         response()->json(array_success( TerminalResource::make($modelTerminal), 'Successfully create terminal'), 201)

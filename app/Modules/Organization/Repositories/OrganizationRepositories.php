@@ -12,6 +12,11 @@ class OrganizationRepositories extends CoreRepository
         return Model::class;
     }
 
+    public static function make() : self
+    {
+        return new self();
+    }
+
     /**
     * Вернуть организацию по uuid
     * @return Model|null

@@ -5,13 +5,14 @@ namespace App\Modules\User\Actions\Handler;
 use App\Modules\User\Actions\PersonalAreas\CreatePersonalArea;
 use App\Modules\User\Actions\User\CreatUserAction;
 use App\Modules\User\DTO\CreatUserDTO;
+use App\Modules\User\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use function App\Helpers\Mylog;
 
 class CreateUserHandler
 {
-    public function handle(CreatUserDTO $userDTO) : mixed
+    public function handle(CreatUserDTO $userDTO) : ?User
     {
         $userHandler = CreatUserAction::make();
         $areaHandler = CreatePersonalArea::make();
