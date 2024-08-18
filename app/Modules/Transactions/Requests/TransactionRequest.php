@@ -3,6 +3,7 @@
 namespace App\Modules\Transactions\Requests;
 
 use App\Http\Requests\ApiRequest;
+use App\Modules\Transactions\DTO\ValueObject\TransactionVO;
 
 class TransactionRequest extends ApiRequest
 {
@@ -17,5 +18,10 @@ class TransactionRequest extends ApiRequest
             'amount' => ['required', 'numeric'],
             'terminal_uuid' => ['required', 'uuid'],
         ];
+    }
+
+    public function getValueObject() : TransactionVO
+    {
+       return TransactionVO::fromArray($this->validated());
     }
 }

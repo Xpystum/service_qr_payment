@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api\Transaction;
 
-use App\Helpers\Values\AmountValue;
 use App\Http\Controllers\Controller;
+use App\Modules\Payment\Action\Handler\CreatePaymentHandler;
+use App\Modules\Payment\DTO\CreatePaymentDTO;
 use App\Modules\Payment\Requests\PaymentMethodRequest;
-use App\Modules\Payment\Service\PaymentService;
 use App\Modules\Terminal\Models\Terminal;
-use App\Modules\Terminal\Repositories\TerminalRepository;
-use App\Modules\Transactions\Action\Transaction\CreateTransactionAction;
+use App\Modules\Transactions\Action\Handler\CreateTransactionHandler;
+use App\Modules\Transactions\DTO\ValueObject\TransactionVO;
 use App\Modules\Transactions\Models\Transaction;
 use App\Modules\Transactions\Repositories\TransactionReposiotory;
 use App\Modules\Transactions\Requests\TransactionRequest;
@@ -47,18 +47,16 @@ class TransactionController extends Controller
 
     public function create(
         TransactionRequest $request,
-        TerminalRepository $terminalRepository,
-        CreateTransactionAction $action,
+        CreateTransactionHandler $handler,
     ) {
 
-        $validated = $request->validated();
+        /**
+        * @var TransactionVO
+        */
 
-        {
-            $terminal = $terminalRepository->getTerminalByUuid($validated['terminal_uuid']);
-            abort_unless( (bool) $terminal, 404, 'Такой записи по uuid не существует');
-        }
+        $transactionVO = $request->getValueObject();
 
-        $model = $action::run($terminal, new AmountValue($validated['amount']));
+        $model = $handler->handle($transactionVO);
 
         return $model?
         response()->json(array_success( new TransactionResource($model), 'Successfully create transaction'), 201)
@@ -71,31 +69,14 @@ class TransactionController extends Controller
     public function payment(
         PaymentMethodRequest $request,
         Transaction $transaction,
-        PaymentService $paymentService
+        CreatePaymentHandler $hanlder,
     ) {
-
         $validated = $request->validated();
 
+        $payment = $hanlder->handle(CreatePaymentDTO::make($transaction, $validated['method_id']));
 
-        //создаём платежку и привязываем к (payble) (Транзакция, заказ и т.д)
-        $payment = $paymentService->createPayment()->payable($transaction)
-            ->run();
-
-        //получаем модель метода по заданному параметру в запросе
-        $method = $paymentService->getPaymentMethods()
-                    ->active(true)
-                    ->id($validated['method_id'])
-                    ->first();
-
-
-        //обновляем данные оплаты (указываем методы оплаты QR -> Youkassa, Банк Точка)
-        $updatePayment = $paymentService->updatePayment()
-            ->method($method)
-            ->run($payment);
-
-
-        return $updatePayment?
-        response()->json(array_success( PaymentTransactionResource::make($payment->refresh()), 'Successfully create payment for transactions'), 201)
+        return $payment?
+        response()->json(array_success( PaymentTransactionResource::make($payment), 'Successfully create payment for transactions'), 201)
         :
         response()->json(array_error(null, 'Failed create payment for transactions'), 404);
 

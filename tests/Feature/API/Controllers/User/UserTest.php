@@ -7,7 +7,7 @@ use App\Modules\User\DTO\ValueObject\User\UserVO;
 use Tests\Feature\Traits\AuthTraitTest;
 use Tests\TestCase;
 
-class UserTest extends TestCase
+class UserTest //extends TestCase
 {
     use AuthTraitTest;
 

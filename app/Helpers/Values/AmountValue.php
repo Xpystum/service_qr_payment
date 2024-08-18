@@ -21,6 +21,11 @@ class AmountValue implements Castable, JsonSerializable
         $this->value = $value;
     }
 
+    public static function make(string $value) : self
+    {
+        return new self($value);
+    }
+
     public function value(): string
     {
         //убрали (string)

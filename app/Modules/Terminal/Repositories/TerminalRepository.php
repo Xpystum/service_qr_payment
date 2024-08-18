@@ -14,6 +14,11 @@ class TerminalRepository extends CoreRepository
         return Model::class;
     }
 
+    public static function make() : self
+    {
+        return new self();
+    }
+
     public function getTerminal(?int $id) : ?Collection
     {
         $model = $this->query()

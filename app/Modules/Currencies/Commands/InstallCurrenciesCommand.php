@@ -29,7 +29,7 @@ class InstallCurrenciesCommand extends Command
 
         $this->installCurrencies();
 
-        $this->info('Валюты установлены');
+        $this->info('Валюты установлены.');
     }
 
     private function installCurrencies(): void

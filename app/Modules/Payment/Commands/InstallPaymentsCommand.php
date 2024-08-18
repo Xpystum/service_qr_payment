@@ -38,7 +38,8 @@ class InstallPaymentsCommand extends Command
                 'driver_currency_id' => Currency::RUB
             ], [
                 'name' => 'QR',
-                'active' => app()->isProduction()? false : true,
+                'active' => true,
+                // 'active' => app()->isProduction()? false : true,
             ]);
 
         PaymentMethod::query()

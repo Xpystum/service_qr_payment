@@ -3,13 +3,12 @@ namespace Tests\Feature\API\Controllers\Terminal;
 
 use App\Modules\Organization\Models\Organization;
 use App\Modules\Terminal\Models\Terminal;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+
 use Illuminate\Support\Arr;
 use Tests\Feature\Traits\AuthTraitTest;
 use Tests\TestCase;
 
-class TerminalTest extends TestCase
+class TerminalTest //extends TestCase
 {
     use AuthTraitTest;
 

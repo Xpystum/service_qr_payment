@@ -13,7 +13,6 @@ abstract class TestCase extends BaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
-
         //Создание тестовой БД - если её нет.
         $this->createDataBase();
     }
@@ -21,6 +20,7 @@ abstract class TestCase extends BaseTestCase
     private function createDataBase()
     {
         $databaseName = env('TEST_DB_DATABASE');
+
         //проверяем существует ли БД
         $exists = DB::connection('pgsql')->select("SELECT 1 FROM pg_database WHERE datname = ?", [$databaseName]);
 
