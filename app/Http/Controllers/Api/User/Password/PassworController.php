@@ -90,7 +90,7 @@ class PassworController extends Controller
         //обновлем пароль у user - надо выносить в event
         $updateUserAction::run(
             new UpdateUserDTO(
-                id: $modelNotify->user_id,
+                uuid: $modelNotify->user_id,
                 password: $validated['password'],
             )
         );

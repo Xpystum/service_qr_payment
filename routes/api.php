@@ -135,7 +135,7 @@ Route::group(['middleware' => ['auth:api']], function (){
         //Получение конкретного payment по uuid
         Route::get('/{payment:uuid}', 'show')->whereUuid('payment');
 
-        //Получение конкретного payment по uuid
+        //запускаем работу нашего драйвера оплаты (youkassa, qiwi, точка банк, и т.д)
         Route::get('/{payment:uuid}/process', 'process')->whereUuid('payment');
 
     });

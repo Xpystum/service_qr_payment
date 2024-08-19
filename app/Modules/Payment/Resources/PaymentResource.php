@@ -21,7 +21,7 @@ class PaymentResource extends JsonResource
             'status' => $this->status,
             'amount' => $this->amount,
             'driver' => $this->driver,
-            'pyable_name' => $this->pyable->getPayableName(),
+            'pyable_name' => $this->payable->getPayableName(),
         ];
     }
 }
