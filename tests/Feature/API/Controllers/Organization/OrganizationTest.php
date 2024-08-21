@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 use Tests\Feature\Traits\AuthTraitTest;
 use Tests\TestCase;
 
-class OrganizationTest //extends TestCase
+class OrganizationTest extends TestCase
 {
 
     use AuthTraitTest;

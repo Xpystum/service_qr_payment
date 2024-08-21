@@ -9,7 +9,7 @@ use Illuminate\Support\Arr;
 use Tests\Feature\Traits\AuthTraitTest;
 use Tests\TestCase;
 
-class TransactionTest //extends TestCase
+class TransactionTest extends TestCase
 {
     use AuthTraitTest, CreatePaymentTrait;
 

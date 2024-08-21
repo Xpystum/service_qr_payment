@@ -8,7 +8,7 @@ use Illuminate\Support\Arr;
 use Tests\Feature\Traits\AuthTraitTest;
 use Tests\TestCase;
 
-class TerminalTest //extends TestCase
+class TerminalTest extends TestCase
 {
     use AuthTraitTest;
 
